@@ -1,0 +1,27 @@
+{
+  "NAVBAR": {
+    "BREAKING": "Breaking",
+    "NEWS_AND_TRENDS": "News & Trends",
+    "RESOURCES": "Resources",
+    "EVENTS": "Events",
+    "MARKETING_INTELLIGENCE": "Marketing Intelligence",
+    "PODCAST": "Podcast",
+    "STRATEGY": "Strategy",
+    "BRANDING": "Branding",
+    "AI_AND_TECH": "AI & Tech",
+    "CASE_STUDIES": "Case Studies",
+    "CREATIVITY": "Creativity",
+    "SIGN_IN": "Sign In",
+    "EXPLORE": "Explore",
+    "DIGITAL_MARKETING": "Digital Marketing",
+    "BRAND_STRATEGY": "Brand Strategy",
+    "CONSUMER_BEHAVIOR": "Consumer Behavior",
+    "CONTENT_MARKETING": "Content Marketing",
+    "SOCIAL_MEDIA": "Social Media",
+    "PERFORMANCE_MARKETING": "Performance Marketing",
+    "INFLUENCER_MARKETING": "Influencer Marketing",
+    "AI_TOOLS": "AI Tools",
+    "OOH_AND_PRINT": "OOH & Print",
+    "PR_AND_COMMS": "PR & Comms"
+  }
+}

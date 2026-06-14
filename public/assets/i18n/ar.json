@@ -1,0 +1,27 @@
+{
+  "NAVBAR": {
+    "BREAKING": "عاجل",
+    "NEWS_AND_TRENDS": "أخبار وتوجهات",
+    "RESOURCES": "موارد",
+    "EVENTS": "فعاليات",
+    "MARKETING_INTELLIGENCE": "استخبارات تسويقية",
+    "PODCAST": "البودكاست",
+    "STRATEGY": "الاستراتيجية",
+    "BRANDING": "العلامات التجارية",
+    "AI_AND_TECH": "الذكاء الاصطناعي",
+    "CASE_STUDIES": "دراسات الحالة",
+    "CREATIVITY": "الإبداع",
+    "SIGN_IN": "تسجيل الدخول",
+    "EXPLORE": "استكشف",
+    "DIGITAL_MARKETING": "التسويق الرقمي",
+    "BRAND_STRATEGY": "استراتيجية العلامة التجارية",
+    "CONSUMER_BEHAVIOR": "سلوك المستهلك",
+    "CONTENT_MARKETING": "تسويق المحتوى",
+    "SOCIAL_MEDIA": "وسائل التواصل",
+    "PERFORMANCE_MARKETING": "تسويق الأداء",
+    "INFLUENCER_MARKETING": "تسويق المؤثرين",
+    "AI_TOOLS": "أدوات الذكاء الاصطناعي",
+    "OOH_AND_PRINT": "الإعلانات الخارجية",
+    "PR_AND_COMMS": "العلاقات العامة"
+  }
+}
