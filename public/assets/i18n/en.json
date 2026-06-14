@@ -23,5 +23,23 @@
     "AI_TOOLS": "AI Tools",
     "OOH_AND_PRINT": "OOH & Print",
     "PR_AND_COMMS": "PR & Comms"
+  },
+  "HERO": {
+    "BRAND_STRATEGY": "Brand Strategy",
+    "MAIN_TITLE": "The Anatomy of a Viral Campaign: What Separates Good Brands from Legendary Ones",
+    "MAIN_DESC": "A deep dive into the psychology of virality and how the world's most iconic campaigns were built on a single, powerful truth.",
+    "EDITORS_PICK": "Editor's Pick",
+    "READ_TIME": "8 min read",
+    "BY_AUTHOR": "By Ahmed Al-Rashidi",
+    "AI_TECH": "AI & Tech",
+    "AI_TECH_TITLE": "How Generative AI is Rewriting the Rules of Creative Production",
+    "CONSUMER_INSIGHTS": "Consumer Insights",
+    "CONSUMER_INSIGHTS_TITLE": "The MENA Consumer in 2026: Values, Decisions & Digital Habits",
+    "CREATIVITY": "Creativity",
+    "WHY_ADS_TITLE": "Why Most Ads Fail: The Science of Attention & Retention",
+    "ENTREPRENEURSHIP": "Entrepreneurship",
+    "BOOTSTRAP_VS_FUNDED_TITLE": "Bootstrap vs. Funded: The Marketing Playbook for Both Paths",
+    "PERFORMANCE": "Performance",
+    "ROAS_TITLE": "Beyond ROAS: The New Metrics for Modern Brand Growth"
   }
 }

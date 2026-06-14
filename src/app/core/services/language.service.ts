@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageService {
   private readonly translate = inject(TranslateService);
-  private readonly _DOCUMENT = inject(DOCUMENT)
+  private readonly _DOCUMENT = inject(DOCUMENT);
   readonly currentLang = signal<string>('en');
 
   initLang() {
@@ -16,12 +16,16 @@ export class LanguageService {
     this.setLanguage(defaultLang);
   }
 
+  getBrowserOrSavedLang(): string {
+    const browserLang = this.translate.getBrowserLang();
+    return browserLang?.match(/en|ar/) ? browserLang : 'en';
+  }
+
   setLanguage(lang: string) {
     this.translate.use(lang);
     this.currentLang.set(lang);
 
     this._DOCUMENT.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     this._DOCUMENT.documentElement.lang = lang;
-
   }
 }

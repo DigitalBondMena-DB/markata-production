@@ -4,9 +4,9 @@
         <span class="top-bar-label">{{ 'NAVBAR.BREAKING' | translate }}</span>
         <span class="top-bar-ticker">{{ lang.currentLang() === 'ar' ? tickerAr : tickerEn }}</span>
         <div class="top-bar-links">
-            <a routerLink="/news">{{ 'NAVBAR.NEWS_AND_TRENDS' | translate }}</a>
-            <a routerLink="/resources">{{ 'NAVBAR.RESOURCES' | translate }}</a>
-            <a routerLink="/events">{{ 'NAVBAR.EVENTS' | translate }}</a>
+            <a [routerLink]="['/', lang.currentLang(), 'news']">{{ 'NAVBAR.NEWS_AND_TRENDS' | translate }}</a>
+            <a [routerLink]="['/', lang.currentLang(), 'resources']">{{ 'NAVBAR.RESOURCES' | translate }}</a>
+            <a [routerLink]="['/', lang.currentLang(), 'events']">{{ 'NAVBAR.EVENTS' | translate }}</a>
         </div>
     </div>
 </div>
@@ -14,39 +14,39 @@
 <!-- HEADER -->
 <header>
     <div class="header-inner">
-        <a routerLink="/" style="text-decoration:none">
+        <a [routerLink]="['/', lang.currentLang(), 'home']" style="text-decoration:none">
             <div class="logo">
                 MAR<span>KA</span>TA
                 <sub>{{ 'NAVBAR.MARKETING_INTELLIGENCE' | translate }}</sub>
             </div>
         </a>
         <nav>
-            <a routerLink="/podcast" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
+            <a [routerLink]="['/', lang.currentLang(), 'podcast']" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
                 'NAVBAR.PODCAST' | translate
                 }}</a>
-            <a routerLink="/strategy" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
+            <a [routerLink]="['/', lang.currentLang(), 'strategy']" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
                 'NAVBAR.STRATEGY' | translate }}</a>
-            <a routerLink="/branding" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
+            <a [routerLink]="['/', lang.currentLang(), 'branding']" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
                 'NAVBAR.BRANDING' | translate }}</a>
-            <a routerLink="/ai-tech" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
+            <a [routerLink]="['/', lang.currentLang(), 'ai-tech']" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
                 'NAVBAR.AI_AND_TECH' | translate }}</a>
-            <a routerLink="/case-studies" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
+            <a [routerLink]="['/', lang.currentLang(), 'case-studies']" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
                 'NAVBAR.CASE_STUDIES' | translate }}</a>
-            <a routerLink="/creativity" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
+            <a [routerLink]="['/', lang.currentLang(), 'creativity']" routerLinkActive="active" [routerLinkActiveOptions]="navExact">{{
                 'NAVBAR.CREATIVITY' | translate }}</a>
-            <a routerLink="/ramadan" routerLinkActive="active" [routerLinkActiveOptions]="navExact" class="highlight">{{
+            <a [routerLink]="['/', lang.currentLang(), 'ramadan']" routerLinkActive="active" [routerLinkActiveOptions]="navExact" class="highlight">{{
                 lang.currentLang() === 'ar' ? ramadanAr : ramadanEn }}</a>
         </nav>
         <div class="header-actions">
             <div class="lang-toggle">
                 <button type="button" [class.active]="lang.currentLang() === 'en'"
-                    (click)="lang.setLanguage('en')">EN</button>
+                    (click)="changeLanguage('en')">EN</button>
                 <button type="button" [class.active]="lang.currentLang() === 'ar'"
-                    (click)="lang.setLanguage('ar')">ع</button>
+                    (click)="changeLanguage('ar')">ع</button>
             </div>
-            <a class="icon-btn" routerLink="/search" title="Search">{{ iconSearch }}</a>
-            <a class="icon-btn" routerLink="/bookmarks" title="Bookmarks">{{ iconBookmarks }}</a>
-            <a class="btn-signin" routerLink="/sign-in">{{ 'NAVBAR.SIGN_IN' | translate }}</a>
+            <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'search']" title="Search">{{ iconSearch }}</a>
+            <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'bookmarks']" title="Bookmarks">{{ iconBookmarks }}</a>
+            <a class="btn-signin" [routerLink]="['/', lang.currentLang(), 'sign-in']">{{ 'NAVBAR.SIGN_IN' | translate }}</a>
         </div>
     </div>
 </header>
@@ -59,16 +59,16 @@
     <div class="scrolling-topics-inner">
         <span class="topics-label">{{ 'NAVBAR.EXPLORE' | translate }}</span>
         <div class="topics-list">
-            <a class="topic-tag" routerLink="/category">{{ 'NAVBAR.DIGITAL_MARKETING' | translate }}</a>
-            <a class="topic-tag" routerLink="/strategy">{{ 'NAVBAR.BRAND_STRATEGY' | translate }}</a>
-            <a class="topic-tag" routerLink="/resources">{{ 'NAVBAR.CONSUMER_BEHAVIOR' | translate }}</a>
-            <a class="topic-tag" routerLink="/creativity">{{ 'NAVBAR.CONTENT_MARKETING' | translate }}</a>
-            <a class="topic-tag" routerLink="/news">{{ 'NAVBAR.SOCIAL_MEDIA' | translate }}</a>
-            <a class="topic-tag" routerLink="/category">{{ 'NAVBAR.PERFORMANCE_MARKETING' | translate }}</a>
-            <a class="topic-tag" routerLink="/category">{{ 'NAVBAR.INFLUENCER_MARKETING' | translate }}</a>
-            <a class="topic-tag" routerLink="/ai-tech">{{ 'NAVBAR.AI_TOOLS' | translate }}</a>
-            <a class="topic-tag" routerLink="/creativity">{{ 'NAVBAR.OOH_AND_PRINT' | translate }}</a>
-            <a class="topic-tag" routerLink="/news">{{ 'NAVBAR.PR_AND_COMMS' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category']">{{ 'NAVBAR.DIGITAL_MARKETING' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'strategy']">{{ 'NAVBAR.BRAND_STRATEGY' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'resources']">{{ 'NAVBAR.CONSUMER_BEHAVIOR' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'creativity']">{{ 'NAVBAR.CONTENT_MARKETING' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'news']">{{ 'NAVBAR.SOCIAL_MEDIA' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category']">{{ 'NAVBAR.PERFORMANCE_MARKETING' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category']">{{ 'NAVBAR.INFLUENCER_MARKETING' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'ai-tech']">{{ 'NAVBAR.AI_TOOLS' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'creativity']">{{ 'NAVBAR.OOH_AND_PRINT' | translate }}</a>
+            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'news']">{{ 'NAVBAR.PR_AND_COMMS' | translate }}</a>
         </div>
     </div>
 </div>

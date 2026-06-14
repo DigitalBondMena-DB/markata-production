@@ -1,0 +1,303 @@
+.top-bar {
+    background: var(--gold);
+    padding: 6px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.top-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+
+    @media (max-width: 720px) {
+        flex-wrap: wrap;
+        row-gap: 8px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+.top-bar-label {
+    background: var(--black);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    white-space: nowrap;
+    text-transform: uppercase;
+
+    @media (max-width: 720px) {
+        order: 0;
+    }
+}
+
+.top-bar-ticker {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (max-width: 720px) {
+        min-width: 0;
+        flex: 1 1 200px;
+        order: 2;
+    }
+}
+
+.top-bar-links {
+    margin-left: auto;
+    display: flex;
+    gap: 20px;
+
+    & a {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--black);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+
+    @media (max-width: 720px) {
+        margin-left: 0;
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+    }
+}
+
+header:not(.article-feature-head):not(.inner-page-hero):not(.case-studies-head) {
+    background: var(--white);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 68px;
+    gap: 32px;
+
+    &>a {
+        margin: auto;
+    }
+
+    & nav a.nav-signin-link {
+        text-decoration: none;
+    }
+
+    @media (min-width: 721px) and (max-width: 1200px) {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 16px 24px;
+        gap: 16px 32px;
+        justify-content: space-between;
+
+        &>a {
+            margin: 0;
+        }
+    }
+
+    @media (max-width: 720px) {
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 64px;
+        padding: 10px 16px;
+        gap: 12px 16px;
+
+        &>a {
+            text-align: center;
+        }
+    }
+}
+
+.logo {
+    font-family: var(--font-en);
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin: auto;
+    color: var(--black);
+    white-space: nowrap;
+
+    & span {
+        color: var(--gold);
+    }
+
+    & sub {
+        font-size: 9px;
+        letter-spacing: 3px;
+        color: var(--gold);
+        display: block;
+        font-family: var(--font-body);
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    @media (max-width: 720px) {
+        order: 1;
+        flex: 0 1 auto;
+        min-width: 0;
+        overflow: visible;
+    }
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+
+    & a {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #444;
+        padding: 8px 12px;
+        border-radius: 3px;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+
+    & a:hover,
+    nav a.active {
+        color: var(--gold);
+    }
+
+    & a.highlight {
+        color: var(--gold);
+        border: 1px solid rgba(201, 168, 76, 0.4);
+        padding: 5px 12px;
+    }
+
+    @media (min-width: 721px) and (max-width: 1200px) {
+        order: 3;
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+
+    @media (max-width: 720px) {
+        order: 4;
+        flex: 1 1 100%;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        gap: 2px;
+        padding-bottom: 6px;
+        padding-inline: 20px;
+        mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+    }
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+
+    @media (min-width: 721px) and (max-width: 1200px) {
+        margin-left: 0;
+    }
+
+    @media (max-width: 720px) {
+        margin-inline: auto;
+        flex-shrink: 0;
+        order: 2;
+    }
+}
+
+.lang-toggle {
+    display: flex;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+
+    & button {
+        background: none;
+        border: none;
+        color: var(--gray);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        padding: 5px 0;
+        width: 36px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    & button.active {
+        background: var(--gold);
+        color: var(--black);
+    }
+}
+
+.btn-signin {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--black);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+
+    &:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+    }
+
+    a& {
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+    }
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s;
+
+    a& {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+    &:hover {
+        color: var(--gold);
+    }
+}

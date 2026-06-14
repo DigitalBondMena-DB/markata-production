@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../core/services/language.service';
 
@@ -11,6 +11,7 @@ import { LanguageService } from '../../../core/services/language.service';
 })
 export class NavbarComponent {
   readonly lang = inject(LanguageService);
+  private readonly router = inject(Router);
 
   // Router Options
   readonly navExact = { exact: true };
@@ -26,4 +27,14 @@ export class NavbarComponent {
   // Ramadan special tab text
   readonly ramadanEn = 'Ramadan Edition';
   readonly ramadanAr = 'نسخة رمضان';
+
+  changeLanguage(targetLang: string) {
+    const segments = this.router.url.split('/');
+    if (segments[1] === 'en' || segments[1] === 'ar') {
+      segments[1] = targetLang;
+    } else {
+      segments.splice(1, 0, targetLang);
+    }
+    this.router.navigateByUrl(segments.join('/'));
+  }
 }
