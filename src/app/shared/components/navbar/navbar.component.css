@@ -300,4 +300,12 @@ nav {
     &:hover {
         color: var(--gold);
     }
+
+    & img {
+        transition: filter 0.2s;
+    }
+
+    &:hover img {
+        filter: brightness(0) saturate(100%) invert(67%) sepia(34%) saturate(1313%) hue-rotate(365deg) brightness(88%) contrast(85%);
+    }
 }

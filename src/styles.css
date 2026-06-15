@@ -116,6 +116,10 @@ img {
 }
 
 
+.auto-image {
+    width: auto;
+    height: auto;
+}
 
 .container {
     max-width: 1300px;

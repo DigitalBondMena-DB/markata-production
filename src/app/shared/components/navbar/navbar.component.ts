@@ -17,7 +17,6 @@ export class NavbarComponent {
   readonly navExact = { exact: true };
 
   // Mock SVG Icons or text content
-  readonly iconSearch = '🔍';
   readonly iconBookmarks = '🔖';
 
   // Dynamic Ticker Strings
