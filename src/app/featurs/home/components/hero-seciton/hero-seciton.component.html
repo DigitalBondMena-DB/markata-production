@@ -3,9 +3,8 @@
         <div class="hero-grid">
             <!-- 1. Hero Main -->
             <div class="hero-main markata-click-target" [routerLink]="['/', lang.currentLang(), 'article']">
-                <img ngSrc="https://picsum.photos/seed/indexhtml-10-marketing-strategy/900/600" priority width="900"
-                    height="600" class="img-placeholder ph-1" data-img-seed="indexhtml-10-marketing-strategy"
-                    style="position: absolute; inset: 0" />
+                <div markataImg [highPriority]="true" [eager]="true" class="img-placeholder ph-1"
+                    data-img-seed="indexhtml-10-marketing-strategy" style="position: absolute; inset: 0"></div>
                 <div class="hero-main-overlay"></div>
                 <div class="hero-main-content">
                     <span class="cat-pill">{{ 'HERO.BRAND_STRATEGY' | translate }}</span>
