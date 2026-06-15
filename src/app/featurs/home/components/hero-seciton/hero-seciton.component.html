@@ -3,8 +3,9 @@
         <div class="hero-grid">
             <!-- 1. Hero Main -->
             <div class="hero-main markata-click-target" [routerLink]="['/', lang.currentLang(), 'article']">
-                <div markataImg class="img-placeholder ph-1" data-img-seed="indexhtml-10-marketing-strategy"
-                    style="position: absolute; inset: 0" [eager]="true" [highPriority]="true"></div>
+                <img ngSrc="https://picsum.photos/seed/indexhtml-10-marketing-strategy/900/600" priority width="900"
+                    height="600" class="img-placeholder ph-1" data-img-seed="indexhtml-10-marketing-strategy"
+                    style="position: absolute; inset: 0" />
                 <div class="hero-main-overlay"></div>
                 <div class="hero-main-content">
                     <span class="cat-pill">{{ 'HERO.BRAND_STRATEGY' | translate }}</span>
@@ -21,7 +22,7 @@
             <!-- 2. Hero Card 1 (AI Tech) -->
             <div class="hero-card hero-card-1 markata-click-target" [routerLink]="['/', lang.currentLang(), 'ai-tech']">
                 <div markataImg class="img-placeholder ph-2" data-img-seed="indexhtml-1-brand-design"
-                    style="position: absolute; inset: 0" [eager]="true"></div>
+                    style="position: absolute; inset: 0"></div>
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
                     <span class="cat-pill">{{ 'HERO.AI_TECH' | translate }}</span>
@@ -33,7 +34,7 @@
             <div class="hero-card hero-card-2 markata-click-target"
                 [routerLink]="['/', lang.currentLang(), 'resources']">
                 <div markataImg class="img-placeholder ph-3" data-img-seed="indexhtml-2-creative-agency"
-                    style="position: absolute; inset: 0" [eager]="true"></div>
+                    style="position: absolute; inset: 0"></div>
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
                     <span class="cat-pill">{{ 'HERO.CONSUMER_INSIGHTS' | translate }}</span>
@@ -45,7 +46,7 @@
             <div class="hero-card hero-card-3 markata-click-target"
                 [routerLink]="['/', lang.currentLang(), 'creativity']">
                 <div markataImg class="img-placeholder ph-4" data-img-seed="indexhtml-3-digital-tech"
-                    style="position: absolute; inset: 0" [eager]="true"></div>
+                    style="position: absolute; inset: 0"></div>
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
                     <span class="cat-pill">{{ 'HERO.CREATIVITY' | translate }}</span>
@@ -56,7 +57,7 @@
             <!-- 5. Hero Card 4 (News / Bootstrap vs Funded) -->
             <div class="hero-card hero-card-4 markata-click-target" [routerLink]="['/', lang.currentLang(), 'news']">
                 <div markataImg class="img-placeholder ph-5" data-img-seed="indexhtml-4-business-meeting"
-                    style="position: absolute; inset: 0" [eager]="true"></div>
+                    style="position: absolute; inset: 0"></div>
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
                     <span class="cat-pill">{{ 'HERO.ENTREPRENEURSHIP' | translate }}</span>
@@ -68,7 +69,7 @@
             <div class="hero-card hero-card-5 markata-click-target"
                 [routerLink]="['/', lang.currentLang(), 'category']">
                 <div markataImg class="img-placeholder ph-6" data-img-seed="indexhtml-5-mena-retail"
-                    style="position: absolute; inset: 0" [eager]="true"></div>
+                    style="position: absolute; inset: 0"></div>
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
                     <span class="cat-pill">{{ 'HERO.PERFORMANCE' | translate }}</span>

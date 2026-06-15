@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MarkataImgPlaceholderDirective } from '../../../../shared/directives/markata-img-placeholder.directive';
 import { LanguageService } from '../../../../core/services/language.service';
+import { NgOptimizedImage } from "@angular/common";
 
 @Component({
   selector: 'app-hero-seciton',
-  imports: [TranslatePipe, MarkataImgPlaceholderDirective, RouterLink],
+  imports: [TranslatePipe, MarkataImgPlaceholderDirective, RouterLink, NgOptimizedImage],
   templateUrl: './hero-seciton.component.html',
   styleUrl: './hero-seciton.component.css',
 })

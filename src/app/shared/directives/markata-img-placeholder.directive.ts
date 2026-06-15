@@ -26,15 +26,18 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
     const key = raw || 'markata';
 
     const img = this.renderer.createElement('img') as HTMLImageElement;
-    img.alt = '';
-    img.width = 900;
-    img.height = 600;
-    img.decoding = 'async';
-    img.loading = this.eager() ? 'eager' : 'lazy';
+    this.renderer.setAttribute(img, 'alt', '');
+    this.renderer.setAttribute(img, 'width', '900');
+    this.renderer.setAttribute(img, 'height', '600');
+    this.renderer.setAttribute(img, 'decoding', 'async');
+    this.renderer.setAttribute(img, 'loading', this.eager() ? 'eager' : 'lazy');
     if (this.highPriority()) {
-      img.fetchPriority = 'high';
+      this.renderer.setAttribute(img, 'fetchpriority', 'high');
     }
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+    this.renderer.setStyle(img, 'width', '100%');
+    this.renderer.setStyle(img, 'height', '100%');
+    this.renderer.setStyle(img, 'object-fit', 'cover');
+    this.renderer.setStyle(img, 'display', 'block');
 
     const fallback =
       'data:image/svg+xml,' +
@@ -44,7 +47,7 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
 
     // 1. Attach the listener BEFORE setting img.src to catch errors immediately
     let unlistenError: (() => void) | null = this.renderer.listen(img, 'error', () => {
-      img.src = fallback;
+      this.renderer.setAttribute(img, 'src', fallback);
       if (unlistenError) {
         unlistenError();
         unlistenError = null;
@@ -59,7 +62,7 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
     });
 
     // 3. Set src after listener registration
-    img.src = `https://picsum.photos/seed/${key}/900/600`;
+    this.renderer.setAttribute(img, 'src', `https://picsum.photos/seed/${key}/900/600`);
 
     this.renderer.appendChild(el, img);
   }
