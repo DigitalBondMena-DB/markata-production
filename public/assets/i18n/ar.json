@@ -129,5 +129,53 @@
     "CARD7_TITLE": "رهان المؤثرين الصغار الذي نجح: مسيرة علامة جمال نحو نمو عشرة أضعاف",
     "CARD8_CATEGORY": "المحتوى",
     "CARD8_TITLE": "المحتوى الطويل في عالم قصير: كيف ضاعف ناشر واحد معدل الاحتفاظ"
+  },
+  "PODCAST_SPOTLIGHT": {
+    "TITLE": "ماركاتا إف إم",
+    "ALL_EPISODES": "كل الحلقات ←",
+    "FEATURED_EPISODE": "حلقة مميزة",
+    "LEAD_TITLE": "مستقبل استخبارات التسويق",
+    "LEAD_DESC": "جلسات طويلة من استراتيجيي المنطقة—مع ملاحظات حلقة بالعربية والإنجليزية.",
+    "CARD2_TITLE": "سير عمل توليدية بلا مبالغة",
+    "CARD3_TITLE": "حرفيون معاصرون: قصص من رفوف الشرق الأوسط",
+    "CARD4_TITLE": "الهوية في زمن فرط التخصيص"
+  },
+  "NEWSLETTER": {
+    "TITLE": "الذكاء التسويقي <span>{{weekly}}</span>",
+    "WEEKLY": "يصلك أسبوعياً",
+    "DESC": "انضم إلى أكثر من 42,000 مسوّق من أنحاء العالم العربي يقرؤون ماركاتا كل أسبوع.",
+    "PLACEHOLDER": "بريدك الإلكتروني",
+    "BUTTON": "اشترك"
+  },
+  "FOOTER": {
+    "SUBTITLE": "استخبارات تسويقية",
+    "DESC": "المصدر الأكثر موثوقية في العالم العربي لاستخبارات التسويق وبناء العلامات التجارية منذ 2024.",
+    "COL_TOPICS": "المواضيع",
+    "COL_COMPANY": "الشركة",
+    "COL_RESOURCES": "الموارد",
+    "TOPIC_STRATEGY": "استراتيجية العلامة",
+    "TOPIC_CAMPAIGNS": "تحليل الحملات",
+    "TOPIC_AI_TECH": "الذكاء الاصطناعي",
+    "TOPIC_CONSUMER_INSIGHTS": "رؤى المستهلك",
+    "TOPIC_ENTREPRENEURSHIP": "ريادة الأعمال",
+    "TOPIC_CASE_STUDIES": "دراسات الحالة",
+    "TOPIC_CREATIVITY": "الإبداع",
+    "COMPANY_ABOUT": "عن ماركاتا",
+    "COMPANY_WRITERS": "كتّابنا",
+    "COMPANY_ADVERTISE": "أعلن معنا",
+    "COMPANY_CONTRIBUTE": "ساهم معنا",
+    "COMPANY_EVENTS": "الفعاليات والجوائز",
+    "COMPANY_CONTACT": "اتصل بنا",
+    "COMPANY_CAREERS": "الوظائف",
+    "RESOURCE_GLOSSARY": "قاموس التسويق",
+    "RESOURCE_TEMPLATES": "قوالب مجانية",
+    "RESOURCE_REPORTS": "تقارير القطاع",
+    "RESOURCE_PODCAST": "البودكاست",
+    "RESOURCE_NEWSLETTER": "أرشيف النشرة",
+    "RESOURCE_MEDIA_KIT": "ميديا كيت",
+    "COPYRIGHT": "© 2024–2026 <span>MARKATA</span>. جميع الحقوق محفوظة. صُنع بـ ✦ في القاهرة.",
+    "LINK_PRIVACY": "سياسة الخصوصية",
+    "LINK_TERMS": "شروط الاستخدام",
+    "LINK_COOKIES": "سياسة الكوكيز"
   }
 }

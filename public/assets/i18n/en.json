@@ -129,5 +129,53 @@
     "CARD7_TITLE": "The Micro-Influencer Bet That Paid Off: A Beauty Brand's Path to 10x Growth",
     "CARD8_CATEGORY": "Content",
     "CARD8_TITLE": "Long-Form in a Short-Form World: How One Publisher Doubled Retention"
+  },
+  "PODCAST_SPOTLIGHT": {
+    "TITLE": "MARKATA FM",
+    "ALL_EPISODES": "All episodes →",
+    "FEATURED_EPISODE": "Featured episode",
+    "LEAD_TITLE": "The future of marketing intelligence",
+    "LEAD_DESC": "Long-form desk sessions from MENA strategists—bilingual show notes on every drop.",
+    "CARD2_TITLE": "Generative workflows without the theatre",
+    "CARD3_TITLE": "Modern artisans: craft stories from MENA shelves",
+    "CARD4_TITLE": "Identity in the age of hyper-personalization"
+  },
+  "NEWSLETTER": {
+    "TITLE": "Intelligence, <span>{{weekly}}</span>",
+    "WEEKLY": "Delivered Weekly",
+    "DESC": "Join 42,000+ marketers across the Arab world who read MARKATA every week.",
+    "PLACEHOLDER": "Your email address",
+    "BUTTON": "Subscribe"
+  },
+  "FOOTER": {
+    "SUBTITLE": "Marketing Intelligence",
+    "DESC": "The Arab world's most trusted source for marketing intelligence, brand strategy, and creative thinking since 2024.",
+    "COL_TOPICS": "Topics",
+    "COL_COMPANY": "Company",
+    "COL_RESOURCES": "Resources",
+    "TOPIC_STRATEGY": "Brand Strategy",
+    "TOPIC_CAMPAIGNS": "Campaign Analysis",
+    "TOPIC_AI_TECH": "AI & Technology",
+    "TOPIC_CONSUMER_INSIGHTS": "Consumer Insights",
+    "TOPIC_ENTREPRENEURSHIP": "Entrepreneurship",
+    "TOPIC_CASE_STUDIES": "Case Studies",
+    "TOPIC_CREATIVITY": "Creativity",
+    "COMPANY_ABOUT": "About MARKATA",
+    "COMPANY_WRITERS": "Our Writers",
+    "COMPANY_ADVERTISE": "Advertise With Us",
+    "COMPANY_CONTRIBUTE": "Contribute",
+    "COMPANY_EVENTS": "Events & Awards",
+    "COMPANY_CONTACT": "Contact",
+    "COMPANY_CAREERS": "Careers",
+    "RESOURCE_GLOSSARY": "Marketing Glossary",
+    "RESOURCE_TEMPLATES": "Free Templates",
+    "RESOURCE_REPORTS": "Industry Reports",
+    "RESOURCE_PODCAST": "Podcast",
+    "RESOURCE_NEWSLETTER": "Newsletter Archive",
+    "RESOURCE_MEDIA_KIT": "Media Kit",
+    "COPYRIGHT": "© 2024–2026 <span>MARKATA</span>. All Rights Reserved. Made with ✦ in Cairo.",
+    "LINK_PRIVACY": "Privacy Policy",
+    "LINK_TERMS": "Terms of Use",
+    "LINK_COOKIES": "Cookie Policy"
   }
 }

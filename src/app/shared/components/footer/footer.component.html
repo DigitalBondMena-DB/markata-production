@@ -1,0 +1,69 @@
+<app-subscribe-form />
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a routerLink="/" style="text-decoration:none">
+          <div class="logo">
+            MAR<span>KA</span>TA
+            <sub>{{ 'FOOTER.SUBTITLE' | translate }}</sub>
+          </div>
+        </a>
+        <p>{{ 'FOOTER.DESC' | translate }}</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/" class="social-link" target="_blank" rel="noopener noreferrer">f</a>
+          <a href="https://x.com/" class="social-link" target="_blank" rel="noopener noreferrer">𝕏</a>
+          <a href="https://www.linkedin.com/" class="social-link" target="_blank" rel="noopener noreferrer">in</a>
+          <a href="https://www.youtube.com/" class="social-link" target="_blank" rel="noopener noreferrer">▶</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ 'FOOTER.COL_TOPICS' | translate }}</h4>
+        <ul>
+          <li><a routerLink="/strategy">{{ 'FOOTER.TOPIC_STRATEGY' | translate }}</a></li>
+          <li><a routerLink="/category">{{ 'FOOTER.TOPIC_CAMPAIGNS' | translate }}</a></li>
+          <li><a routerLink="/ai-tech">{{ 'FOOTER.TOPIC_AI_TECH' | translate }}</a></li>
+          <li><a routerLink="/resources" fragment="insights">{{ 'FOOTER.TOPIC_CONSUMER_INSIGHTS' | translate }}</a></li>
+          <li><a routerLink="/news">{{ 'FOOTER.TOPIC_ENTREPRENEURSHIP' | translate }}</a></li>
+          <li><a routerLink="/case-studies">{{ 'FOOTER.TOPIC_CASE_STUDIES' | translate }}</a></li>
+          <li><a routerLink="/creativity">{{ 'FOOTER.TOPIC_CREATIVITY' | translate }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ 'FOOTER.COL_COMPANY' | translate }}</h4>
+        <ul>
+          <li><a routerLink="/about">{{ 'FOOTER.COMPANY_ABOUT' | translate }}</a></li>
+          <li><a routerLink="/writers">{{ 'FOOTER.COMPANY_WRITERS' | translate }}</a></li>
+          <li><a routerLink="/advertise">{{ 'FOOTER.COMPANY_ADVERTISE' | translate }}</a></li>
+          <li><a routerLink="/contribute">{{ 'FOOTER.COMPANY_CONTRIBUTE' | translate }}</a></li>
+          <li><a routerLink="/events">{{ 'FOOTER.COMPANY_EVENTS' | translate }}</a></li>
+          <li><a routerLink="/contact">{{ 'FOOTER.COMPANY_CONTACT' | translate }}</a></li>
+          <li><a routerLink="/careers">{{ 'FOOTER.COMPANY_CAREERS' | translate }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ 'FOOTER.COL_RESOURCES' | translate }}</h4>
+        <ul>
+          <li><a routerLink="/glossary">{{ 'FOOTER.RESOURCE_GLOSSARY' | translate }}</a></li>
+          <li><a routerLink="/templates">{{ 'FOOTER.RESOURCE_TEMPLATES' | translate }}</a></li>
+          <li><a routerLink="/reports">{{ 'FOOTER.RESOURCE_REPORTS' | translate }}</a></li>
+          <li><a routerLink="/podcast">{{ 'FOOTER.RESOURCE_PODCAST' | translate }}</a></li>
+          <li><a routerLink="/newsletter-archive">{{ 'FOOTER.RESOURCE_NEWSLETTER' | translate }}</a></li>
+          <li><a routerLink="/media-kit">{{ 'FOOTER.RESOURCE_MEDIA_KIT' | translate }}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p [innerHTML]="'FOOTER.COPYRIGHT' | translate"></p>
+      <div class="footer-bottom-links">
+        <a routerLink="/privacy">{{ 'FOOTER.LINK_PRIVACY' | translate }}</a>
+        <a routerLink="/terms">{{ 'FOOTER.LINK_TERMS' | translate }}</a>
+        <a routerLink="/cookies">{{ 'FOOTER.LINK_COOKIES' | translate }}</a>
+      </div>
+    </div>
+  </div>
+</footer>
