@@ -12,12 +12,14 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
+        // ✅ اشيل redirectTo خالص — اعمل HomeComponent مباشرة
+        loadComponent: () =>
+          import('./featurs/home/home.component').then(m => m.HomeComponent)
       },
       {
         path: 'home',
-        loadComponent: () => import('./featurs/home/home.component').then(m => m.HomeComponent)
+        loadComponent: () =>
+          import('./featurs/home/home.component').then(m => m.HomeComponent)
       }
     ]
   },
@@ -27,7 +29,7 @@ export const routes: Routes = [
     redirectTo: () => {
       const languageService = inject(LanguageService);
       const defaultLang = languageService.getBrowserOrSavedLang();
-      return `${defaultLang}/home`;
+      return `${defaultLang}`;  // ✅ روح لـ ':lang' مباشرة مش ':lang/home'
     }
   },
   {
@@ -35,7 +37,7 @@ export const routes: Routes = [
     redirectTo: () => {
       const languageService = inject(LanguageService);
       const defaultLang = languageService.getBrowserOrSavedLang();
-      return `${defaultLang}/home`;
+      return `${defaultLang}`;
     }
   }
 ];
