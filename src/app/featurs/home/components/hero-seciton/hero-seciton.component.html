@@ -1,6 +1,7 @@
 <section id="hero" class="hero">
     <div class="container">
         <div class="hero-grid">
+            <!-- 1. Hero Main -->
             <div class="hero-main markata-click-target" [routerLink]="['/', lang.currentLang(), 'article']">
                 <div markataImg class="img-placeholder ph-1" data-img-seed="indexhtml-10-marketing-strategy"
                     style="position: absolute; inset: 0" [eager]="true"></div>
@@ -17,31 +18,30 @@
                 </div>
             </div>
 
-            <div class="hero-side">
-                <div class="hero-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'ai-tech']">
-                    <div markataImg class="img-placeholder ph-2" data-img-seed="indexhtml-1-brand-design"
-                        style="position: absolute; inset: 0" [eager]="true"></div>
-                    <div class="hero-card-overlay"></div>
-                    <div class="hero-card-content">
-                        <span class="cat-pill">{{ 'HERO.AI_TECH' | translate }}</span>
-                        <h3>{{ 'HERO.AI_TECH_TITLE' | translate }}</h3>
-                    </div>
-                </div>
-                <div class="hero-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'resources']">
-                    <div markataImg class="img-placeholder ph-3" data-img-seed="indexhtml-2-creative-agency"
-                        style="position: absolute; inset: 0" [eager]="true"></div>
-                    <div class="hero-card-overlay"></div>
-                    <div class="hero-card-content">
-                        <span class="cat-pill">{{ 'HERO.CONSUMER_INSIGHTS' | translate }}</span>
-                        <h3>{{ 'HERO.CONSUMER_INSIGHTS_TITLE' | translate }}</h3>
-                    </div>
+            <!-- 2. Hero Card 1 (AI Tech) -->
+            <div class="hero-card hero-card-1 markata-click-target" [routerLink]="['/', lang.currentLang(), 'ai-tech']">
+                <div markataImg class="img-placeholder ph-2" data-img-seed="indexhtml-1-brand-design"
+                    style="position: absolute; inset: 0" [eager]="true"></div>
+                <div class="hero-card-overlay"></div>
+                <div class="hero-card-content">
+                    <span class="cat-pill">{{ 'HERO.AI_TECH' | translate }}</span>
+                    <h3>{{ 'HERO.AI_TECH_TITLE' | translate }}</h3>
                 </div>
             </div>
-        </div>
 
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 3px">
-            <div class="hero-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'creativity']"
-                style="min-height: 180px; border-radius: 0 0 0 4px">
+            <!-- 3. Hero Card 2 (Consumer Insights) -->
+            <div class="hero-card hero-card-2 markata-click-target" [routerLink]="['/', lang.currentLang(), 'resources']">
+                <div markataImg class="img-placeholder ph-3" data-img-seed="indexhtml-2-creative-agency"
+                    style="position: absolute; inset: 0" [eager]="true"></div>
+                <div class="hero-card-overlay"></div>
+                <div class="hero-card-content">
+                    <span class="cat-pill">{{ 'HERO.CONSUMER_INSIGHTS' | translate }}</span>
+                    <h3>{{ 'HERO.CONSUMER_INSIGHTS_TITLE' | translate }}</h3>
+                </div>
+            </div>
+
+            <!-- 4. Hero Card 3 (Creativity / Why Ads) -->
+            <div class="hero-card hero-card-3 markata-click-target" [routerLink]="['/', lang.currentLang(), 'creativity']">
                 <div markataImg class="img-placeholder ph-4" data-img-seed="indexhtml-3-digital-tech"
                     style="position: absolute; inset: 0" [eager]="true"></div>
                 <div class="hero-card-overlay"></div>
@@ -50,7 +50,9 @@
                     <h3>{{ 'HERO.WHY_ADS_TITLE' | translate }}</h3>
                 </div>
             </div>
-            <div class="hero-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'news']" style="min-height: 180px">
+
+            <!-- 5. Hero Card 4 (News / Bootstrap vs Funded) -->
+            <div class="hero-card hero-card-4 markata-click-target" [routerLink]="['/', lang.currentLang(), 'news']">
                 <div markataImg class="img-placeholder ph-5" data-img-seed="indexhtml-4-business-meeting"
                     style="position: absolute; inset: 0" [eager]="true"></div>
                 <div class="hero-card-overlay"></div>
@@ -59,8 +61,9 @@
                     <h3>{{ 'HERO.BOOTSTRAP_VS_FUNDED_TITLE' | translate }}</h3>
                 </div>
             </div>
-            <div class="hero-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'category']"
-                style="min-height: 180px; border-radius: 0 0 4px 0">
+
+            <!-- 6. Hero Card 5 (Category / ROAS) -->
+            <div class="hero-card hero-card-5 markata-click-target" [routerLink]="['/', lang.currentLang(), 'category']">
                 <div markataImg class="img-placeholder ph-6" data-img-seed="indexhtml-5-mena-retail"
                     style="position: absolute; inset: 0" [eager]="true"></div>
                 <div class="hero-card-overlay"></div>

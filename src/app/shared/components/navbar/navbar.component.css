@@ -165,16 +165,16 @@ header:not(.article-feature-head):not(.inner-page-hero):not(.case-studies-head) 
 nav {
     display: flex;
     align-items: center;
-    gap: 4px;
+    /* gap: 4px; */
     flex: 1;
 
     & a {
-        font-size: 12px;
+        font-size: clamp(.625rem, .5vw, .75rem);
         font-weight: 600;
         letter-spacing: 1px;
         text-transform: uppercase;
         color: #444;
-        padding: 8px 12px;
+        padding: .5rem .75rem;
         border-radius: 3px;
         transition: all 0.2s;
         white-space: nowrap;

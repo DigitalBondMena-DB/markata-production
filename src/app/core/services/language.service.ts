@@ -28,4 +28,8 @@ export class LanguageService {
     this._DOCUMENT.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     this._DOCUMENT.documentElement.lang = lang;
   }
+
+  t(en: string, ar: string): string {
+    return this.currentLang() === 'ar' ? ar : en;
+  }
 }

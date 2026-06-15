@@ -1,0 +1,194 @@
+.featured-dark {
+    background: var(--off-white);
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    padding: 3.5rem 0;
+}
+
+.featured-dark-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.featured-main-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    cursor: pointer;
+    min-height: 320px;
+    border: 1px solid rgba(201, 168, 76, 0.1);
+
+    & img {
+        position: absolute;
+        inset: 0;
+        transition: transform 0.6s;
+    }
+
+    &:hover img {
+        transform: scale(1.04);
+    }
+}
+
+.featured-main-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+}
+
+.featured-main-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px;
+
+    & .cat-pill {
+        margin-bottom: 12px;
+    }
+
+    & h2 {
+        font-family: var(--font-en);
+        font-size: clamp(1.35rem, 4vw, 22px);
+        font-weight: 800;
+        line-height: 1.25;
+        color: var(--white);
+        margin-bottom: 10px;
+    }
+
+    & p {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.6;
+    }
+}
+
+.featured-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.featured-list-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:first-child {
+        padding-top: 0;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover .fli-title {
+        color: var(--gold);
+    }
+
+    &:hover .fli-thumb img {
+        transform: scale(1.08);
+    }
+}
+
+.fli-thumb {
+    width: 80px;
+    height: 62px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative; /* ensure absolute children position correctly */
+
+    & img {
+        transition: transform 0.4s;
+    }
+}
+
+.fli-info {
+    flex: 1;
+}
+
+.fli-cat {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+}
+
+.fli-title {
+    font-family: var(--font-en);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--black);
+    transition: color 0.2s;
+}
+
+.fli-meta {
+    font-size: 10px;
+    color: var(--gray);
+    margin-top: 6px;
+}
+
+/* Responsive Media Queries */
+
+/* 1. Mobile (up to 720px) */
+@media (max-width: 720px) {
+    .featured-dark {
+        padding: 2.5rem 0;
+    }
+    
+    .featured-dark-grid {
+        gap: 20px;
+    }
+
+    .featured-main-card {
+        min-height: 300px;
+    }
+}
+
+/* 2. Tablet (721px to 960px) */
+@media (min-width: 721px) and (max-width: 960px) {
+    .featured-dark-grid {
+        grid-template-columns: 1.2fr 1fr;
+        gap: 24px;
+    }
+
+    .featured-main-card {
+        min-height: 380px;
+        border-radius: 6px;
+    }
+}
+
+/* 3. Small Desktop / Laptop (961px to 1200px) */
+@media (min-width: 961px) and (max-width: 1200px) {
+    .featured-dark-grid {
+        grid-template-columns: 1.3fr 1fr;
+        gap: 32px;
+    }
+
+    .featured-main-card {
+        min-height: 420px;
+        border-radius: 6px;
+    }
+}
+
+/* 4. Large Desktop (1201px and above) */
+@media (min-width: 1201px) {
+    .featured-dark-grid {
+        grid-template-columns: 1.4fr 1fr;
+        gap: 32px;
+    }
+
+    .featured-main-card {
+        min-height: 450px;
+        border-radius: 6px;
+    }
+}

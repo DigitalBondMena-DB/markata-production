@@ -1,0 +1,114 @@
+.writers-section {
+    padding: 3.5rem 0;
+}
+
+.writers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.writer-card {
+    text-align: center;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 20px;
+    transition: all 0.3s;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    &:hover {
+        border-color: rgba(201, 168, 76, 0.3);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+
+        & .writer-info h4 {
+            color: var(--gold);
+        }
+    }
+}
+
+.writer-avatar {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    position: relative; /* ensure absolute child fills it */
+
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.writer-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    & h4 {
+        font-family: var(--font-en);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 4px;
+    }
+
+    & .articles-count {
+        font-size: 11px;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    & p {
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--gray);
+        margin-bottom: 0;
+        flex: 1;
+    }
+}
+
+/* Responsive Media Queries */
+
+/* 1. Mobile (up to 720px) */
+@media (max-width: 720px) {
+    .writers-section {
+        padding: 2.5rem 0;
+    }
+
+    .writers-grid {
+        gap: 20px;
+    }
+}
+
+/* 2. Tablet (721px to 960px) */
+@media (min-width: 721px) and (max-width: 960px) {
+    .writers-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+/* 3. Small Desktop / Laptop (961px to 1200px) */
+@media (min-width: 961px) and (max-width: 1200px) {
+    .writers-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+}
+
+/* 4. Large Desktop (1201px and above) */
+@media (min-width: 1201px) {
+    .writers-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 24px;
+    }
+}

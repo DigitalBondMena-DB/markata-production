@@ -17,6 +17,10 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const el = this.host.nativeElement;
+    if (el.querySelector('img')) {
+      return;
+    }
+
     const fromAttr = el.getAttribute('data-img-seed');
     const raw = (fromAttr || this.seed() || 'markata').replace(/[^a-z0-9\-]/gi, '').slice(0, 64);
     const key = raw || 'markata';
