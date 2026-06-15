@@ -1,4 +1,5 @@
 import { AfterViewInit, Directive, ElementRef, inject, input, Renderer2, DestroyRef } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 /** Injects a picsum <img> into `.img-placeholder` */
 @Directive({
@@ -8,12 +9,14 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
   private readonly host = inject(ElementRef<HTMLElement>);
   private readonly renderer = inject(Renderer2);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
 
   /** Optional; also reads `data-img-seed` on the host when empty. */
   readonly seed = input('');
 
   readonly eager = input(false);
   readonly highPriority = input(false);
+  readonly hiPriority = input(false);
 
   ngAfterViewInit(): void {
     const el = this.host.nativeElement;
@@ -24,6 +27,7 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
     const fromAttr = el.getAttribute('data-img-seed');
     const raw = (fromAttr || this.seed() || 'markata').replace(/[^a-z0-9\-]/gi, '').slice(0, 64);
     const key = raw || 'markata';
+    const imageUrl = `https://picsum.photos/seed/${key}/900/600`;
 
     const img = this.renderer.createElement('img') as HTMLImageElement;
     this.renderer.setAttribute(img, 'alt', '');
@@ -31,8 +35,28 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
     this.renderer.setAttribute(img, 'height', '600');
     this.renderer.setAttribute(img, 'decoding', 'async');
     this.renderer.setAttribute(img, 'loading', this.eager() ? 'eager' : 'lazy');
-    if (this.highPriority()) {
+
+    const isHighPriority = this.highPriority() || this.hiPriority();
+    if (isHighPriority) {
       this.renderer.setAttribute(img, 'fetchpriority', 'high');
+
+      // Inject dynamic link rel="preload" into document head for immediate LCP discovery
+      const exists = this.document.head.querySelector(`link[rel="preload"][href="${imageUrl}"]`);
+      if (!exists) {
+        const link = this.renderer.createElement('link');
+        this.renderer.setAttribute(link, 'rel', 'preload');
+        this.renderer.setAttribute(link, 'as', 'image');
+        this.renderer.setAttribute(link, 'fetchpriority', 'high');
+        this.renderer.setAttribute(link, 'href', imageUrl);
+
+        // Insert at the very top of the head for maximum preload efficiency
+        const firstChild = this.document.head.firstChild;
+        if (firstChild) {
+          this.renderer.insertBefore(this.document.head, link, firstChild);
+        } else {
+          this.renderer.appendChild(this.document.head, link);
+        }
+      }
     }
     this.renderer.setStyle(img, 'width', '100%');
     this.renderer.setStyle(img, 'height', '100%');
@@ -62,7 +86,7 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
     });
 
     // 3. Set src after listener registration
-    this.renderer.setAttribute(img, 'src', `https://picsum.photos/seed/${key}/900/600`);
+    this.renderer.setAttribute(img, 'src', imageUrl);
 
     this.renderer.appendChild(el, img);
   }
