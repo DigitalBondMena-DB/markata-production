@@ -1,0 +1,6 @@
+[build]
+  command = "ng build -c production"
+  publish = "dist/markata/browser"
+
+[[plugins]]
+  package = "@netlify/angular-runtime"

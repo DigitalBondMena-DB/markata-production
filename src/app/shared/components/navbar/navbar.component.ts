@@ -16,9 +16,6 @@ export class NavbarComponent {
   // Router Options
   readonly navExact = { exact: true };
 
-  // Mock SVG Icons or text content
-  readonly iconBookmarks = '🔖';
-
   // Dynamic Ticker Strings
   readonly tickerEn = 'Exciting updates coming soon to Markata! Stay tuned.';
   readonly tickerAr = 'تحديثات مثيرة قادمة قريباً إلى ماركاتا! تابعونا.';
