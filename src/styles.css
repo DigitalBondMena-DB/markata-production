@@ -1,27 +1,3 @@
-@font-face {
-    font-family: "Cairo";
-    src: url("/assets/fonts/cairo/Cairo.woff2") format("woff2");
-    font-weight: 400 800;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Inter";
-    src: url("/assets/fonts/inter/Inter.woff2") format("woff2");
-    font-weight: 400 800;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Playfair Display";
-    src: url("/assets/fonts/playfair-display/PlayfairDisplay.woff2") format("woff2");
-    font-weight: 400 800;
-    font-style: normal;
-    font-display: swap;
-}
-
 app-root,
 app-shell {
     display: block;
