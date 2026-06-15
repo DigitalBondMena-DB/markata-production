@@ -12,7 +12,6 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        // ✅ اشيل redirectTo خالص — اعمل HomeComponent مباشرة
         loadComponent: () =>
           import('./featurs/home/home.component').then(m => m.HomeComponent)
       },
@@ -20,6 +19,21 @@ export const routes: Routes = [
         path: 'home',
         loadComponent: () =>
           import('./featurs/home/home.component').then(m => m.HomeComponent)
+      },
+      {
+        path: 'case-studies',
+        loadComponent: () =>
+          import('./featurs/category/category.component').then(m => m.CategoryComponent)
+      },
+      {
+        path: 'category',
+        loadComponent: () =>
+          import('./featurs/category/category.component').then(m => m.CategoryComponent)
+      },
+      {
+        path: 'category/:slug',
+        loadComponent: () =>
+          import('./featurs/category/category.component').then(m => m.CategoryComponent)
       }
     ]
   },

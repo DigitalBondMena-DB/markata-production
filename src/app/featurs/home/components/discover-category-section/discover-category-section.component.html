@@ -5,33 +5,33 @@
             <a routerLink="/topics">{{ lang.t('View All Topics →', 'عرض كل المواضيع ←') }}</a>
         </div>
         <div class="cats-grid">
-            <div class="cat-card markata-click-target" routerLink="/strategy">
+            <div class="cat-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'category', 'strategy']">
                 <div markataImg class="img-placeholder ph-7" data-img-seed="indexhtml-6-cairo-studio"
                     style="position: absolute; inset: 0"></div>
                 <div class="cat-card-overlay"></div>
                 <div class="cat-card-name">{{ lang.t('Brand Strategy', 'استراتيجية العلامة') }}</div>
             </div>
-            <div class="cat-card markata-click-target" routerLink="/ai-tech">
+            <div class="cat-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'category', 'ai-tech']">
                 <div markataImg class="img-placeholder" data-img-seed="indexhtml-7-gulf-media"
                     style="position: absolute; inset: 0; background: linear-gradient(135deg, #1a0f1a, #2a1530, #1a0f20)">
                 </div>
                 <div class="cat-card-overlay"></div>
                 <div class="cat-card-name">{{ lang.t('AI & Marketing', 'الذكاء الاصطناعي') }}</div>
             </div>
-            <div class="cat-card markata-click-target" routerLink="/creativity">
+            <div class="cat-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'category', 'creativity']">
                 <div markataImg class="img-placeholder ph-8" data-img-seed="indexhtml-8-luxury-sand"
                     style="position: absolute; inset: 0"></div>
                 <div class="cat-card-overlay"></div>
                 <div class="cat-card-name">{{ lang.t('Creativity', 'الإبداع') }}</div>
             </div>
-            <div class="cat-card markata-click-target" routerLink="/case-studies">
+            <div class="cat-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'case-studies']">
                 <div markataImg class="img-placeholder" data-img-seed="indexhtml-9-data-viz"
                     style="position: absolute; inset: 0; background: linear-gradient(135deg, #0a1a1a, #102a2a, #0a1a18)">
                 </div>
                 <div class="cat-card-overlay"></div>
                 <div class="cat-card-name">{{ lang.t('Case Studies', 'دراسات الحالة') }}</div>
             </div>
-            <div class="cat-card markata-click-target" routerLink="/category">
+            <div class="cat-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'category', 'performance']">
                 <div markataImg class="img-placeholder ph-9" data-img-seed="indexhtml-10-marketing-strategy"
                     style="position: absolute; inset: 0"></div>
                 <div class="cat-card-overlay"></div>

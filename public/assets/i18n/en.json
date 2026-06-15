@@ -177,5 +177,15 @@
     "LINK_PRIVACY": "Privacy Policy",
     "LINK_TERMS": "Terms of Use",
     "LINK_COOKIES": "Cookie Policy"
+  },
+  "CATEGORY": {
+    "FILTERS_AND_VIEW": "Filters and view",
+    "CLEAR_FILTERS": "Clear filters",
+    "NO_REPORTS": "No reports match these filters.",
+    "MORE_CASE_STUDIES": "More case studies",
+    "PDF": "PDF",
+    "SAVE_TO_BOOKMARKS": "Save to bookmarks",
+    "PAGINATION": "Pagination",
+    "BACK_TO_HOME": "← Back to home"
   }
 }

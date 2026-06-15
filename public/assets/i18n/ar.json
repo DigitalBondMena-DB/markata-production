@@ -177,5 +177,15 @@
     "LINK_PRIVACY": "سياسة الخصوصية",
     "LINK_TERMS": "شروط الاستخدام",
     "LINK_COOKIES": "سياسة الكوكيز"
+  },
+  "CATEGORY": {
+    "FILTERS_AND_VIEW": "عوامل التصفية والعرض",
+    "CLEAR_FILTERS": "مسح التصفية",
+    "NO_REPORTS": "لا توجد تقارير تطابق هذه التصفية.",
+    "MORE_CASE_STUDIES": "المزيد من دراسات الحالة",
+    "PDF": "PDF",
+    "SAVE_TO_BOOKMARKS": "حفظ في المحفوظات",
+    "PAGINATION": "ترقيم الصفحات",
+    "BACK_TO_HOME": "← العودة للرئيسية"
   }
 }
