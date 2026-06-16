@@ -120,7 +120,7 @@ export class CategoryComponent {
       titleAr: 'احصل على تقارير مخصصة تصلك أسبوعياً.',
       dekEn: 'Subscribe to our premium intelligence plan for direct briefs.',
       dekAr: 'اشترك في خطة الذكاء الممتازة للحصول على ملخصات مباشرة.',
-      buttonEn: 'Subscribe Now',
+      buttonEn: 'Contact Advisory',
       buttonAr: 'اشترك الآن',
     }
   };

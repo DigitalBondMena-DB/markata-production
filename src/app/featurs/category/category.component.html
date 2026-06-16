@@ -121,25 +121,23 @@
                 <div class="case-studies-card__media">
                     <div markataImg [seed]="card.imageSeed || 'markata-case-card'"
                         style="position: absolute; inset: 0;"></div>
-                    @if (card.pdfAvailable) {
-                    <span class="case-studies-card__pdf">
-                        <span class="case-studies-card__pdf-ic" aria-hidden="true"></span>
-                        {{ 'CATEGORY.PDF' | translate }}
-                    </span>
-                    }
+
                     <span class="case-studies-card__shine" aria-hidden="true"></span>
                 </div>
-                <div class="case-studies-card__meta">
-                    <span class="case-studies-card__topic" [class.case-studies-card__topic--gold]="card.tone === 'gold'"
-                        [class.case-studies-card__topic--green]="card.tone === 'green'"
-                        [class.case-studies-card__topic--violet]="card.tone === 'violet'"
-                        [class.case-studies-card__topic--neutral]="!card.tone || card.tone === 'neutral'">{{
-                        lang.t(card.topicEn, card.topicAr) }}</span>
-                    <span class="case-studies-card__dot">·</span>
-                    <span class="case-studies-card__region">{{ lang.t(card.regionEn, card.regionAr) }}</span>
+                <div class="case-studies-card__text">
+                    <div class="case-studies-card__meta">
+                        <span class="case-studies-card__topic"
+                            [class.case-studies-card__topic--gold]="card.tone === 'gold'"
+                            [class.case-studies-card__topic--green]="card.tone === 'green'"
+                            [class.case-studies-card__topic--violet]="card.tone === 'violet'"
+                            [class.case-studies-card__topic--neutral]="!card.tone || card.tone === 'neutral'">{{
+                            lang.t(card.topicEn, card.topicAr) }}</span>
+                        <span class="case-studies-card__dot">·</span>
+                        <span class="case-studies-card__region">{{ lang.t(card.regionEn, card.regionAr) }}</span>
+                    </div>
+                    <h3 class="case-studies-card__title">{{ lang.t(card.titleEn, card.titleAr) }}</h3>
+                    <p class="case-studies-card__dek">{{ lang.t(card.dekEn, card.dekAr) }}</p>
                 </div>
-                <h3 class="case-studies-card__title">{{ lang.t(card.titleEn, card.titleAr) }}</h3>
-                <p class="case-studies-card__dek">{{ lang.t(card.dekEn, card.dekAr) }}</p>
             </a>
             <div class="case-studies-card__foot">
                 <a [routerLink]="['/', lang.currentLang(), card.path]" class="case-studies-card__time">{{
