@@ -1,0 +1,253 @@
+<main
+  class="inner-wrap inner-page article-feature-page"
+  [attr.data-page]="'article'"
+  [attr.dir]="lang.currentLang() === 'ar' ? 'rtl' : 'ltr'"
+>
+  @if (articleResource.isLoading()) {
+    <!-- Skeleton Loader -->
+    <app-skeleton>
+      <header class="article-feature-head">
+        <div class="skeleton-item" style="height: 16px; width: 120px; margin-bottom: 12px;"></div>
+        <div class="skeleton-item" style="height: 48px; width: 90%; margin-bottom: 16px;"></div>
+        <div class="skeleton-item" style="height: 20px; width: 100%; margin-bottom: 8px;"></div>
+        <div class="skeleton-item" style="height: 20px; width: 95%; margin-bottom: 24px;"></div>
+        <div class="article-meta-row" style="display: flex; justify-content: space-between;">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <div class="skeleton-item" style="width: 48px; height: 48px; border-radius: 50%;"></div>
+            <div>
+              <div class="skeleton-item" style="height: 14px; width: 140px; margin-bottom: 6px;"></div>
+              <div class="skeleton-item" style="height: 12px; width: 80px;"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="article-hero-wrap" style="margin-top: 2rem;">
+        <div class="skeleton-item" style="height: 450px; border-radius: 8px; width: 100%;"></div>
+      </div>
+    </app-skeleton>
+  } @else if (!articleData()) {
+    <!-- Empty State / Not Found -->
+    <app-empty-state
+      [title]="lang.t('Article Not Found', 'المقال غير موجود')"
+      [description]="lang.t('The article you are looking for might have been removed or is temporarily unavailable.', 'المقال الذي تبحث عنه ربما تم حذفه أو غير متوفر حالياً.')"
+      [actionText]="lang.t('Back to Home', 'العودة للرئيسية')"
+      [routerLink]="['/', lang.currentLang(), 'home']"
+    >
+    </app-empty-state>
+  } @else {
+    @let article = articleData()!;
+    <!-- Core Article Page Content -->
+    <header class="article-feature-head">
+      <p class="inner-kicker article-feature-kicker">
+        {{ article.category?.name || article.topic?.name }}
+      </p>
+      <h1 class="article-feature-h1">{{ article.title }}</h1>
+      <p class="article-feature-dek">{{ article.short_text || article.brief }}</p>
+      <div class="article-meta-row">
+        @if (article.author) {
+          <div class="article-meta-author">
+            <div class="article-avatar">
+              <div markataImg [seed]="article.author.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+            </div>
+            <div>
+              <span class="article-author-name">{{ article.author.name }}</span>
+            </div>
+          </div>
+        }
+        <div class="article-meta-actions">
+          <span class="article-date">{{ formattedDate() }}</span>
+          <span class="article-read-time" style="margin: 0 10px; color: var(--color-muted);">
+            {{ article.reading_time }} {{ lang.t('min read', 'دقائق للقراءة') }}
+          </span>
+          <div
+            class="article-share-icons"
+            [attr.aria-label]="'BLOG_DETAILS.SHARE_SOCIAL' | translate"
+          >
+            <a
+              class="article-share-icon"
+              [href]="facebookShareHref()"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'BLOG_DETAILS.SHARE_FB' | translate"
+              >f</a
+            >
+            <a
+              class="article-share-icon"
+              [href]="twitterShareHref()"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'BLOG_DETAILS.SHARE_X' | translate"
+              >{{ socialXGlyph }}</a
+            >
+            <a
+              class="article-share-icon"
+              [href]="linkedinShareHref()"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'BLOG_DETAILS.SHARE_LINKEDIN' | translate"
+              >in</a
+            >
+            <button
+              type="button"
+              class="article-share-icon"
+              (click)="copyArticleLink($event)"
+              [attr.aria-label]="'BLOG_DETAILS.COPY_LINK' | translate"
+            >
+              🔗
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    @if (article.image?.url) {
+      <div class="article-hero-wrap">
+        <div class="article-hero-aspect">
+          <div
+            markataImg
+            [seed]="article.image.url"
+            [eager]="true"
+            [highPriority]="true"
+            style="position: absolute; inset: 0;"
+          ></div>
+        </div>
+        @if (article.image_alt || article.image.alt) {
+          <div class="article-hero-credit-wrap">
+            <p class="article-hero-credit">{{ article.image_alt || article.image.alt }}</p>
+          </div>
+        }
+      </div>
+    }
+
+    <div class="article-feature-grid">
+      <aside class="article-rail article-rail--left">
+        @if (headings().length > 0) {
+          <div class="article-toc-section" style="margin-bottom: 2rem;">
+            <h4 class="article-rail-title">{{ lang.t('On this page', 'في هذه الصفحة') }}</h4>
+            <ul class="article-toc" style="list-style: none; padding: 0; margin: 0;">
+              @for (h of headings(); track h.id) {
+                <li style="margin-bottom: 10px;">
+                  <a href="#" (click)="scrollToHeading($event, h.id)" style="font-size: 0.9rem; text-decoration: none; font-weight: 500;">
+                    {{ h.text }}
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        @if (article.brief) {
+          <blockquote class="article-sidebar-quote">
+            <p>{{ article.brief }}</p>
+          </blockquote>
+        }
+        
+        @if (relatedArticles().length > 0) {
+          <div class="article-related-research-section">
+            <h4 class="article-rail-title">{{ lang.t('Related Research', 'أبحاث ذات صلة') }}</h4>
+            <div class="article-related-list">
+              @for (rel of relatedArticles(); track rel.id) {
+                <a [routerLink]="['/', lang.currentLang(), 'article', rel.slug]" class="article-related-card">
+                  <p class="article-related-kind">{{ rel.category?.name || rel.topic?.name }}</p>
+                  <h5>{{ rel.title }}</h5>
+                </a>
+              }
+            </div>
+          </div>
+        }
+      </aside>
+
+      <article class="article-body-col">
+        @if (article.first_paragraph) {
+          <p class="article-body-lede" style="font-size: 1.25rem; line-height: 1.6; font-weight: 500; margin-bottom: 1.5rem; color: var(--color-text-intense);">
+            {{ article.first_paragraph }}
+          </p>
+        }
+        <div class="article-body-html" [innerHTML]="articleBodyHtml()"></div>
+      </article>
+
+      <aside class="article-rail article-rail--right">
+        @if (nextArticles().length > 0) {
+          <div>
+            <h4 class="article-rail-title">{{ 'BLOG_DETAILS.UP_NEXT' | translate }}</h4>
+            <div class="article-up-next-list">
+              @for (nextArt of nextArticles(); track nextArt.id) {
+                <a [routerLink]="['/', lang.currentLang(), 'article', nextArt.slug]" class="article-up-next">
+                  <div class="article-up-next-img">
+                    <div markataImg [seed]="nextArt.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+                  </div>
+                  <h5>{{ nextArt.title }}</h5>
+                </a>
+              }
+            </div>
+          </div>
+        }
+        <div class="article-newsletter-box">
+          <h4 class="article-newsletter-kicker">{{ 'BLOG_DETAILS.NEWSLETTER' | translate }}</h4>
+          <p class="article-newsletter-title">{{ 'BLOG_DETAILS.NEWSLETTER_TITLE' | translate }}</p>
+          <p class="article-newsletter-dek">{{ 'BLOG_DETAILS.NEWSLETTER_DEK' | translate }}</p>
+          <form class="article-newsletter-form" (submit)="$event.preventDefault()">
+            <label class="visually-hidden" for="article-newsletter-email">{{
+              'BLOG_DETAILS.EMAIL_PLACEHOLDER' | translate
+            }}</label>
+            <input
+              id="article-newsletter-email"
+              class="article-newsletter-input"
+              type="email"
+              name="email"
+              autocomplete="email"
+              [placeholder]="'BLOG_DETAILS.EMAIL_PLACEHOLDER' | translate"
+            />
+            <button type="button" class="article-newsletter-btn" style="border: none; display: block; width: 100%; text-align: center; cursor: pointer;">
+              {{ 'BLOG_DETAILS.SUBSCRIBE' | translate }}
+            </button>
+          </form>
+        </div>
+      </aside>
+    </div>
+
+    @if (randomArticles().length > 0) {
+      <section class="article-related-section" aria-labelledby="article-related-heading">
+        <div class="article-related-section__head">
+          <h2 id="article-related-heading" class="article-related-section__title">
+            {{ lang.t('Recommended Articles', 'مقالات مقترحة') }}
+          </h2>
+          <div class="article-related-section__bar" aria-hidden="true"></div>
+        </div>
+        <div class="article-related-section__grid">
+          @for (rand of randomArticles(); track rand.id) {
+            <a [routerLink]="['/', lang.currentLang(), 'article', rand.slug]" class="article-related-tile">
+              @if (rand.image?.url) {
+                <div class="article-related-tile__media">
+                  <div markataImg [seed]="rand.image.url" style="position: absolute; inset: 0;"></div>
+                </div>
+              }
+              <div class="article-related-tile__body">
+                <span class="article-related-tile__cat">{{ rand.category?.name || rand.topic?.name }}</span>
+                <h3 class="article-related-tile__title">{{ rand.title }}</h3>
+                <p class="article-related-tile__dek">{{ rand.short_text }}</p>
+                <span class="article-related-tile__date">
+                  {{ rand.reading_time }} {{ lang.t('min read', 'دقائق للقراءة') }}
+                </span>
+              </div>
+            </a>
+          }
+        </div>
+      </section>
+    }
+
+    <section class="article-related-section">
+      <h2 class="inner-section-heading">{{ 'BLOG_DETAILS.CROSS_READ' | translate }}</h2>
+      <div class="inner-actions inner-actions--subtle">
+        <a [routerLink]="['/', lang.currentLang(), 'home']">{{ 'BLOG_DETAILS.CROSS_READ_1' | translate }}</a>
+        <a [routerLink]="['/', lang.currentLang(), 'home']">{{ 'BLOG_DETAILS.CROSS_READ_2' | translate }}</a>
+      </div>
+    </section>
+
+    <footer class="inner-page-footer inner-prose">
+      <p>
+        <a [routerLink]="['/', lang.currentLang(), 'home']">{{ 'BLOG_DETAILS.BACK_TO_HOME' | translate }}</a>
+      </p>
+    </footer>
+  }
+</main>

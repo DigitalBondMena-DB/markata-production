@@ -7,7 +7,7 @@
         </div>
         <div class="articles-grid">
             @for (art of data().articles; track art.id) {
-            <div class="article-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'blog', art.id]">
+            <div class="article-card markata-click-target" [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
                 <div class="article-card-img">
                     <div markataImg class="img-placeholder" [seed]="art?.image?.url ?? ''"
                         [alt]="art?.image?.alt ?? art.title" style="position: absolute; inset: 0; background: #1a1200">

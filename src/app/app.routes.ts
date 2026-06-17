@@ -46,10 +46,10 @@ export const routes: Routes = [
           import('./featurs/category/category.component').then(m => m.CategoryComponent)
       },
       {
-        path: 'blog/:id',
+        path: 'article/:slug',
         loadComponent: () =>
-          import('./featurs/blog-details/blog-details.component').then(m => m.BlogDetailsComponent)
-      }
+          import('./featurs/article/article.component').then(m => m.ArticleComponent)
+      },
     ]
   },
   {

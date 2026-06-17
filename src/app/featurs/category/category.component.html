@@ -116,7 +116,7 @@
             @if (currentPage() === 1 && !filterVal() && !searchQuery()) {
                 <section class="case-studies-featured-wrap" aria-labelledby="case-studies-featured-title">
                     @let featured = articles()[0];
-                    <a [routerLink]="['/', lang.currentLang(), 'blog', featured.slug]" class="case-studies-featured">
+                    <a [routerLink]="['/', lang.currentLang(), 'article', featured.slug]" class="case-studies-featured">
                         <div class="case-studies-featured__media">
                             <div markataImg [seed]="featured.image?.url ?? ''" [eager]="true"
                                 [highPriority]="true" style="position: absolute; inset: 0;"></div>
@@ -157,7 +157,7 @@
                 [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
                 @for (card of (articles().length > 0 && currentPage() === 1 && !filterVal() && !searchQuery() ? articles().slice(1) : articles()); track card.id) {
                 <article class="case-studies-card">
-                    <a [routerLink]="['/', lang.currentLang(), 'blog', card.slug]" class="case-studies-card__link">
+                    <a [routerLink]="['/', lang.currentLang(), 'article', card.slug]" class="case-studies-card__link">
                         <div class="case-studies-card__media">
                             <div markataImg [seed]="card.image?.url ?? ''"
                                 style="position: absolute; inset: 0;"></div>

@@ -9,7 +9,7 @@
     <div class="cs-grid">
       @for (art of data().articles; track art.id; let i = $index) {
       <div [class]="'cs-card cs-card-' + ((i % 8) + 1) + ' markata-click-target'"
-        [routerLink]="['/', lang.currentLang(), 'blog', art.id]">
+        [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
         <div markataImg class="img-placeholder" [seed]="art?.image?.url ?? ''"
           style="position: absolute; inset: 0; background: #1a1200"></div>
 

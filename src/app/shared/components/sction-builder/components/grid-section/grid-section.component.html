@@ -10,7 +10,7 @@
             <!-- 1. Lead Article -->
             @let lead = data().articles[0];
             <a class="podcast-spotlight-card podcast-spotlight-card--lead"
-                [routerLink]="['/', lang.currentLang(), 'blog', lead.id]">
+                [routerLink]="['/', lang.currentLang(), 'article', lead.slug]">
                 <div class="podcast-spotlight-media">
                     <div markataImg class="img-placeholder" [seed]="lead?.image?.url ?? ''"
                         style="position: absolute; inset: 0" [alt]="lead?.image?.alt ?? ''"></div>
@@ -28,7 +28,7 @@
 
             <!-- 2, 3, 4. Smaller Articles -->
             @for (art of data().articles.slice(1, 4); track art.id) {
-            <a class="podcast-spotlight-card" [routerLink]="['/', lang.currentLang(), 'blog', art.id]">
+            <a class="podcast-spotlight-card" [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
                 <div class="podcast-spotlight-media podcast-spotlight-media--sm">
 
                     <div markataImg class="img-placeholder" [seed]="art?.image?.url ?? ''" [alt]="art?.image?.alt ?? ''"
