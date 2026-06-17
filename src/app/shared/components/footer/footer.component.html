@@ -11,10 +11,11 @@
         </a>
         <p>{{ 'FOOTER.DESC' | translate }}</p>
         <div class="social-links">
-          <a href="https://www.facebook.com/" class="social-link" target="_blank" rel="noopener noreferrer">f</a>
-          <a href="https://x.com/" class="social-link" target="_blank" rel="noopener noreferrer">𝕏</a>
-          <a href="https://www.linkedin.com/" class="social-link" target="_blank" rel="noopener noreferrer">in</a>
-          <a href="https://www.youtube.com/" class="social-link" target="_blank" rel="noopener noreferrer">▶</a>
+          @for (link of socialLinks(); track link.id) {
+            <a [href]="link.url" class="social-link" target="_blank" rel="noopener noreferrer" [title]="link.name">
+              <div markataImg [seed]="link.icon" [alt]="link.name" style="width: 18px; height: 18px; position: relative;"></div>
+            </a>
+          }
         </div>
       </div>
 

@@ -2,110 +2,30 @@
   <div class="container">
     <div class="section-label">
       <h2>{{ 'FOLLOW_OUR_WRITERS.TITLE' | translate }}</h2>
-      <a routerLink="/writers">{{ 'FOLLOW_OUR_WRITERS.SEE_ALL' | translate }}</a>
+      <a [routerLink]="['/', lang.currentLang(), 'writers']">{{ 'FOLLOW_OUR_WRITERS.SEE_ALL' | translate }}</a>
     </div>
+    @if (authors().length > 0) {
     <div class="writers-grid">
-      <!-- Ahmed Al-Rashidi -->
+      @for (author of authors(); track author.id) {
       <div class="writer-card">
-        <div class="writer-avatar">
-          <div
-            markataImg
-            class="img-placeholder"
-            data-img-seed="indexhtml-33-digital-tech"
-            style="position: absolute; inset: 0; background: #1a1200"
-          ></div>
-        </div>
-        <div class="writer-info">
-          <h4>{{ 'FOLLOW_OUR_WRITERS.WRITER1_NAME' | translate }}</h4>
-          <div class="articles-count">{{ 'FOLLOW_OUR_WRITERS.WRITER1_COUNT' | translate }}</div>
-          <p>{{ 'FOLLOW_OUR_WRITERS.WRITER1_BIO' | translate }}</p>
-        </div>
-      </div>
+        <div class="writer-avatar" style="position: relative;">
+          <div markataImg class="img-placeholder" [seed]="author.image?.url ?? ''"
+            [alt]="author.image?.alt ?? author.name"
+            style="position: absolute; inset: 0; background: #1a1200; border-radius: 50%;"></div>
 
-      <!-- Sara Khalil -->
-      <div class="writer-card">
-        <div class="writer-avatar">
-          <div
-            markataImg
-            class="img-placeholder"
-            data-img-seed="indexhtml-34-business-meeting"
-            style="position: absolute; inset: 0; background: #0f1520"
-          ></div>
         </div>
         <div class="writer-info">
-          <h4>{{ 'FOLLOW_OUR_WRITERS.WRITER2_NAME' | translate }}</h4>
-          <div class="articles-count">{{ 'FOLLOW_OUR_WRITERS.WRITER2_COUNT' | translate }}</div>
-          <p>{{ 'FOLLOW_OUR_WRITERS.WRITER2_BIO' | translate }}</p>
+          <h4>{{ author.name }}</h4>
+          @if (author.job_title) {
+          <div class="articles-count">{{ author.job_title }}</div>
+          }
+          @if (author.description) {
+          <p class="line-clamp-6">{{ author.description }}</p>
+          }
         </div>
       </div>
-
-      <!-- Karim Nour -->
-      <div class="writer-card">
-        <div class="writer-avatar">
-          <div
-            markataImg
-            class="img-placeholder"
-            data-img-seed="indexhtml-35-mena-retail"
-            style="position: absolute; inset: 0; background: #1a0f1a"
-          ></div>
-        </div>
-        <div class="writer-info">
-          <h4>{{ 'FOLLOW_OUR_WRITERS.WRITER3_NAME' | translate }}</h4>
-          <div class="articles-count">{{ 'FOLLOW_OUR_WRITERS.WRITER3_COUNT' | translate }}</div>
-          <p>{{ 'FOLLOW_OUR_WRITERS.WRITER3_BIO' | translate }}</p>
-        </div>
-      </div>
-
-      <!-- Nadia Farouk -->
-      <div class="writer-card">
-        <div class="writer-avatar">
-          <div
-            markataImg
-            class="img-placeholder"
-            data-img-seed="indexhtml-36-cairo-studio"
-            style="position: absolute; inset: 0; background: #0f1a0f"
-          ></div>
-        </div>
-        <div class="writer-info">
-          <h4>{{ 'FOLLOW_OUR_WRITERS.WRITER4_NAME' | translate }}</h4>
-          <div class="articles-count">{{ 'FOLLOW_OUR_WRITERS.WRITER4_COUNT' | translate }}</div>
-          <p>{{ 'FOLLOW_OUR_WRITERS.WRITER4_BIO' | translate }}</p>
-        </div>
-      </div>
-
-      <!-- Rania Soliman -->
-      <div class="writer-card">
-        <div class="writer-avatar">
-          <div
-            markataImg
-            class="img-placeholder"
-            data-img-seed="indexhtml-37-gulf-media"
-            style="position: absolute; inset: 0; background: #0f0f1a"
-          ></div>
-        </div>
-        <div class="writer-info">
-          <h4>{{ 'FOLLOW_OUR_WRITERS.WRITER5_NAME' | translate }}</h4>
-          <div class="articles-count">{{ 'FOLLOW_OUR_WRITERS.WRITER5_COUNT' | translate }}</div>
-          <p>{{ 'FOLLOW_OUR_WRITERS.WRITER5_BIO' | translate }}</p>
-        </div>
-      </div>
-
-      <!-- Omar Fathi -->
-      <div class="writer-card">
-        <div class="writer-avatar">
-          <div
-            markataImg
-            class="img-placeholder"
-            data-img-seed="indexhtml-38-luxury-sand"
-            style="position: absolute; inset: 0; background: #1a100f"
-          ></div>
-        </div>
-        <div class="writer-info">
-          <h4>{{ 'FOLLOW_OUR_WRITERS.WRITER6_NAME' | translate }}</h4>
-          <div class="articles-count">{{ 'FOLLOW_OUR_WRITERS.WRITER6_COUNT' | translate }}</div>
-          <p>{{ 'FOLLOW_OUR_WRITERS.WRITER6_BIO' | translate }}</p>
-        </div>
-      </div>
+      }
     </div>
+    }
   </div>
 </section>

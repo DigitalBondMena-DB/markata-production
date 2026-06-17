@@ -1,129 +1,28 @@
-<section id="case-studies" class="case-studies">
+<section [id]="data().slug" class="case-studies">
   <div class="container">
     <div class="section-label">
-      <h2>{{ 'CASE_STUDIES.TITLE' | translate }}</h2>
-      <a routerLink="/case-studies">{{ 'CASE_STUDIES.EXPLORE_ALL' | translate }}</a>
+      <h2>{{ data().name }}</h2>
+      <a [routerLink]="['/', lang.currentLang(), 'category', data().slug]">{{ lang.t('Explore All →', 'استكشاف الكل ←')
+        }}</a>
     </div>
+    @if (data().articles.length > 0) {
     <div class="cs-grid">
-      <!-- Card 1 -->
-      <div class="cs-card cs-card-1 markata-click-target" routerLink="/article">
-        <div
-          markataImg
-          class="img-placeholder"
-          data-img-seed="indexhtml-39-data-viz"
-          style="position: absolute; inset: 0; background: #1a1200"
-        ></div>
-        <div class="cs-card-overlay"></div>
-        <div class="cs-card-content">
-          <span class="cat-pill">{{ 'CASE_STUDIES.CARD1_CATEGORY' | translate }}</span>
-          <h3>{{ 'CASE_STUDIES.CARD1_TITLE' | translate }}</h3>
-        </div>
-      </div>
+      @for (art of data().articles; track art.id; let i = $index) {
+      <div [class]="'cs-card cs-card-' + ((i % 8) + 1) + ' markata-click-target'"
+        [routerLink]="['/', lang.currentLang(), 'blog', art.id]">
+        <div markataImg class="img-placeholder" [seed]="art?.image?.url ?? ''"
+          style="position: absolute; inset: 0; background: #1a1200"></div>
 
-      <!-- Card 2 -->
-      <div class="cs-card cs-card-2 markata-click-target" routerLink="/article">
-        <div
-          markataImg
-          class="img-placeholder"
-          data-img-seed="indexhtml-40-marketing-strategy"
-          style="position: absolute; inset: 0; background: #0f1520"
-        ></div>
         <div class="cs-card-overlay"></div>
         <div class="cs-card-content">
-          <span class="cat-pill">{{ 'CASE_STUDIES.CARD2_CATEGORY' | translate }}</span>
-          <h3>{{ 'CASE_STUDIES.CARD2_TITLE' | translate }}</h3>
+          @if (art.topic) {
+          <span class="cat-pill">{{ art.topic.name }}</span>
+          }
+          <h3>{{ art.title }}</h3>
         </div>
       </div>
-
-      <!-- Card 3 -->
-      <div class="cs-card cs-card-3 markata-click-target" routerLink="/article">
-        <div
-          markataImg
-          class="img-placeholder"
-          data-img-seed="indexhtml-41-brand-design"
-          style="position: absolute; inset: 0; background: #1a0f1a"
-        ></div>
-        <div class="cs-card-overlay"></div>
-        <div class="cs-card-content">
-          <span class="cat-pill">{{ 'CASE_STUDIES.CARD3_CATEGORY' | translate }}</span>
-          <h3>{{ 'CASE_STUDIES.CARD3_TITLE' | translate }}</h3>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="cs-card cs-card-4 markata-click-target" routerLink="/article">
-        <div
-          markataImg
-          class="img-placeholder"
-          data-img-seed="indexhtml-42-creative-agency"
-          style="position: absolute; inset: 0; background: #0f1a0f"
-        ></div>
-        <div class="cs-card-overlay"></div>
-        <div class="cs-card-content">
-          <span class="cat-pill">{{ 'CASE_STUDIES.CARD4_CATEGORY' | translate }}</span>
-          <h3>{{ 'CASE_STUDIES.CARD4_TITLE' | translate }}</h3>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="cs-card cs-card-5 markata-click-target" routerLink="/article">
-        <div
-          markataImg
-          class="img-placeholder"
-          data-img-seed="indexhtml-43-digital-tech"
-          style="position: absolute; inset: 0; background: #0f0f1a"
-        ></div>
-        <div class="cs-card-overlay"></div>
-        <div class="cs-card-content">
-          <span class="cat-pill">{{ 'CASE_STUDIES.CARD5_CATEGORY' | translate }}</span>
-          <h3>{{ 'CASE_STUDIES.CARD5_TITLE' | translate }}</h3>
-        </div>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="cs-card cs-card-6 markata-click-target" routerLink="/article">
-        <div
-          markataImg
-          class="img-placeholder"
-          data-img-seed="indexhtml-44-business-meeting"
-          style="position: absolute; inset: 0; background: #1a1a0f"
-        ></div>
-        <div class="cs-card-overlay"></div>
-        <div class="cs-card-content">
-          <span class="cat-pill">{{ 'CASE_STUDIES.CARD6_CATEGORY' | translate }}</span>
-          <h3>{{ 'CASE_STUDIES.CARD6_TITLE' | translate }}</h3>
-        </div>
-      </div>
-
-      <!-- Card 7 -->
-      <div class="cs-card cs-card-7 markata-click-target" routerLink="/article">
-        <div
-          markataImg
-          class="img-placeholder"
-          data-img-seed="indexhtml-45-mena-retail"
-          style="position: absolute; inset: 0; background: #1a100f"
-        ></div>
-        <div class="cs-card-overlay"></div>
-        <div class="cs-card-content">
-          <span class="cat-pill">{{ 'CASE_STUDIES.CARD7_CATEGORY' | translate }}</span>
-          <h3>{{ 'CASE_STUDIES.CARD7_TITLE' | translate }}</h3>
-        </div>
-      </div>
-
-      <!-- Card 8 -->
-      <div class="cs-card cs-card-8 markata-click-target" routerLink="/article">
-        <div
-          markataImg
-          class="img-placeholder"
-          data-img-seed="indexhtml-46-cairo-studio"
-          style="position: absolute; inset: 0; background: #0a1a1a"
-        ></div>
-        <div class="cs-card-overlay"></div>
-        <div class="cs-card-content">
-          <span class="cat-pill">{{ 'CASE_STUDIES.CARD8_CATEGORY' | translate }}</span>
-          <h3>{{ 'CASE_STUDIES.CARD8_TITLE' | translate }}</h3>
-        </div>
-      </div>
+      }
     </div>
+    }
   </div>
 </section>

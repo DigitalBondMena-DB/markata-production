@@ -1,4 +1,17 @@
-<app-hero-seciton />
-<app-discover-category-section />
-<app-campaign-intelligence-section />
-<app-sction-builder />
+@if (homeResource.isLoading()) {
+  <div class="loading-spinner" style="display: flex; justify-content: center; align-items: center; min-height: 50vh; color: var(--text-color, #fff);">
+    <span>Loading...</span>
+  </div>
+} @else if (homeResource.error()) {
+  <div class="error-container" style="display: flex; justify-content: center; align-items: center; min-height: 50vh; color: var(--error-color, red);">
+    <span>Failed to load content. Please try again.</span>
+  </div>
+} @else {
+  @let data = homeResource.value()?.data;
+  @if (data) {
+    <app-hero-seciton [articles]="data.latest_articles || []" />
+    <app-discover-category-section [categories]="data.categories || []" />
+    <app-campaign-intelligence-section [articles]="data.campaign_intelligence || []" />
+    <app-sction-builder [byDisplayType]="data.by_display_type" [authors]="data.authors || []" />
+  }
+}

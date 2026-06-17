@@ -2,7 +2,7 @@
 <div class="top-bar">
     <div class="top-bar-inner">
         <span class="top-bar-label">{{ 'NAVBAR.BREAKING' | translate }}</span>
-        <span class="top-bar-ticker">{{ lang.currentLang() === 'ar' ? tickerAr : tickerEn }}</span>
+        <span class="top-bar-ticker">{{ tickerText() }}</span>
         <div class="top-bar-links">
             <a [routerLink]="['/', lang.currentLang(), 'news']">{{ 'NAVBAR.NEWS_AND_TRENDS' | translate }}</a>
             <a [routerLink]="['/', lang.currentLang(), 'resources']">{{ 'NAVBAR.RESOURCES' | translate }}</a>
@@ -21,28 +21,12 @@
             </div>
         </a>
         <nav>
-            <a [routerLink]="['/', lang.currentLang(), 'category', 'podcast']" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact">{{
-                'NAVBAR.PODCAST' | translate
-                }}</a>
-            <a [routerLink]="['/', lang.currentLang(), 'category', 'strategy']" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact">{{
-                'NAVBAR.STRATEGY' | translate }}</a>
-            <a [routerLink]="['/', lang.currentLang(), 'category', 'branding']" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact">{{
-                'NAVBAR.BRANDING' | translate }}</a>
-            <a [routerLink]="['/', lang.currentLang(), 'category', 'ai-tech']" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact">{{
-                'NAVBAR.AI_AND_TECH' | translate }}</a>
-            <a [routerLink]="['/', lang.currentLang(), 'case-studies']" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact">{{
-                'NAVBAR.CASE_STUDIES' | translate }}</a>
-            <a [routerLink]="['/', lang.currentLang(), 'category', 'creativity']" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact">{{
-                'NAVBAR.CREATIVITY' | translate }}</a>
-            <a [routerLink]="['/', lang.currentLang(), 'category', 'ramadan']" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact" class="highlight">{{
-                lang.currentLang() === 'ar' ? ramadanAr : ramadanEn }}</a>
+            @for (cat of categories(); track cat.id) {
+              <a [routerLink]="['/', lang.currentLang(), 'category', cat.slug]" routerLinkActive="active"
+                  [routerLinkActiveOptions]="navExact">
+                {{ cat.name }}
+              </a>
+            }
         </nav>
         <div class="header-actions">
             <div class="lang-toggle">
@@ -71,26 +55,12 @@
     <div class="scrolling-topics-inner">
         <span class="topics-label">{{ 'NAVBAR.EXPLORE' | translate }}</span>
         <div class="topics-list">
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'digital-marketing']">{{ 'NAVBAR.DIGITAL_MARKETING' |
-                translate }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'strategy']">{{ 'NAVBAR.BRAND_STRATEGY' |
-                translate }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'consumer-behavior']">{{ 'NAVBAR.CONSUMER_BEHAVIOR' |
-                translate }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'content-marketing']">{{ 'NAVBAR.CONTENT_MARKETING' |
-                translate }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'social-media']">{{ 'NAVBAR.SOCIAL_MEDIA' | translate
-                }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'performance-marketing']">{{ 'NAVBAR.PERFORMANCE_MARKETING'
-                | translate }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'influencer-marketing']">{{ 'NAVBAR.INFLUENCER_MARKETING' |
-                translate }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'ai-tools']">{{ 'NAVBAR.AI_TOOLS' | translate
-                }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'ooh-and-print']">{{ 'NAVBAR.OOH_AND_PRINT' |
-                translate }}</a>
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', 'pr-and-comms']">{{ 'NAVBAR.PR_AND_COMMS' | translate
-                }}</a>
+            @for (topic of topics(); track topic.id) {
+              <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'category', topic.slug]" routerLinkActive="active"
+                  [routerLinkActiveOptions]="navExact">
+                {{ topic.name }}
+              </a>
+            }
         </div>
     </div>
 </div>

@@ -4,8 +4,9 @@ import { provideTranslateService, TranslateService } from "@ngx-translate/core";
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LanguageService } from './core/services/language.service';
-import enTranslations from '../../public/assets/i18n/en.json'
+import enTranslations from '../../public/assets/i18n/en.json';
+import arTranslations from '../../public/assets/i18n/ar.json';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const translate = inject(TranslateService);
       translate.setTranslation('en', enTranslations);
+      translate.setTranslation('ar', arTranslations);
       return translate.use('en');
     }),
     provideTranslateService({

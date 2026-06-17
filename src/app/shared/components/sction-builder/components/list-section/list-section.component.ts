@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
 import { MarkataImgPlaceholderDirective } from '../../../../directives/markata-img-placeholder.directive';
+import { CategoryWithArticles } from '../../../../../core/interfaces/home.interface';
+import { LanguageService } from '../../../../../core/services/language.service';
 
 @Component({
   selector: 'app-list-section',
-  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective],
+  imports: [RouterLink, MarkataImgPlaceholderDirective],
   templateUrl: './list-section.component.html',
   styleUrl: './list-section.component.css',
 })
-export class ListSectionComponent {}
+export class ListSectionComponent {
+  readonly lang = inject(LanguageService);
+  readonly data = input.required<CategoryWithArticles>();
+}
+

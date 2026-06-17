@@ -38,7 +38,8 @@
     border-radius: 50%;
     overflow: hidden;
     border: 1px solid rgba(201, 168, 76, 0.2);
-    position: relative; /* ensure absolute child fills it */
+    position: relative;
+    /* ensure absolute child fills it */
 
     & img {
         width: 100%;
@@ -111,4 +112,11 @@
         grid-template-columns: repeat(6, 1fr);
         gap: 24px;
     }
+}
+
+.line-clamp-6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }

@@ -1,4 +1,9 @@
-<app-card-section />
-<app-follow-our-writers />
-<app-list-section />
-<app-grid-section />
+<div class="builder-section">
+  @for (item of sections(); track item.id || item.type) {
+  @if (item.type === 'writers') {
+  <app-follow-our-writers [authors]="authors()" />
+  } @else {
+  <ng-container *ngComponentOutlet="getComponent(item.type); inputs: { data: item }" />
+  }
+  }
+</div>

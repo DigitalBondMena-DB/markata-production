@@ -1,80 +1,150 @@
 <section id="hero" class="hero">
     <div class="container">
+        @if (articles().length > 0) {
         <div class="hero-grid">
             <!-- 1. Hero Main -->
-            <div class="hero-main markata-click-target" [routerLink]="['/', lang.currentLang(), 'article']">
+            @let main = articles()[0];
+            <div class="hero-main markata-click-target" [routerLink]="['/', lang.currentLang(), 'blog', main.id]">
+                @if (main.image?.url) {
+                <img [src]="main.image.url | imageUrl" [alt]="main.image.alt || main.title"
+                    style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;" loading="eager"
+                    fetchpriority="high" />
+                } @else {
                 <div markataImg class="img-placeholder ph-1" [eager]="true" [highPriority]="true"
-                    data-img-seed="indexhtml-10-marketing-strategy" style="position: absolute; inset: 0"></div>
+                    [seed]="main?.image?.url ?? ''" style="position: absolute; inset: 0"></div>
+                }
                 <div class="hero-main-overlay"></div>
                 <div class="hero-main-content">
-                    <span class="cat-pill">{{ 'HERO.BRAND_STRATEGY' | translate }}</span>
-                    <h1>{{ 'HERO.MAIN_TITLE' | translate }}</h1>
-                    <p>{{ 'HERO.MAIN_DESC' | translate }}</p>
+                    @if (main.topic) {
+                    <span class="cat-pill">{{ main.topic.name }}</span>
+                    }
+                    <h1>{{ main.title }}</h1>
+                    <p>{{ main.short_text }}</p>
                     <div class="hero-meta">
                         <span class="trending-badge">{{ 'HERO.EDITORS_PICK' | translate }}</span>
-                        <span class="read-time">{{ 'HERO.READ_TIME' | translate }}</span>
-                        <span>{{ 'HERO.BY_AUTHOR' | translate }}</span>
+                        <span class="read-time">{{ main.reading_time }} {{ lang.t('min read', 'دقائق قراءة') }}</span>
+                        @if (main.author) {
+                        <span>{{ lang.t('By', 'بقلم') }} {{ main.author.name }}</span>
+                        }
                     </div>
                 </div>
             </div>
 
             <!-- 2. Hero Card 1 (AI Tech) -->
-            <div class="hero-card hero-card-1 markata-click-target" [routerLink]="['/', lang.currentLang(), 'ai-tech']">
-                <div markataImg class="img-placeholder ph-2" data-img-seed="indexhtml-1-brand-design"
+            @if (articles().length > 1) {
+            @let art1 = articles()[1];
+            <div class="hero-card hero-card-1 markata-click-target"
+                [routerLink]="['/', lang.currentLang(), 'blog', art1.id]">
+                @if (art1.image?.url) {
+                <img [src]="art1.image.url | imageUrl" [alt]="art1.image.alt || art1.title"
+                    style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+                    loading="lazy" />
+                } @else {
+                <div markataImg class="img-placeholder ph-2" [seed]="'hero-1-' + art1.id"
                     style="position: absolute; inset: 0"></div>
+                }
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
-                    <span class="cat-pill">{{ 'HERO.AI_TECH' | translate }}</span>
-                    <h3>{{ 'HERO.AI_TECH_TITLE' | translate }}</h3>
+                    @if (art1.topic) {
+                    <span class="cat-pill">{{ art1.topic.name }}</span>
+                    }
+                    <h3>{{ art1.title }}</h3>
                 </div>
             </div>
+            }
 
             <!-- 3. Hero Card 2 (Consumer Insights) -->
+            @if (articles().length > 2) {
+            @let art2 = articles()[2];
             <div class="hero-card hero-card-2 markata-click-target"
-                [routerLink]="['/', lang.currentLang(), 'resources']">
-                <div markataImg class="img-placeholder ph-3" data-img-seed="indexhtml-2-creative-agency"
+                [routerLink]="['/', lang.currentLang(), 'blog', art2.id]">
+                @if (art2.image?.url) {
+                <img [src]="art2.image.url | imageUrl" [alt]="art2.image.alt || art2.title"
+                    style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+                    loading="lazy" />
+                } @else {
+                <div markataImg class="img-placeholder ph-3" [seed]="'hero-2-' + art2.id"
                     style="position: absolute; inset: 0"></div>
+                }
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
-                    <span class="cat-pill">{{ 'HERO.CONSUMER_INSIGHTS' | translate }}</span>
-                    <h3>{{ 'HERO.CONSUMER_INSIGHTS_TITLE' | translate }}</h3>
+                    @if (art2.topic) {
+                    <span class="cat-pill">{{ art2.topic.name }}</span>
+                    }
+                    <h3>{{ art2.title }}</h3>
                 </div>
             </div>
+            }
 
             <!-- 4. Hero Card 3 (Creativity / Why Ads) -->
+            @if (articles().length > 3) {
+            @let art3 = articles()[3];
             <div class="hero-card hero-card-3 markata-click-target"
-                [routerLink]="['/', lang.currentLang(), 'creativity']">
-                <div markataImg class="img-placeholder ph-4" data-img-seed="indexhtml-3-digital-tech"
+                [routerLink]="['/', lang.currentLang(), 'blog', art3.id]">
+                @if (art3.image?.url) {
+                <img [src]="art3.image.url | imageUrl" [alt]="art3.image.alt || art3.title"
+                    style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+                    loading="lazy" />
+                } @else {
+                <div markataImg class="img-placeholder ph-4" [seed]="'hero-3-' + art3.id"
                     style="position: absolute; inset: 0"></div>
+                }
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
-                    <span class="cat-pill">{{ 'HERO.CREATIVITY' | translate }}</span>
-                    <h3>{{ 'HERO.WHY_ADS_TITLE' | translate }}</h3>
+                    @if (art3.topic) {
+                    <span class="cat-pill">{{ art3.topic.name }}</span>
+                    }
+                    <h3>{{ art3.title }}</h3>
                 </div>
             </div>
+            }
 
             <!-- 5. Hero Card 4 (News / Bootstrap vs Funded) -->
-            <div class="hero-card hero-card-4 markata-click-target" [routerLink]="['/', lang.currentLang(), 'news']">
-                <div markataImg class="img-placeholder ph-5" data-img-seed="indexhtml-4-business-meeting"
+            @if (articles().length > 4) {
+            @let art4 = articles()[4];
+            <div class="hero-card hero-card-4 markata-click-target"
+                [routerLink]="['/', lang.currentLang(), 'blog', art4.id]">
+                @if (art4.image?.url) {
+                <img [src]="art4.image.url | imageUrl" [alt]="art4.image.alt || art4.title"
+                    style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+                    loading="lazy" />
+                } @else {
+                <div markataImg class="img-placeholder ph-5" [seed]="'hero-4-' + art4.id"
                     style="position: absolute; inset: 0"></div>
+                }
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
-                    <span class="cat-pill">{{ 'HERO.ENTREPRENEURSHIP' | translate }}</span>
-                    <h3>{{ 'HERO.BOOTSTRAP_VS_FUNDED_TITLE' | translate }}</h3>
+                    @if (art4.topic) {
+                    <span class="cat-pill">{{ art4.topic.name }}</span>
+                    }
+                    <h3>{{ art4.title }}</h3>
                 </div>
             </div>
+            }
 
             <!-- 6. Hero Card 5 (Category / ROAS) -->
+            @if (articles().length > 5) {
+            @let art5 = articles()[5];
             <div class="hero-card hero-card-5 markata-click-target"
-                [routerLink]="['/', lang.currentLang(), 'category']">
-                <div markataImg class="img-placeholder ph-6" data-img-seed="indexhtml-5-mena-retail"
+                [routerLink]="['/', lang.currentLang(), 'blog', art5.id]">
+                @if (art5.image?.url) {
+                <img [src]="art5.image.url | imageUrl" [alt]="art5.image.alt || art5.title"
+                    style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+                    loading="lazy" />
+                } @else {
+                <div markataImg class="img-placeholder ph-6" [seed]="'hero-5-' + art5.id"
                     style="position: absolute; inset: 0"></div>
+                }
                 <div class="hero-card-overlay"></div>
                 <div class="hero-card-content">
-                    <span class="cat-pill">{{ 'HERO.PERFORMANCE' | translate }}</span>
-                    <h3>{{ 'HERO.ROAS_TITLE' | translate }}</h3>
+                    @if (art5.topic) {
+                    <span class="cat-pill">{{ art5.topic.name }}</span>
+                    }
+                    <h3>{{ art5.title }}</h3>
                 </div>
             </div>
+            }
         </div>
+        }
     </div>
 </section>

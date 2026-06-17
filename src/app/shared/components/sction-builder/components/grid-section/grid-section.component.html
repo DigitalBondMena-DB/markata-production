@@ -1,49 +1,46 @@
-<section id="podcast-spotlight" class="podcast-spotlight-section">
+<section [id]="data().slug" class="podcast-spotlight-section">
     <div class="container">
         <div class="section-label">
-            <h2>{{ 'PODCAST_SPOTLIGHT.TITLE' | translate }}</h2>
-            <a routerLink="/podcast" fragment="podcast-feed">{{ 'PODCAST_SPOTLIGHT.ALL_EPISODES' | translate }}</a>
+            <h2>{{ data().name }}</h2>
+            <a [routerLink]="['/', lang.currentLang(), 'category', data().slug]">{{ lang.t('Read All →', 'قراءة الكل ←')
+                }}</a>
         </div>
+        @if (data().articles.length > 0) {
         <div class="podcast-spotlight-grid">
-            <a class="podcast-spotlight-card podcast-spotlight-card--lead" routerLink="/podcast"
-                fragment="podcast-feed">
+            <!-- 1. Lead Article -->
+            @let lead = data().articles[0];
+            <a class="podcast-spotlight-card podcast-spotlight-card--lead"
+                [routerLink]="['/', lang.currentLang(), 'blog', lead.id]">
                 <div class="podcast-spotlight-media">
-                    <div markataImg class="img-placeholder" data-img-seed="markata-home-pod-lead"
-                        style="position: absolute; inset: 0"></div>
-                    <span class="podcast-spotlight-duration">42:15</span>
-                    <span class="podcast-spotlight-play" aria-hidden="true">&#9654;</span>
+                    <div markataImg class="img-placeholder" [seed]="lead?.image?.url ?? ''"
+                        style="position: absolute; inset: 0" [alt]="lead?.image?.alt ?? ''"></div>
+                    <span class="podcast-spotlight-duration">{{ lead.reading_time }} {{ lang.t('min read', 'دقائق
+                        قراءة') }}</span>
                 </div>
                 <div class="podcast-spotlight-body">
-                    <span class="podcast-spotlight-eyebrow">{{ 'PODCAST_SPOTLIGHT.FEATURED_EPISODE' | translate
+                    @if (lead.topic) {
+                    <span class="podcast-spotlight-eyebrow">{{ lead.topic.name }}</span>
+                    }
+                    <h3>{{ lead.title }}</h3>
+                    <p>{{ lead.short_text }}</p>
+                </div>
+            </a>
+
+            <!-- 2, 3, 4. Smaller Articles -->
+            @for (art of data().articles.slice(1, 4); track art.id) {
+            <a class="podcast-spotlight-card" [routerLink]="['/', lang.currentLang(), 'blog', art.id]">
+                <div class="podcast-spotlight-media podcast-spotlight-media--sm">
+
+                    <div markataImg class="img-placeholder" [seed]="art?.image?.url ?? ''" [alt]="art?.image?.alt ?? ''"
+                        style="position: absolute; inset: 0"></div>
+
+                    <span class="podcast-spotlight-duration">{{ art.reading_time }} {{ lang.t('min read', 'دقائق')
                         }}</span>
-                    <h3>{{ 'PODCAST_SPOTLIGHT.LEAD_TITLE' | translate }}</h3>
-                    <p>{{ 'PODCAST_SPOTLIGHT.LEAD_DESC' | translate }}</p>
                 </div>
+                <h4>{{ art.title }}</h4>
             </a>
-            <a class="podcast-spotlight-card" routerLink="/podcast" fragment="podcast-feed">
-                <div class="podcast-spotlight-media podcast-spotlight-media--sm">
-                    <div markataImg class="img-placeholder" data-img-seed="markata-home-pod-2"
-                        style="position: absolute; inset: 0"></div>
-                    <span class="podcast-spotlight-duration">28:04</span>
-                </div>
-                <h4>{{ 'PODCAST_SPOTLIGHT.CARD2_TITLE' | translate }}</h4>
-            </a>
-            <a class="podcast-spotlight-card" routerLink="/podcast" fragment="podcast-feed">
-                <div class="podcast-spotlight-media podcast-spotlight-media--sm">
-                    <div markataImg class="img-placeholder" data-img-seed="markata-home-pod-3"
-                        style="position: absolute; inset: 0"></div>
-                    <span class="podcast-spotlight-duration">35:50</span>
-                </div>
-                <h4>{{ 'PODCAST_SPOTLIGHT.CARD3_TITLE' | translate }}</h4>
-            </a>
-            <a class="podcast-spotlight-card" routerLink="/podcast" fragment="podcast-feed">
-                <div class="podcast-spotlight-media podcast-spotlight-media--sm">
-                    <div markataImg class="img-placeholder" data-img-seed="markata-home-pod-4"
-                        style="position: absolute; inset: 0"></div>
-                    <span class="podcast-spotlight-duration">19:22</span>
-                </div>
-                <h4>{{ 'PODCAST_SPOTLIGHT.CARD4_TITLE' | translate }}</h4>
-            </a>
+            }
         </div>
+        }
     </div>
 </section>

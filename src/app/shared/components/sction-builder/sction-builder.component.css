@@ -1,0 +1,5 @@
+.builder-section ::ng-deep>*:nth-child(even) section {
+    background: var(--off-white);
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
