@@ -1,0 +1,18 @@
+<div class="empty-state-container">
+    <div class="empty-state-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.008 1.24l.885 1.77a2.25 2.25 0 0 0 2.007 1.24h1.98a2.25 2.25 0 0 0 2.007-1.24l.885-1.77a2.25 2.25 0 0 1 2.007-1.24h3.86m-18 0h18a2.25 2.25 0 0 1 2.25 2.25v4.5A2.25 2.25 0 0 1 19.5 21.75h-15a2.25 2.25 0 0 1-2.25-2.25v-4.5a2.25 2.25 0 0 1 2.25-2.25m19.507-10.23-1.077 8.572a2.25 2.25 0 0 1-2.227 1.97H5.06a2.25 2.25 0 0 1-2.227-1.97L1.756 5.52a2.25 2.25 0 0 1 2.227-2.53H20.02a2.25 2.25 0 0 1 2.227 2.53Z" />
+        </svg>
+    </div>
+    @if (title()) {
+        <h3 class="empty-state-title">{{ title() }}</h3>
+    }
+    @if (description()) {
+        <p class="empty-state-desc">{{ description() }}</p>
+    }
+    @if (actionText()) {
+        <button type="button" class="empty-state-btn" (click)="onActionClick()">
+            {{ actionText() }}
+        </button>
+    }
+</div>

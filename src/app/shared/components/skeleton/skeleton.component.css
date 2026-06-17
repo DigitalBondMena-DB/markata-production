@@ -1,0 +1,55 @@
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Base style for skeleton placeholder items */
+:host ::ng-deep .skeleton-item {
+  background-color: var(--color-skeleton-bg, rgba(148, 163, 184, 0.12));
+  border-radius: var(--border-radius-sm, 6px);
+  position: relative;
+  overflow: hidden;
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+/* Hide children visibility inside skeleton elements to prevent overlapping mock text */
+:host ::ng-deep .skeleton-item * {
+  visibility: hidden !important;
+}
+
+/* Shimmer overlay effect */
+:host ::ng-deep .skeleton-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 20%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 2s infinite;
+}

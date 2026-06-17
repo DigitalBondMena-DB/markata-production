@@ -7,13 +7,15 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LanguageService } from '../../core/services/language.service';
 import { SeoService } from '../../shared/services/seo.service';
 import { MarkataImgPlaceholderDirective } from '../../shared/directives/markata-img-placeholder.directive';
+import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.component';
+import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { environment } from '../../../environments/environment';
 import { ApiEndpoints } from '../../core/enums/api-endpoints.enum';
 import { CategoryPageResponse } from '../../core/interfaces/category-page.interface';
 
 @Component({
   selector: 'app-category',
-  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective],
+  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective, SkeletonComponent, EmptyStateComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
 })
