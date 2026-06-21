@@ -375,7 +375,7 @@
   margin-bottom: 1.25rem;
 }
 
-.article-body-lede::first-letter {
+[dir='ltr'] .article-body-lede::first-letter {
   float: left;
   font-size: 3.25rem;
   line-height: 0.85;

@@ -10,6 +10,7 @@ import { EmptyStateComponent } from '../../shared/components/empty-state/empty-s
 import { environment } from '../../../environments/environment';
 import { ArticleDetailsResponse } from '../../core/interfaces/article-page.interface';
 
+
 @Component({
   selector: 'app-article',
   imports: [
@@ -48,7 +49,10 @@ export class ArticleComponent {
   });
 
   // Mapped resource values
-  readonly articleData = computed(() => this.articleResource.value()?.data);
+  readonly articleData = computed(() => {
+    console.log(this.articleResource.value()?.data)
+    return this.articleResource.value()?.data
+  });
   readonly nextArticles = computed(() => this.articleResource.value()?.next_articles ?? []);
   readonly relatedArticles = computed(() => this.articleResource.value()?.related_articles ?? []);
   readonly randomArticles = computed(() => this.articleResource.value()?.random_articles ?? []);
@@ -56,6 +60,7 @@ export class ArticleComponent {
   // Formatted article body HTML (handles both raw HTML and plain text paragraphs)
   readonly articleBodyHtml = computed(() => {
     const bodyText = this.articleData()?.body;
+
     if (!bodyText) return '';
     // Check if it doesn't look like HTML
     if (!/<[a-z][\s\S]*>/i.test(bodyText)) {
@@ -69,8 +74,40 @@ export class ArticleComponent {
     return bodyText;
   });
 
-  // Track parsed headings for Table of Contents (TOC)
-  readonly headings = signal<{ id: string; text: string }[]>([]);
+  // Process the HTML to inject IDs into H2 elements and extract the headings list
+  private readonly processedContent = computed(() => {
+    const rawHtml = this.articleBodyHtml();
+    if (!rawHtml) {
+      return { html: '', headings: [] as { id: string; text: string }[] };
+    }
+
+    const headingsList: { id: string; text: string }[] = [];
+    let headingIndex = 0;
+
+    // Regex to match <h2> tags, capturing attributes and inner content
+    const modifiedHtml = rawHtml.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi, (match, attrs, content) => {
+      headingIndex++;
+      const id = `heading-${headingIndex}`;
+
+      // Extract plain text for the TOC (strip inner HTML tags if any)
+      const text = content.replace(/<[^>]*>/g, '').trim() || `Heading ${headingIndex}`;
+
+      headingsList.push({ id, text });
+
+      // Remove any existing id attribute in the matched tag to avoid duplicates
+      let cleanAttrs = attrs.replace(/\bid\s*=\s*['"][^'"]*['"]/i, '').trim();
+      if (cleanAttrs) {
+        cleanAttrs = ' ' + cleanAttrs;
+      }
+
+      return `<h2 id="${id}"${cleanAttrs}>${content}</h2>`;
+    });
+
+    return { html: modifiedHtml, headings: headingsList };
+  });
+
+  readonly articleBodyHtmlWithIds = computed(() => this.processedContent().html);
+  readonly headings = computed(() => this.processedContent().headings);
 
   // Formatted publication date helper
   readonly formattedDate = computed(() => {
@@ -88,25 +125,34 @@ export class ArticleComponent {
     }
   });
 
-  // Social share link computed helpers (SSR-safe check for window)
+  // Canonical article URL computed dynamically (works perfectly in SSR)
+  readonly articleUrl = computed(() => {
+    const slugVal = this.slug();
+    const langVal = this.lang.currentLang();
+    if (!slugVal) return '';
+    return `${environment.siteUrl}/${langVal}/article/${slugVal}`;
+  });
+
+  // Social share link computed helpers
   readonly facebookShareHref = computed(() => {
     const share = this.articleData()?.share;
     if (share?.facebook) return share.facebook;
-    const url = typeof window !== 'undefined' ? window.location.href : '';
+    const url = this.articleUrl();
     return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
   });
 
   readonly twitterShareHref = computed(() => {
     const share = this.articleData()?.share;
     if (share?.twitter) return share.twitter;
-    const url = typeof window !== 'undefined' ? window.location.href : '';
-    return `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    const url = this.articleUrl();
+    const title = this.articleData()?.title || '';
+    return `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
   });
 
   readonly linkedinShareHref = computed(() => {
     const share = this.articleData()?.share;
     if (share?.linkedin) return share.linkedin;
-    const url = typeof window !== 'undefined' ? window.location.href : '';
+    const url = this.articleUrl();
     return `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
   });
 
@@ -119,43 +165,10 @@ export class ArticleComponent {
       }
     });
 
-    // Detect when content is loaded and parse headings
-    effect(() => {
-      const isLoading = this.articleResource.isLoading();
-      const data = this.articleData();
 
-      if (!isLoading && data) {
-        // Wait for rendering to finish
-        setTimeout(() => {
-          this.parseHeadings();
-        }, 120);
-      }
-    });
   }
 
-  private parseHeadings(): void {
-    if (typeof document === 'undefined') return;
-    const bodyEl = document.querySelector('.article-body-col');
-    if (!bodyEl) return;
 
-    // Collect all h2 elements inside the body
-    const h2Elements = bodyEl.querySelectorAll('h2');
-    const parsedHeadings: { id: string; text: string }[] = [];
-
-    h2Elements.forEach((h2, index) => {
-      let id = h2.id;
-      if (!id) {
-        id = `heading-${index + 1}`;
-        h2.id = id;
-      }
-      parsedHeadings.push({
-        id,
-        text: h2.textContent || h2.innerText || `Heading ${index + 1}`
-      });
-    });
-
-    this.headings.set(parsedHeadings);
-  }
 
   scrollToHeading(event: Event, id: string): void {
     event.preventDefault();
@@ -170,10 +183,18 @@ export class ArticleComponent {
     event.preventDefault();
   }
 
+  readonly copied = signal(false);
+
   copyArticleLink(event: Event): void {
     event.preventDefault();
-    if (typeof window !== 'undefined') {
-      navigator.clipboard.writeText(window.location.href);
+    const url = this.articleUrl();
+    if (url && typeof window !== 'undefined') {
+      navigator.clipboard.writeText(url).then(() => {
+        this.copied.set(true);
+        setTimeout(() => this.copied.set(false), 2000);
+      }).catch(err => {
+        console.error('Failed to copy link: ', err);
+      });
     }
   }
 }

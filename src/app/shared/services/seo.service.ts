@@ -90,7 +90,7 @@ export class SeoService {
     const xDefaultUrl = `${siteUrl}/en${pathSuffix}`; // x-default maps to en
 
     // Set Canonical URL
-    const canonicalUrl = apiCanonicalUrl || `${siteUrl}${cleanPath}`;
+    const canonicalUrl = `${siteUrl}${cleanPath}`;
     let canonicalLink = this.document.querySelector('link[rel="canonical"]');
     if (!canonicalLink) {
       canonicalLink = this.renderer.createElement('link');
