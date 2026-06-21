@@ -9,6 +9,8 @@ import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.com
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { environment } from '../../../environments/environment';
 import { ArticleDetailsResponse } from '../../core/interfaces/article-page.interface';
+import { DatePipe } from '@angular/common';
+import { SocialSharePipe } from '../../shared/pipes/social-share.pipe';
 
 
 @Component({
@@ -18,7 +20,9 @@ import { ArticleDetailsResponse } from '../../core/interfaces/article-page.inter
     TranslatePipe,
     MarkataImgPlaceholderDirective,
     SkeletonComponent,
-    EmptyStateComponent
+    EmptyStateComponent,
+    DatePipe,
+    SocialSharePipe
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
@@ -49,10 +53,9 @@ export class ArticleComponent {
   });
 
   // Mapped resource values
-  readonly articleData = computed(() => {
-    console.log(this.articleResource.value()?.data)
-    return this.articleResource.value()?.data
-  });
+  readonly articleData = computed(() =>
+    this.articleResource.value()?.data
+  );
   readonly nextArticles = computed(() => this.articleResource.value()?.next_articles ?? []);
   readonly relatedArticles = computed(() => this.articleResource.value()?.related_articles ?? []);
   readonly randomArticles = computed(() => this.articleResource.value()?.random_articles ?? []);
@@ -85,7 +88,7 @@ export class ArticleComponent {
     let headingIndex = 0;
 
     // Regex to match <h2> tags, capturing attributes and inner content
-    const modifiedHtml = rawHtml.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi, (match, attrs, content) => {
+    const modifiedHtml = rawHtml.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi, (match: string, attrs: string, content: string) => {
       headingIndex++;
       const id = `heading-${headingIndex}`;
 
@@ -109,21 +112,6 @@ export class ArticleComponent {
   readonly articleBodyHtmlWithIds = computed(() => this.processedContent().html);
   readonly headings = computed(() => this.processedContent().headings);
 
-  // Formatted publication date helper
-  readonly formattedDate = computed(() => {
-    const dateStr = this.articleData()?.published_at;
-    if (!dateStr) return '';
-    try {
-      const date = new Date(dateStr);
-      return date.toLocaleDateString(this.lang.currentLang() === 'ar' ? 'ar-EG' : 'en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-    } catch {
-      return dateStr;
-    }
-  });
 
   // Canonical article URL computed dynamically (works perfectly in SSR)
   readonly articleUrl = computed(() => {
@@ -133,28 +121,7 @@ export class ArticleComponent {
     return `${environment.siteUrl}/${langVal}/article/${slugVal}`;
   });
 
-  // Social share link computed helpers
-  readonly facebookShareHref = computed(() => {
-    const share = this.articleData()?.share;
-    if (share?.facebook) return share.facebook;
-    const url = this.articleUrl();
-    return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-  });
 
-  readonly twitterShareHref = computed(() => {
-    const share = this.articleData()?.share;
-    if (share?.twitter) return share.twitter;
-    const url = this.articleUrl();
-    const title = this.articleData()?.title || '';
-    return `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
-  });
-
-  readonly linkedinShareHref = computed(() => {
-    const share = this.articleData()?.share;
-    if (share?.linkedin) return share.linkedin;
-    const url = this.articleUrl();
-    return `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-  });
 
   constructor() {
     // Sync SEO metadata automatically on resource load

@@ -3,11 +3,10 @@ import { RouterLink } from '@angular/router';
 import { MarkataImgPlaceholderDirective } from '../../../../directives/markata-img-placeholder.directive';
 import { CategoryWithArticles } from '../../../../../core/interfaces/home.interface';
 import { LanguageService } from '../../../../../core/services/language.service';
-import { ImageUrlPipe } from '../../../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-grid-section',
-  imports: [RouterLink, MarkataImgPlaceholderDirective, ImageUrlPipe],
+  imports: [RouterLink, MarkataImgPlaceholderDirective],
   templateUrl: './grid-section.component.html',
   styleUrl: './grid-section.component.css',
 })

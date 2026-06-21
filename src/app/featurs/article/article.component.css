@@ -375,6 +375,8 @@
   margin-bottom: 1.25rem;
 }
 
+.article-read-time {}
+
 [dir='ltr'] .article-body-lede::first-letter {
   float: left;
   font-size: 3.25rem;
