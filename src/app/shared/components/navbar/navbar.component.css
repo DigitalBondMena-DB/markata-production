@@ -39,6 +39,7 @@
 .top-bar-ticker {
     font-size: 11px;
     font-weight: 600;
+    max-width: 850px;
     color: var(--black);
     letter-spacing: 0.5px;
     white-space: nowrap;
@@ -53,7 +54,7 @@
 }
 
 .top-bar-links {
-    margin-left: auto;
+    margin-inline-start: auto;
     display: flex;
     gap: 20px;
 
@@ -128,6 +129,16 @@ header:not(.article-feature-head):not(.inner-page-hero):not(.case-studies-head) 
         &>a {
             text-align: center;
         }
+    }
+
+    .ramadan-btn {
+        color: #000;
+        font-size: .875rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        text-transform: capitalize;
     }
 }
 
@@ -214,9 +225,18 @@ nav {
 
 .header-actions {
     display: flex;
-    align-items: center;
     gap: 16px;
     margin-left: auto;
+
+    button {
+        font-size: .75rem;
+        font-weight: 700;
+    }
+
+    .header-links {
+        display: flex;
+        gap: 16px;
+    }
 
     @media (min-width: 721px) and (max-width: 1200px) {
         margin-left: 0;
@@ -283,12 +303,16 @@ nav {
 
 .icon-btn {
     background: none;
-    border: none;
+    border: 1px solid var(--gold);
+    border-radius: 8px;
     color: #555;
     cursor: pointer;
     font-size: 18px;
-    padding: 4px;
+    width: 35px;
+    height: 35px;
     transition: color 0.2s;
+
+
 
     a& {
         display: inline-flex;

@@ -24,13 +24,12 @@
   </app-skeleton>
   } @else if (!articleData()) {
   <!-- Empty State / Not Found -->
-  <app-empty-state [title]="lang.t('Article Not Found', 'المقال غير موجود')"
-    [description]="lang.t('The article you are looking for might have been removed or is temporarily unavailable.', 'المقال الذي تبحث عنه ربما تم حذفه أو غير متوفر حالياً.')"
-    [actionText]="lang.t('Back to Home', 'العودة للرئيسية')" [routerLink]="['/', lang.currentLang(), 'home']">
+  <app-empty-state [title]="'BLOG_DETAILS.ARTICLE_NOT_FOUND' | translate"
+    [description]="'BLOG_DETAILS.ARTICLE_NOT_FOUND_DESC' | translate"
+    [actionText]="'BLOG_DETAILS.BACK_TO_HOME' | translate" [routerLink]="['/', lang.currentLang(), 'home']">
   </app-empty-state>
   } @else {
   @let article = articleData()!;
-  <!-- Core Article Page Content -->
   <header class="article-feature-head">
     <p class="inner-kicker article-feature-kicker">
       {{ article.category?.name || article.topic?.name }}
@@ -46,7 +45,7 @@
         <div>
           <a href="#" class="article-author-name">{{ article.author.name }}</a>
           <p class="article-author-role">
-            {{ article.reading_time }} {{ lang.t('min read', 'دقائق للقراءة') }}
+            {{article.author.job_title}} • {{ article.reading_time }} {{ 'BLOG_DETAILS.MIN_READ' | translate }}
           </p>
         </div>
       </div>
@@ -56,16 +55,26 @@
           }}</time>
 
         <div class="article-share-icons" [attr.aria-label]="'BLOG_DETAILS.SHARE_SOCIAL' | translate">
-          <a class="article-share-icon" [href]="articleUrl() | socialShare : 'facebook' : article.share?.facebook" target="_blank" rel="noopener noreferrer"
-            [attr.aria-label]="'BLOG_DETAILS.SHARE_FB' | translate"><img src="/assets/icons/facebook.svg" width="14"
-              height="14" class="auto-image" alt="facebook"></a>
-          <a class="article-share-icon" [href]="articleUrl() | socialShare : 'twitter' : article.share?.twitter : article.title" target="_blank" rel="noopener noreferrer"
-            [attr.aria-label]="'BLOG_DETAILS.SHARE_X' | translate">{{ socialXGlyph }}</a>
-          <a class="article-share-icon" [href]="articleUrl() | socialShare : 'linkedin' : article.share?.linkedin" target="_blank" rel="noopener noreferrer"
-            [attr.aria-label]="'BLOG_DETAILS.SHARE_LINKEDIN' | translate">in</a>
+          <a class="article-share-icon" [href]="articleUrl() | socialShare : 'facebook' : article.share?.facebook"
+            target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_FB' | translate"><img
+              src="/assets/icons/facebook.svg" width="14" height="14" class="auto-image" alt="facebook"></a>
+          <a class="article-share-icon"
+            [href]="articleUrl() | socialShare : 'twitter' : article.share?.twitter : article.title" target="_blank"
+            rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_X' | translate"><img
+              src="/assets/icons/x-twitter.svg" width="14" height="14" class="auto-image" alt="x"></a>
+          <a class="article-share-icon" [href]="articleUrl() | socialShare : 'linkedin' : article.share?.linkedin"
+            target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_LINKEDIN' | translate"><img
+              src="/assets/icons/linked-in.svg" width="14" height="14" class="auto-image" alt="linkedin"></a>
           <button type="button" class="article-share-icon" (click)="copyArticleLink($event)" [class.copied]="copied()"
             [attr.aria-label]="'BLOG_DETAILS.COPY_LINK' | translate">
-            {{ copied() ? '✓' : '🔗' }}
+            @if(!copied()){
+            <img src="/assets/icons/link.svg" width="14" height="14" class="auto-image" alt="link">
+            } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="14" height="14">
+              <path fill="#323836"
+                d="M530.8 134.1c14.3 10.4 17.5 30.4 7.1 44.7l-256 352c-5.5 7.6-14 12.3-23.4 13.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l101.5 101.5 234-321.7c10.4-14.3 30.4-17.5 44.7-7.1z" />
+            </svg>
+            }
           </button>
         </div>
       </div>
@@ -90,7 +99,7 @@
     <aside class="article-rail article-rail--left">
       @if (headings().length > 0) {
       <div class="article-toc-section" style="margin-bottom: 2rem;">
-        <h4 class="article-rail-title">{{ lang.t('On this page', 'في هذه الصفحة') }}</h4>
+        <h4 class="article-rail-title">{{ 'BLOG_DETAILS.ON_THIS_PAGE' | translate }}</h4>
         <ul class="article-toc" style="list-style: none; padding: 0; margin: 0;">
           @for (h of headings(); track h.id) {
           <li style="margin-bottom: 10px;">
@@ -107,12 +116,13 @@
       @if (article.brief) {
       <blockquote class="article-sidebar-quote">
         <p>{{ article.brief }}</p>
+        <cite>{{'BLOG_DETAILS.EXECUTIVE_BRIEF' | translate}}</cite>
       </blockquote>
       }
 
       @if (relatedArticles().length > 0) {
       <div class="article-related-research-section">
-        <h4 class="article-rail-title">{{ lang.t('Related Research', 'أبحاث ذات صلة') }}</h4>
+        <h4 class="article-rail-title">{{ 'BLOG_DETAILS.RELATED_RESEARCH' | translate }}</h4>
         <div class="article-related-list">
           @for (rel of relatedArticles(); track rel.id) {
           <a [routerLink]="['/', lang.currentLang(), 'article', rel.slug]" class="article-related-card">
@@ -174,7 +184,7 @@
   <section class="article-related-section" aria-labelledby="article-related-heading">
     <div class="article-related-section__head">
       <h2 id="article-related-heading" class="article-related-section__title">
-        {{ lang.t('Recommended Articles', 'مقالات مقترحة') }}
+        {{ 'BLOG_DETAILS.RECOMMENDED_ARTICLES' | translate }}
       </h2>
       <div class="article-related-section__bar" aria-hidden="true"></div>
     </div>
@@ -191,7 +201,7 @@
           <h3 class="article-related-tile__title">{{ rand.title }}</h3>
           <p class="article-related-tile__dek">{{ rand.short_text }}</p>
           <span class="article-related-tile__date">
-            {{ rand.reading_time }} {{ lang.t('min read', 'دقائق للقراءة') }}
+            {{ rand.reading_time }} {{ 'BLOG_DETAILS.MIN_READ' | translate }}
           </span>
         </div>
       </a>

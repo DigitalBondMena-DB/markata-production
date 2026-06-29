@@ -9,6 +9,9 @@ export interface ImageDetails {
 export interface AuthorDetails {
   id: number;
   name: string;
+  job_title: string;
+  description: string;
+  created_at: string;
   image: {
     url: string | null;
     thumbnail: string | null;
@@ -74,6 +77,7 @@ export interface SimplifiedArticle {
 
 export interface ArticleDetailsResponse {
   data: ArticleDetails;
+  other_slug: string;
   next_articles: SimplifiedArticle[];
   related_articles: SimplifiedArticle[];
   random_articles: SimplifiedArticle[];

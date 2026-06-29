@@ -21,26 +21,39 @@
             </div>
         </a>
         <nav>
-            @for (cat of categories(); track cat.id) {
+            @for (cat of taxonomiesData()?.categories ?? []; track cat.id) {
             <a [routerLink]="['/', lang.currentLang(), 'category', cat.slug]" routerLinkActive="active"
                 [routerLinkActiveOptions]="navExact">
                 {{ cat.name }}
             </a>
             }
+            <a href="#" class="ramadan-btn">
+                <div>
+                    <img src="/assets/icons/star.svg" width="10" height="10" class="auto-image" alt="">
+                </div>
+                {{'NAVBAR.RAMADAN_ADS' | translate}}
+            </a>
+            <app-dropdown [label]="'NAVBAR.MORE' | translate">
+                @for (topic of taxonomiesData()?.topics ?? []; track topic.id) {
+                <a [routerLink]="['/', lang.currentLang(), 'topic', topic.slug]" routerLinkActive="active"
+                    [routerLinkActiveOptions]="navExact">
+                    {{ topic.name }}
+                </a>
+                }
+            </app-dropdown>
         </nav>
+        @let isArabic = lang.currentLang() === 'ar';
         <div class="header-actions">
-            <div class="lang-toggle">
-                <button type="button" [class.active]="lang.currentLang() === 'en'"
-                    (click)="changeLanguage('en')">EN</button>
-                <button type="button" [class.active]="lang.currentLang() === 'ar'"
-                    (click)="changeLanguage('ar')">ع</button>
+            <div class="header-links">
+                <button type="button" class="icon-btn"
+                    (click)="isArabic ? changeLanguage('en') : changeLanguage('ar')">{{isArabic ? 'EN' : 'ع' }}</button>
+                <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'search']" title="Search"><img
+                        src="assets/icons/search-icon.svg" loading="lazy" decoding="async" width="12" height="12"
+                        alt="search button" class="auto-image"></a>
+                <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'bookmarks']" title="Bookmarks"><img
+                        src="assets/icons/heart.svg" loading="lazy" decoding="async" width="12" height="12"
+                        alt="bookmark button" class="auto-image"></a>
             </div>
-            <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'search']" title="Search"><img
-                    src="assets/icons/search-icon.svg" loading="lazy" decoding="async" width="18" height="18"
-                    alt="search button" class="auto-image"></a>
-            <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'bookmarks']" title="Bookmarks"><img
-                    src="assets/icons/bookmark-icon.svg" loading="lazy" decoding="async" width="18" height="18"
-                    alt="bookmark button" class="auto-image"></a>
             <a class="btn-signin" [routerLink]="['/', lang.currentLang(), 'sign-in']">{{ 'NAVBAR.SIGN_IN' | translate
                 }}</a>
         </div>
@@ -49,18 +62,3 @@
 
 <!-- GOLD SHIMMER LINE -->
 <div class="gold-shimmer"></div>
-
-<!-- SCROLLING TOPICS -->
-<div class="scrolling-topics">
-    <div class="scrolling-topics-inner">
-        <span class="topics-label">{{ 'NAVBAR.EXPLORE' | translate }}</span>
-        <div class="topics-list">
-            @for (topic of topics(); track topic.id) {
-            <a class="topic-tag" [routerLink]="['/', lang.currentLang(), 'topic', topic.slug]" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact">
-                {{ topic.name }}
-            </a>
-            }
-        </div>
-    </div>
-</div>

@@ -1,16 +1,18 @@
-import { Component, inject, input, computed, effect, ViewEncapsulation, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, input, computed, effect, ViewEncapsulation, signal, linkedSignal, untracked, DestroyRef, Renderer2 } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { httpResource } from '@angular/common/http';
 import { LanguageService } from '../../core/services/language.service';
+import { ArticleService } from './services/article.service';
 import { SeoService } from '../../shared/services/seo.service';
 import { MarkataImgPlaceholderDirective } from '../../shared/directives/markata-img-placeholder.directive';
 import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { environment } from '../../../environments/environment';
-import { ArticleDetailsResponse } from '../../core/interfaces/article-page.interface';
 import { DatePipe } from '@angular/common';
 import { SocialSharePipe } from '../../shared/pipes/social-share.pipe';
+import { timer } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -29,30 +31,44 @@ import { SocialSharePipe } from '../../shared/pipes/social-share.pipe';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticleComponent {
+  readonly destroyRef = inject(DestroyRef);
   readonly lang = inject(LanguageService);
+  private readonly document = inject(DOCUMENT);
+  private readonly renderer = inject(Renderer2);
   private readonly seoService = inject(SeoService);
+  private readonly articleService = inject(ArticleService);
+  private readonly router = inject(Router);
 
-  readonly socialXGlyph = '𝕏';
-
-  // Slug input binding from Router path parameter
   readonly slug = input<string>();
 
-  // Fetch article data dynamically via httpResource
-  readonly articleResource = httpResource<ArticleDetailsResponse>(() => {
-    const currentSlug = this.slug();
-    const activeLang = this.lang.currentLang();
+  readonly activeHeadingId = signal<string | null>(null);
 
-    if (!currentSlug) return undefined;
-
-    return {
-      url: `${environment.api}articles/${currentSlug}`,
-      headers: {
-        'Accept-Language': activeLang
-      }
-    };
+  readonly loadedLang = linkedSignal({
+    source: this.slug,
+    computation: () => null as string | null
   });
 
-  // Mapped resource values
+  readonly otherSlug = linkedSignal({
+    source: this.slug,
+    computation: () => null as string | null
+  });
+
+  readonly activeSlug = computed(() => {
+    const currentSlug = this.slug();
+    const activeLang = this.lang.currentLang();
+    const loadedLanguage = this.loadedLang();
+    if (loadedLanguage && activeLang !== loadedLanguage) {
+      const translationSlug = untracked(this.otherSlug);
+      if (translationSlug) {
+        return translationSlug;
+      }
+    }
+    return currentSlug;
+  });
+
+  readonly articleResource = this.articleService.getArticle(this.activeSlug);
+
+
   readonly articleData = computed(() =>
     this.articleResource.value()?.data
   );
@@ -77,7 +93,6 @@ export class ArticleComponent {
     return bodyText;
   });
 
-  // Process the HTML to inject IDs into H2 elements and extract the headings list
   private readonly processedContent = computed(() => {
     const rawHtml = this.articleBodyHtml();
     if (!rawHtml) {
@@ -113,7 +128,6 @@ export class ArticleComponent {
   readonly headings = computed(() => this.processedContent().headings);
 
 
-  // Canonical article URL computed dynamically (works perfectly in SSR)
   readonly articleUrl = computed(() => {
     const slugVal = this.slug();
     const langVal = this.lang.currentLang();
@@ -124,30 +138,61 @@ export class ArticleComponent {
 
 
   constructor() {
-    // Sync SEO metadata automatically on resource load
     effect(() => {
       const response = this.articleResource.value();
       if (response?.seo) {
         this.seoService.updateSeo(response.seo);
       }
+      const activeLang = this.lang.currentLang();
+      const loadedLanguage = untracked(this.loadedLang);
+
+      // If active language changed relative to loaded language, redirect to translation slug
+      if (loadedLanguage && activeLang !== loadedLanguage) {
+        const translationSlug = untracked(this.otherSlug);
+        if (translationSlug) {
+          this.router.navigate(['/', activeLang, 'article', translationSlug], { replaceUrl: true });
+          return;
+        }
+      }
+
+      // Track loaded language once response loads successfully
+      if (response) {
+        this.loadedLang.set(activeLang);
+        if (response.other_slug) {
+          this.otherSlug.set(response.other_slug);
+        }
+      }
     });
 
+    // Signal-based DOM interaction for scrolling
+    effect(() => {
+      const headingId = this.activeHeadingId();
+      if (headingId) {
+        try {
+          // Using Renderer2/DOCUMENT to access DOM safely
+          const element = this.renderer.selectRootElement(`#${headingId}`, true);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        } catch (e) {
+          // Fallback if selectRootElement fails or isn't appropriate
+          const fallbackElement = this.document.getElementById(headingId);
+          if (fallbackElement) {
+            fallbackElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
 
+        // Reset the signal so the same heading can be clicked again
+        untracked(() => this.activeHeadingId.set(null));
+      }
+    });
   }
 
 
 
   scrollToHeading(event: Event, id: string): void {
     event.preventDefault();
-    if (typeof document === 'undefined') return;
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  shareStub(event: Event): void {
-    event.preventDefault();
+    this.activeHeadingId.set(id);
   }
 
   readonly copied = signal(false);
@@ -155,10 +200,12 @@ export class ArticleComponent {
   copyArticleLink(event: Event): void {
     event.preventDefault();
     const url = this.articleUrl();
-    if (url && typeof window !== 'undefined') {
-      navigator.clipboard.writeText(url).then(() => {
+    const nav = this.document.defaultView?.navigator;
+
+    if (nav?.clipboard) {
+      nav.clipboard.writeText(url).then(() => {
         this.copied.set(true);
-        setTimeout(() => this.copied.set(false), 2000);
+        timer(2000).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.copied.set(false));
       }).catch(err => {
         console.error('Failed to copy link: ', err);
       });

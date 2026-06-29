@@ -1,31 +1,53 @@
-import { Component, signal, computed, inject, input, effect, linkedSignal } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Component, signal, computed, inject, input, effect, linkedSignal, untracked, ViewEncapsulation } from '@angular/core';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { httpResource } from '@angular/common/http';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LanguageService } from '../../core/services/language.service';
+import { CategoryService } from './services/category.service';
 import { SeoService } from '../../shared/services/seo.service';
 import { MarkataImgPlaceholderDirective } from '../../shared/directives/markata-img-placeholder.directive';
 import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
-import { environment } from '../../../environments/environment';
-import { ApiEndpoints } from '../../core/enums/api-endpoints.enum';
-import { CategoryPageResponse } from '../../core/interfaces/category-page.interface';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-category',
-  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective, SkeletonComponent, EmptyStateComponent],
+  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective, SkeletonComponent, EmptyStateComponent, PaginationComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class CategoryComponent {
   readonly lang = inject(LanguageService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly seoService = inject(SeoService);
+  private readonly categoryService = inject(CategoryService);
 
   // Router binds the :slug parameter automatically
   readonly slug = input<string>('case-studies');
+
+  readonly loadedLang = linkedSignal({
+    source: this.slug,
+    computation: () => null as string | null
+  });
+
+  readonly otherSlug = linkedSignal({
+    source: this.slug,
+    computation: () => null as string | null
+  });
+
+  readonly activeSlug = computed(() => {
+    const currentSlug = this.slug();
+    const activeLang = this.lang.currentLang();
+    const loadedLanguage = this.loadedLang();
+
+    if (loadedLanguage && activeLang !== loadedLanguage) {
+      return undefined;
+    }
+    return currentSlug;
+  });
 
   // Track if we are on the Category route or Topic route
   readonly isCategoryRoute = computed(() => {
@@ -38,10 +60,15 @@ export class CategoryComponent {
     computation: () => ''
   });
 
-  // Page number: reset when slug changes
-  readonly currentPage = linkedSignal({
-    source: this.slug,
-    computation: () => 1
+  // Read query params as a signal
+  readonly routeQueryParams = toSignal(this.route.queryParams, { initialValue: {} });
+
+  // Page number: driven by queryParams for SEO
+  readonly currentPage = computed(() => {
+    const params = this.routeQueryParams() as Record<string, any>;
+    const pageStr: string = params['page'] || '';
+    const page: number = parseInt(pageStr, 10);
+    return isNaN(page) || page < 1 ? 1 : page;
   });
 
   // Search input query
@@ -59,37 +86,13 @@ export class CategoryComponent {
   // Layout view: grid or list
   readonly caseStudiesView = signal<'grid' | 'list'>('grid');
 
-  // Fetch data dynamically using httpResource
-  readonly pageResource = httpResource<CategoryPageResponse>(() => {
-    const isCat = this.isCategoryRoute();
-    const currentSlug = this.slug();
-    const filter = this.filterVal();
-    const query = this.searchQueryDebounced();
-    const pageNum = this.currentPage();
-    const activeLang = this.lang.currentLang();
-
-    const baseEndpoint = isCat 
-      ? `${ApiEndpoints.CATEGORIES}/${currentSlug}` 
-      : `${ApiEndpoints.TOPICS}/${currentSlug}`;
-
-    const params: string[] = [`page=${pageNum}`];
-    if (filter) {
-      if (isCat) {
-        params.push(`topic=${filter}`);
-      } else {
-        params.push(`category=${filter}`);
-      }
-    }
-    if (query) {
-      params.push(`q=${query}`);
-    }
-
-    return {
-      url: `${environment.api}${baseEndpoint}?${params.join('&')}`,
-      headers: {
-        'Accept-Language': activeLang
-      }
-    };
+  // Fetch data dynamically using CategoryService
+  readonly pageResource = this.categoryService.getCategoryPage({
+    isCategoryRoute: () => this.isCategoryRoute(),
+    slug: () => this.activeSlug() || '',
+    filterVal: () => this.filterVal(),
+    searchQueryDebounced: () => this.searchQueryDebounced(),
+    currentPage: () => this.currentPage()
   });
 
   // Computed properties mapping the API response data
@@ -117,43 +120,62 @@ export class CategoryComponent {
       : `Showing ${total} reports`;
   });
 
-  // Pages list helper for pagination
-  readonly pages = computed(() => {
-    const lastPage = this.meta()?.last_page ?? 1;
-    return Array.from({ length: lastPage }, (_, i) => i + 1);
-  });
-
-  // Static strings for template translation
-  readonly csf = {
-    filterLabelEn: 'Filter by:',
-    filterLabelAr: 'تصفية حسب:',
-    viewGridLabelEn: 'Grid view',
-    viewGridLabelAr: 'عرض الشبكة',
-    viewListLabelEn: 'List view',
-    viewListLabelAr: 'عرض القائمة',
-    searchPlaceholderEn: 'Search reports...',
-    searchPlaceholderAr: 'البحث عن التقارير...',
-  };
-
   constructor() {
-    // Sync SEO metadata
+    // Sync SEO metadata and handle language mismatch
     effect(() => {
       const response = this.pageResource.value();
       if (response?.seo) {
         this.seoService.updateSeo(response.seo);
+      }
+
+      const activeLang = this.lang.currentLang();
+      const loadedLanguage = untracked(this.loadedLang);
+
+      // If active language changed relative to loaded language, redirect to translation slug
+      if (loadedLanguage && activeLang !== loadedLanguage) {
+        const translationSlug = untracked(this.otherSlug);
+        if (translationSlug) {
+          const basePath = this.isCategoryRoute() ? 'category' : 'topic';
+          this.router.navigate(['/', activeLang, basePath, translationSlug], { replaceUrl: true });
+          return;
+        }
+      }
+
+      // Track loaded language once response loads successfully
+      if (response) {
+        this.loadedLang.set(activeLang);
+        if (response.data.other_slug) {
+          this.otherSlug.set(response.data.other_slug);
+        }
       }
     });
 
     // Reset currentPage when filterVal changes
     effect(() => {
       this.filterVal();
-      this.currentPage.set(1);
+      untracked(() => {
+        if (this.currentPage() !== 1) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: undefined },
+            queryParamsHandling: 'merge'
+          });
+        }
+      });
     });
 
     // Reset currentPage when search query changes
     effect(() => {
       this.searchQueryDebounced();
-      this.currentPage.set(1);
+      untracked(() => {
+        if (this.currentPage() !== 1) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: undefined },
+            queryParamsHandling: 'merge'
+          });
+        }
+      });
     });
   }
 
@@ -175,11 +197,6 @@ export class CategoryComponent {
   clearCaseStudiesFilters(): void {
     this.filterVal.set('');
     this.searchQuery.set('');
-  }
-
-  changePage(page: number): void {
-    if (page < 1 || page > (this.meta()?.last_page ?? 1)) return;
-    this.currentPage.set(page);
   }
 
   caseStudiesBookmark(event: Event): void {

@@ -1,0 +1,43 @@
+@if (lastPage() > 1) {
+<nav class="case-studies-pagination" [attr.aria-label]="'CATEGORY.PAGINATION' | translate">
+    <!-- Previous Link -->
+    @if (currentPage() === 1) {
+    <span class="case-studies-page-btn" aria-disabled="true" [attr.aria-label]="lang.t('Previous page', 'الصفحة السابقة')">&lsaquo;</span>
+    } @else {
+    <a class="case-studies-page-btn" 
+        [routerLink]="routeConfig()" 
+        [queryParams]="getQueryParams(currentPage() - 1)"
+        [attr.aria-label]="lang.t('Previous page', 'الصفحة السابقة')"
+        queryParamsHandling="merge">&lsaquo;</a>
+    }
+
+    <!-- Pages List -->
+    @for (item of pages(); track $index) {
+        @if (item.type === 'page') {
+            @if (currentPage() === item.value) {
+            <span class="case-studies-page-btn is-current" aria-current="page">{{ item.value }}</span>
+            } @else {
+            <a class="case-studies-page-btn" 
+                [routerLink]="routeConfig()" 
+                [queryParams]="getQueryParams(item.value)"
+                queryParamsHandling="merge">
+                {{ item.value }}
+            </a>
+            }
+        } @else {
+            <span class="case-studies-page-ellipsis" aria-hidden="true">…</span>
+        }
+    }
+    
+    <!-- Next Link -->
+    @if (currentPage() === lastPage()) {
+    <span class="case-studies-page-btn" aria-disabled="true" [attr.aria-label]="lang.t('Next page', 'الصفحة التالية')">&rsaquo;</span>
+    } @else {
+    <a class="case-studies-page-btn" 
+        [routerLink]="routeConfig()" 
+        [queryParams]="getQueryParams(currentPage() + 1)"
+        [attr.aria-label]="lang.t('Next page', 'الصفحة التالية')"
+        queryParamsHandling="merge">&rsaquo;</a>
+    }
+</nav>
+}

@@ -1,5 +1,6 @@
 {
   "NAVBAR": {
+    "RAMADAN_ADS": "Ramadan Ads",
     "BREAKING": "Breaking",
     "NEWS_AND_TRENDS": "News & Trends",
     "RESOURCES": "Resources",
@@ -22,7 +23,8 @@
     "INFLUENCER_MARKETING": "Influencer Marketing",
     "AI_TOOLS": "AI Tools",
     "OOH_AND_PRINT": "OOH & Print",
-    "PR_AND_COMMS": "PR & Comms"
+    "PR_AND_COMMS": "PR & Comms",
+    "MORE": "More"
   },
   "HERO": {
     "EDITORS_PICK": "Editor's Pick"
@@ -77,9 +79,30 @@
     "PDF": "PDF",
     "SAVE_TO_BOOKMARKS": "Save to bookmarks",
     "PAGINATION": "Pagination",
-    "BACK_TO_HOME": "← Back to home"
+    "BACK_TO_HOME": "← Back to home",
+    "CATEGORY_LABEL": "Category",
+    "TOPIC_LABEL": "Topic",
+    "ARTICLES_LABEL": "Articles",
+    "FILTER_BY": "Filter by:",
+    "FILTER_BY_TOPIC": "Filter by Topic",
+    "FILTER_BY_CATEGORY": "Filter by Category",
+    "ALL_TOPICS": "All Topics",
+    "ALL_CATEGORIES": "All Categories",
+    "VIEW_GRID": "Grid view",
+    "VIEW_LIST": "List view",
+    "SEARCH_PLACEHOLDER": "Search reports...",
+    "NO_ARTICLES_CAT": "No articles in this category",
+    "NO_ARTICLES_TOPIC": "No articles in this topic",
+    "NO_ARTICLES_DESC": "Try searching with different keywords or clearing active filters.",
+    "READ_MORE": "Read more",
+    "MIN_READ": "min read"
   },
   "BLOG_DETAILS": {
+    "ARTICLE_NOT_FOUND": "Article Not Found",
+    "ARTICLE_NOT_FOUND_DESC": "The article you are looking for might have been removed or is temporarily unavailable.",
+    "MIN_READ": "min read",
+    "RECOMMENDED_ARTICLES": "Recommended Articles",
+    "EXECUTIVE_BRIEF": "Executive Brief",
     "KICKER": "RAMADAN SPOTLIGHT",
     "TITLE": "Emotion, Memory & the Art of Belonging in Ramadan Campaigns",
     "DEK": "How MENA’s leading brands designed campaigns that bypassed transactional metrics to build deep cultural resonance.",

@@ -3,5 +3,6 @@ export enum ApiEndpoints {
   SOCIAL = 'settings/social',
   TAXONOMIES = 'taxonomies',
   CATEGORIES = 'categories',
-  TOPICS = 'topics'
+  TOPICS = 'topics',
+  ARTICLES = 'articles'
 }

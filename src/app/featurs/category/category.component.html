@@ -4,18 +4,19 @@
         <div class="case-studies-head__row">
             <div class="case-studies-head__titles">
                 <span class="case-studies-archive-kicker">
-                    {{ isCategoryRoute() ? lang.t('Category', 'القسم') : lang.t('Topic', 'الموضوع') }}
+                    {{ (isCategoryRoute() ? 'CATEGORY.CATEGORY_LABEL' : 'CATEGORY.TOPIC_LABEL') | translate }}
                 </span>
                 <h1 class="case-studies-h1">{{ pageTitle() }}</h1>
                 @if (pageData()?.meta_description) {
-                    <p class="case-studies-head__description" style="margin-top: 8px; color: var(--color-muted); max-width: 600px;">
-                        {{ pageData()?.meta_description }}
-                    </p>
+                <p class="case-studies-head__description"
+                    style="margin-top: 8px; color: var(--color-muted); max-width: 600px;">
+                    {{ pageData()?.meta_description }}
+                </p>
                 }
             </div>
             <div class="case-studies-stat">
                 <span class="case-studies-stat__value">{{ meta()?.total ?? 0 }}</span>
-                <span class="case-studies-stat__label">{{ lang.t('Articles', 'مقالات') }}</span>
+                <span class="case-studies-stat__label">{{ 'CATEGORY.ARTICLES_LABEL' | translate }}</span>
             </div>
         </div>
         <div class="case-studies-head__rule" aria-hidden="true"></div>
@@ -24,14 +25,15 @@
     <section class="case-studies-toolbar" [attr.aria-label]="'CATEGORY.FILTERS_AND_VIEW' | translate">
         <div class="case-studies-toolbar__main">
             <div class="case-studies-toolbar__filters">
-                <span class="case-studies-filter-tag">{{ lang.t(csf.filterLabelEn, csf.filterLabelAr) }}</span>
+                <span class="case-studies-filter-tag">{{ 'CATEGORY.FILTER_BY' | translate }}</span>
                 <div class="case-studies-selects case-studies-selects--bar">
                     <select class="case-studies-select case-studies-select--pill" [value]="filterVal()"
                         (change)="onFilterChange($event)"
-                        [attr.aria-label]="isCategoryRoute() ? lang.t('Filter by Topic', 'تصفية حسب الموضوع') : lang.t('Filter by Category', 'تصفية حسب القسم')">
-                        <option value="">{{ isCategoryRoute() ? lang.t('All Topics', 'جميع المواضيع') : lang.t('All Categories', 'جميع الأقسام') }}</option>
+                        [attr.aria-label]="(isCategoryRoute() ? 'CATEGORY.FILTER_BY_TOPIC' : 'CATEGORY.FILTER_BY_CATEGORY') | translate">
+                        <option value="">{{ (isCategoryRoute() ? 'CATEGORY.ALL_TOPICS' : 'CATEGORY.ALL_CATEGORIES') |
+                            translate }}</option>
                         @for (opt of filterOptions(); track opt.id) {
-                            <option [value]="opt.slug">{{ opt.name }}</option>
+                        <option [value]="opt.slug">{{ opt.name }}</option>
                         }
                     </select>
                 </div>
@@ -39,22 +41,21 @@
             <div class="case-studies-view-toggle case-studies-view-toggle--icons" role="group">
                 <button type="button" class="case-studies-view-icon" [class.is-active]="caseStudiesView() === 'grid'"
                     [attr.aria-pressed]="caseStudiesView() === 'grid'" (click)="setCaseStudiesView('grid')"
-                    [attr.aria-label]="lang.t(csf.viewGridLabelEn, csf.viewGridLabelAr)">
+                    [attr.aria-label]="'CATEGORY.VIEW_GRID' | translate">
                     <span class="case-studies-view-icon__grid" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="case-studies-view-icon" [class.is-active]="caseStudiesView() === 'list'"
                     [attr.aria-pressed]="caseStudiesView() === 'list'" (click)="setCaseStudiesView('list')"
-                    [attr.aria-label]="lang.t(csf.viewListLabelEn, csf.viewListLabelAr)">
+                    [attr.aria-label]="'CATEGORY.VIEW_LIST' | translate">
                     <span class="case-studies-view-icon__list" aria-hidden="true"></span>
                 </button>
             </div>
         </div>
         <div class="case-studies-toolbar__secondary">
             <label class="case-studies-search case-studies-search--inline">
-                <span class="visually-hidden">{{ lang.t(csf.searchPlaceholderEn, csf.searchPlaceholderAr) }}</span>
+                <span class="visually-hidden">{{ 'CATEGORY.SEARCH_PLACEHOLDER' | translate }}</span>
                 <input type="search" class="case-studies-search__input" autocomplete="off" [value]="searchQuery()"
-                    (input)="onSearchInput($event)"
-                    [placeholder]="lang.t(csf.searchPlaceholderEn, csf.searchPlaceholderAr)" />
+                    (input)="onSearchInput($event)" [placeholder]="'CATEGORY.SEARCH_PLACEHOLDER' | translate" />
             </label>
             <button type="button" class="case-studies-clear-btn" (click)="clearCaseStudiesFilters()">
                 {{ 'CATEGORY.CLEAR_FILTERS' | translate }}
@@ -64,164 +65,151 @@
     </section>
 
     @if (pageResource.isLoading()) {
-        <!-- Skeleton Loading State -->
-        <app-skeleton>
-            @if (currentPage() === 1 && !filterVal() && !searchQuery()) {
-                <div class="case-studies-featured-wrap">
-                    <div class="case-studies-featured">
-                        <div class="case-studies-featured__media skeleton-item" style="height: 380px;"></div>
-                        <div class="case-studies-featured__body">
-                            <div class="skeleton-item" style="height: 16px; width: 30%; margin-bottom: 12px;"></div>
-                            <div class="skeleton-item" style="height: 32px; width: 85%; margin-bottom: 16px;"></div>
-                            <div class="skeleton-item" style="height: 18px; width: 100%; margin-bottom: 8px;"></div>
-                            <div class="skeleton-item" style="height: 18px; width: 95%; margin-bottom: 24px;"></div>
-                            <div class="case-studies-featured__footer" style="display: flex; gap: 12px; align-items: center;">
-                                <div class="skeleton-item" style="width: 40px; height: 40px; border-radius: 50%;"></div>
-                                <div style="flex-grow: 1;">
-                                    <div class="skeleton-item" style="height: 14px; width: 120px; margin-bottom: 6px;"></div>
-                                    <div class="skeleton-item" style="height: 12px; width: 80px;"></div>
-                                </div>
-                            </div>
+    <!-- Skeleton Loading State -->
+    <app-skeleton>
+        @if (currentPage() === 1 && !filterVal() && !searchQuery()) {
+        <div class="case-studies-featured-wrap">
+            <div class="case-studies-featured">
+                <div class="case-studies-featured__media skeleton-item" style="height: 380px;"></div>
+                <div class="case-studies-featured__body">
+                    <div class="skeleton-item" style="height: 16px; width: 30%; margin-bottom: 12px;"></div>
+                    <div class="skeleton-item" style="height: 32px; width: 85%; margin-bottom: 16px;"></div>
+                    <div class="skeleton-item" style="height: 18px; width: 100%; margin-bottom: 8px;"></div>
+                    <div class="skeleton-item" style="height: 18px; width: 95%; margin-bottom: 24px;"></div>
+                    <div class="case-studies-featured__footer" style="display: flex; gap: 12px; align-items: center;">
+                        <div class="skeleton-item" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                        <div style="flex-grow: 1;">
+                            <div class="skeleton-item" style="height: 14px; width: 120px; margin-bottom: 6px;"></div>
+                            <div class="skeleton-item" style="height: 12px; width: 80px;"></div>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
+        </div>
+        }
 
-            <div class="case-studies-grid" [class.case-studies-grid--list]="caseStudiesView() === 'list'">
-                @for (i of [1, 2, 3, 4, 5, 6]; track i) {
-                    <article class="case-studies-card">
-                        <div class="case-studies-card__media skeleton-item" style="height: 220px;"></div>
-                        <div class="case-studies-card__text">
-                            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-                                <div class="skeleton-item" style="height: 14px; width: 80px;"></div>
-                                <div class="skeleton-item" style="height: 14px; width: 60px;"></div>
-                            </div>
-                            <div class="skeleton-item" style="height: 22px; width: 90%; margin-bottom: 12px;"></div>
-                            <div class="skeleton-item" style="height: 16px; width: 100%; margin-bottom: 6px;"></div>
-                            <div class="skeleton-item" style="height: 16px; width: 75%;"></div>
-                        </div>
-                    </article>
+        <div class="case-studies-grid" [class.case-studies-grid--list]="caseStudiesView() === 'list'">
+            @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+            <article class="case-studies-card">
+                <div class="case-studies-card__media skeleton-item" style="height: 220px;"></div>
+                <div class="case-studies-card__text">
+                    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                        <div class="skeleton-item" style="height: 14px; width: 80px;"></div>
+                        <div class="skeleton-item" style="height: 14px; width: 60px;"></div>
+                    </div>
+                    <div class="skeleton-item" style="height: 22px; width: 90%; margin-bottom: 12px;"></div>
+                    <div class="skeleton-item" style="height: 16px; width: 100%; margin-bottom: 6px;"></div>
+                    <div class="skeleton-item" style="height: 16px; width: 75%;"></div>
+                </div>
+            </article>
+            }
+        </div>
+    </app-skeleton>
+    } @else {
+    @if (articles().length === 0) {
+    <app-empty-state
+        [title]="(isCategoryRoute() ? 'CATEGORY.NO_ARTICLES_CAT' : 'CATEGORY.NO_ARTICLES_TOPIC') | translate"
+        [description]="'CATEGORY.NO_ARTICLES_DESC' | translate" [actionText]="'CATEGORY.CLEAR_FILTERS' | translate"
+        (actionClick)="clearCaseStudiesFilters()">
+    </app-empty-state>
+    } @else {
+    @if (currentPage() === 1 && !filterVal() && !searchQuery()) {
+    <section class="case-studies-featured-wrap" aria-labelledby="case-studies-featured-title">
+        @let featured = articles()[0];
+        <a [routerLink]="['/', lang.currentLang(), 'article', featured.slug]" class="case-studies-featured">
+            <div class="case-studies-featured__media">
+                <div markataImg [seed]="featured.image?.url ?? ''" [eager]="true" [highPriority]="true"
+                    style="position: absolute; inset: 0;"></div>
+                @if (featured.topic) {
+                <div class="case-studies-featured__badges">
+                    <span class="case-studies-badge case-studies-badge--featured">{{ featured.topic.name }}</span>
+                </div>
                 }
             </div>
-        </app-skeleton>
-    } @else {
-        @if (articles().length === 0) {
-            <app-empty-state
-                [title]="isCategoryRoute() ? lang.t('No articles in this category', 'لا توجد مقالات في هذا القسم') : lang.t('No articles in this topic', 'لا توجد مقالات في هذا الموضوع')"
-                [description]="lang.t('Try searching with different keywords or clearing active filters.', 'حاول البحث بكلمات مختلفة أو مسح عوامل التصفية النشطة.')"
-                [actionText]="lang.t('Clear Filters', 'مسح التصفية')"
-                (actionClick)="clearCaseStudiesFilters()">
-            </app-empty-state>
-        } @else {
-            @if (currentPage() === 1 && !filterVal() && !searchQuery()) {
-                <section class="case-studies-featured-wrap" aria-labelledby="case-studies-featured-title">
-                    @let featured = articles()[0];
-                    <a [routerLink]="['/', lang.currentLang(), 'article', featured.slug]" class="case-studies-featured">
-                        <div class="case-studies-featured__media">
-                            <div markataImg [seed]="featured.image?.url ?? ''" [eager]="true"
-                                [highPriority]="true" style="position: absolute; inset: 0;"></div>
-                            @if (featured.topic) {
-                            <div class="case-studies-featured__badges">
-                                <span class="case-studies-badge case-studies-badge--featured">{{ featured.topic.name }}</span>
-                            </div>
-                            }
-                        </div>
-                        <div class="case-studies-featured__body">
-                            @if (featured.topic) {
-                            <p class="case-studies-featured__kicker">{{ featured.topic.name }}</p>
-                            }
-                            <h2 id="case-studies-featured-title" class="case-studies-featured__title">
-                                {{ featured.title }}
-                            </h2>
-                            <p class="case-studies-featured__dek">{{ featured.short_text }}</p>
-                            <div class="case-studies-featured__footer">
-                                @if (featured.author) {
-                                <div class="case-studies-featured__author">
-                                    <div class="case-studies-author-avatar">
-                                        <div markataImg [seed]="featured.author.image?.url ?? ''"
-                                            style="position: absolute; inset: 0;"></div>
-                                    </div>
-                                    <div>
-                                        <p class="case-studies-author-name">{{ featured.author.name }}</p>
-                                    </div>
-                                </div>
-                                }
-                                <span class="case-studies-featured__cta">{{ lang.t('Read more', 'اقرأ المزيد') }} →</span>
-                            </div>
-                        </div>
-                    </a>
-                </section>
-            }
-
-            <section class="case-studies-grid" [class.case-studies-grid--list]="caseStudiesView() === 'list'"
-                [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
-                @for (card of (articles().length > 0 && currentPage() === 1 && !filterVal() && !searchQuery() ? articles().slice(1) : articles()); track card.id) {
-                <article class="case-studies-card">
-                    <a [routerLink]="['/', lang.currentLang(), 'article', card.slug]" class="case-studies-card__link">
-                        <div class="case-studies-card__media">
-                            <div markataImg [seed]="card.image?.url ?? ''"
+            <div class="case-studies-featured__body">
+                @if (featured.topic) {
+                <p class="case-studies-featured__kicker">{{ featured.topic.name }}</p>
+                }
+                <h2 id="case-studies-featured-title" class="case-studies-featured__title">
+                    {{ featured.title }}
+                </h2>
+                <p class="case-studies-featured__dek">{{ featured.short_text }}</p>
+                <div class="case-studies-featured__footer">
+                    @if (featured.author) {
+                    <div class="case-studies-featured__author">
+                        <div class="case-studies-author-avatar">
+                            <div markataImg [seed]="featured.author.image?.url ?? ''"
                                 style="position: absolute; inset: 0;"></div>
-
-                            <span class="case-studies-card__shine" aria-hidden="true"></span>
                         </div>
-                        <div class="case-studies-card__text">
-                            <div class="case-studies-card__meta">
-                                @if (card.topic) {
-                                    <span class="case-studies-card__topic">{{ card.topic.name }}</span>
-                                    <span class="case-studies-card__dot">·</span>
-                                }
-                                <span class="case-studies-card__time">
-                                    {{ card.reading_time }} {{ lang.t('min read', 'دقائق للقراءة') }}
-                                </span>
-                            </div>
-                            <h3 class="case-studies-card__title">{{ card.title }}</h3>
-                            <p class="case-studies-card__dek">{{ card.short_text }}</p>
+                        <div>
+                            <p class="case-studies-author-name">{{ featured.author.name }}</p>
                         </div>
-                    </a>
-                    <div class="case-studies-card__foot">
-                        @if (card.author) {
-                            <div class="case-studies-card__author" style="display: flex; align-items: center; gap: 8px;">
-                                <div class="case-studies-author-avatar" style="width: 24px; height: 24px; border-radius: 50%; overflow: hidden; position: relative;">
-                                    <div markataImg [seed]="card.author.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
-                                </div>
-                                <span class="case-studies-author-name" style="font-size: 0.85rem; color: var(--color-muted);">{{ card.author.name }}</span>
-                            </div>
-                        }
-                        <button type="button" class="case-studies-card__bookmark" (click)="caseStudiesBookmark($event)"
-                            [attr.aria-label]="'CATEGORY.SAVE_TO_BOOKMARKS' | translate">
-                            <svg class="case-studies-card__bookmark-svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M6 4h12v16l-6-4-6 4V4z" stroke-linejoin="round" />
-                            </svg>
-                        </button>
                     </div>
-                </article>
-                }
-            </section>
-
-            @if (meta() && (meta()?.last_page ?? 1) > 1) {
-            <nav class="case-studies-pagination" [attr.aria-label]="'CATEGORY.PAGINATION' | translate">
-                <button type="button" class="case-studies-page-btn" 
-                    [disabled]="currentPage() === 1" 
-                    (click)="changePage(currentPage() - 1)">&lsaquo;</button>
-                    
-                @for (page of pages(); track page) {
-                    <button type="button" class="case-studies-page-btn" 
-                        [class.is-current]="currentPage() === page"
-                        [attr.aria-current]="currentPage() === page ? 'page' : null"
-                        (click)="changePage(page)">
-                        {{ page }}
-                    </button>
-                }
-                
-                <button type="button" class="case-studies-page-btn" 
-                    [disabled]="currentPage() === (meta()?.last_page ?? 1)" 
-                    (click)="changePage(currentPage() + 1)">&rsaquo;</button>
-            </nav>
-            }
-        }
+                    }
+                    <span class="case-studies-featured__cta">{{ 'CATEGORY.READ_MORE' | translate }} →</span>
+                </div>
+            </div>
+        </a>
+    </section>
     }
 
+    <section class="case-studies-grid" [class.case-studies-grid--list]="caseStudiesView() === 'list'"
+        [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
+        @for (card of (articles().length > 0 && currentPage() === 1 && !filterVal() && !searchQuery() ?
+        articles().slice(1) : articles()); track card.id) {
+        <article class="case-studies-card">
+            <a [routerLink]="['/', lang.currentLang(), 'article', card.slug]" class="case-studies-card__link">
+                <div class="case-studies-card__media">
+                    <div markataImg [seed]="card.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+
+                    <span class="case-studies-card__shine" aria-hidden="true"></span>
+                </div>
+                <div class="case-studies-card__text">
+                    <div class="case-studies-card__meta">
+                        @if (card.topic) {
+                        <span class="case-studies-card__topic">{{ card.topic.name }}</span>
+                        <span class="case-studies-card__dot">·</span>
+                        }
+                        <span class="case-studies-card__time">
+                            {{ card.reading_time }} {{ 'CATEGORY.MIN_READ' | translate }}
+                        </span>
+                    </div>
+                    <h3 class="case-studies-card__title">{{ card.title }}</h3>
+                    <p class="case-studies-card__dek">{{ card.short_text }}</p>
+                </div>
+            </a>
+            <div class="case-studies-card__foot">
+                @if (card.author) {
+                <div class="case-studies-card__author" style="display: flex; align-items: center; gap: 8px;">
+                    <div class="case-studies-author-avatar"
+                        style="width: 24px; height: 24px; border-radius: 50%; overflow: hidden; position: relative;">
+                        <div markataImg [seed]="card.author.image?.url ?? ''" style="position: absolute; inset: 0;">
+                        </div>
+                    </div>
+                    <span class="case-studies-author-name" style="font-size: 0.85rem; color: var(--color-muted);">{{
+                        card.author.name }}</span>
+                </div>
+                }
+                <button type="button" class="case-studies-card__bookmark" (click)="caseStudiesBookmark($event)"
+                    [attr.aria-label]="'CATEGORY.SAVE_TO_BOOKMARKS' | translate">
+                    <svg class="case-studies-card__bookmark-svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M6 4h12v16l-6-4-6 4V4z" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </article>
+        }
+    </section>
+
+    @if (meta() && (meta()?.last_page ?? 1) > 1) {
+    <app-pagination [currentPage]="currentPage()" [lastPage]="meta()?.last_page ?? 1"
+        [routeConfig]="['/', lang.currentLang(), isCategoryRoute() ? 'category' : 'topic', activeSlug() || slug()]"
+        [queryParams]="routeQueryParams()">
+    </app-pagination>
+    }
+    }
+    }
     <footer class="inner-page-footer inner-prose">
         <p>
             <a [routerLink]="['/', lang.currentLang(), 'home']">{{ 'CATEGORY.BACK_TO_HOME' | translate }}</a>

@@ -2,6 +2,7 @@ import { Article, SeoData, Topic, Category } from './home.interface';
 
 export interface CategoryPageData {
   id: number;
+  other_slug?: string;
   name: string;
   slug: string;
   meta_title: string;
@@ -43,4 +44,5 @@ export interface CategoryPageResponse {
   meta: {
     locale: string;
   };
+
 }

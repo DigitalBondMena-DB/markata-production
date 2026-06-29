@@ -4,10 +4,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../core/services/language.service';
 import { NavbarService } from './services/navbar.service';
 import { BreakingNewsItem } from '../../../core/interfaces/taxonomies.interface';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive, TranslatePipe],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe, DropdownComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -16,25 +17,16 @@ export class NavbarComponent {
   private readonly router = inject(Router);
   private readonly navbarService = inject(NavbarService);
 
-  // Router Options
   readonly navExact = { exact: true };
 
-  // Fallback Ticker Strings
-  readonly tickerEn = 'Exciting updates coming soon to Markata! Stay tuned.';
-  readonly tickerAr = 'تحديثات مثيرة قادمة قريباً إلى ماركاتا! تابعونا.';
-
-  // Ramadan special tab text
-  readonly ramadanEn = 'Ramadan Edition';
-  readonly ramadanAr = 'نسخة رمضان';
-
-  readonly categories = computed(() => this.navbarService.taxonomiesResource.value()?.data?.categories ?? []);
-  readonly topics = computed(() => this.navbarService.taxonomiesResource.value()?.data?.topics ?? []);
-  readonly breakingNews = computed<BreakingNewsItem[]>(() => this.navbarService.taxonomiesResource.value()?.data?.breaking_news ?? []);
+  readonly tickerFallbackEn = 'Exciting updates coming soon to Markata! Stay tuned.';
+  readonly tickerFallbackAr = 'تحديثات مثيرة قادمة قريباً إلى ماركاتا! تابعونا.';
+  readonly taxonomiesData = computed(() => this.navbarService.taxonomiesResource.value()?.data ?? null);
 
   readonly tickerText = computed(() => {
-    const news = this.breakingNews();
+    const news = this.taxonomiesData()?.breaking_news ?? [];
     if (news.length === 0) {
-      return this.lang.currentLang() === 'ar' ? this.tickerAr : this.tickerEn;
+      return this.lang.currentLang() === 'ar' ? this.tickerFallbackAr : this.tickerFallbackEn;
     }
     return news.map((item: BreakingNewsItem) => item.title).join(' • ');
   });

@@ -1,0 +1,233 @@
+:host {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-trigger {
+  background: none;
+  border: none;
+  font-family: var(--font-body), sans-serif;
+  font-size: clamp(.625rem, .5vw, .75rem);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #444;
+  padding: .5rem .75rem;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.dropdown-trigger:hover,
+.dropdown-trigger[aria-expanded="true"] {
+  color: var(--gold);
+}
+
+.chevron-icon {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.chevron-icon.open {
+  transform: rotate(180deg);
+}
+
+/* Desktop Styles */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  min-width: 220px;
+  z-index: 1010;
+  padding: 8px;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* RTL / LTR Alignment Support */
+:host-context([dir="rtl"]) .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+:host-context([dir="ltr"]) .dropdown-menu {
+  left: 0;
+  right: auto;
+}
+
+@keyframes slideDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Projected items standard styles */
+:host ::ng-deep a,
+:host ::ng-deep button,
+:host ::ng-deep .dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: #444;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep a:hover,
+:host ::ng-deep button:hover,
+:host ::ng-deep .dropdown-item:hover {
+  background: rgba(201, 168, 76, 0.08);
+  color: var(--gold);
+}
+
+:host ::ng-deep a.active {
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Mobile Styles */
+.dropdown-overlay {
+  display: none;
+}
+
+.mobile-header {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .dropdown-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2000;
+  }
+
+  .dropdown-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 75vh;
+    background: var(--white, #fff);
+    border: none;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+    z-index: 2001;
+    padding: 24px 20px 32px;
+    transform: translateY(100%);
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    opacity: 1;
+  }
+
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+    & h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black, #000);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .close-btn {
+      background: rgba(0, 0, 0, 0.04);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.08);
+        color: var(--black);
+      }
+    }
+  }
+
+  .dropdown-content {
+    overflow-y: auto;
+    max-height: calc(75vh - 100px);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+
+  :host ::ng-deep a,
+  :host ::ng-deep button,
+  :host ::ng-deep .dropdown-item {
+    padding: 12px 10px;
+    font-size: 13px;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    text-align: center;
+    background: #fbfbfa;
+  }
+
+  :host ::ng-deep a:hover,
+  :host ::ng-deep button:hover,
+  :host ::ng-deep .dropdown-item:hover {
+    border-color: rgba(201, 168, 76, 0.3);
+    background: rgba(201, 168, 76, 0.04);
+  }
+
+  :host ::ng-deep a.active {
+    border-color: rgba(201, 168, 76, 0.5);
+    background: rgba(201, 168, 76, 0.08);
+  }
+
+  @keyframes slideUp {
+    to {
+      transform: translateY(0);
+    }
+  }
+}
