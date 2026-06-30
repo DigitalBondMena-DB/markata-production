@@ -1,0 +1,32 @@
+@if (badge()) {
+<!-- Top Badge -->
+<div class="badge-wrapper">
+  <span class="signin-badge">{{ badge() }}</span>
+</div>
+}
+
+@if (title()) {
+<!-- Title -->
+<h1 class="signin-title">{{ title() }}</h1>
+}
+
+@if (subtitle()) {
+<!-- Subtitle -->
+<p class="signin-subtitle">
+  {{ subtitle() }}
+</p>
+}
+
+@if (image()) {
+<!-- Workspace Image -->
+<div class="image-wrapper">
+  <img [src]="image()" [alt]="title()" class="workspace-img img-placeholder" />
+</div>
+}
+
+@if (description()) {
+<!-- Warning / Privacy Policy description -->
+<p class="privacy-notice">
+  {{ description() }}
+</p>
+}

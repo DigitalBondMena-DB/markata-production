@@ -1,0 +1,262 @@
+.signin-container {
+  min-height: 100vh;
+  background-color: var(--white);
+  padding: 40px 24px;
+}
+
+.form-wrapper {
+  max-width: 420px;
+}
+
+/* Form Styles */
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: start;
+}
+
+.form-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 14px 14px 44px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  outline: none;
+  background-color: var(--white);
+  color: var(--black);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.form-input.input-error {
+  border-color: #dc2626;
+}
+
+.form-input.input-error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.password-toggle:hover {
+  color: var(--black);
+}
+
+.error-list {
+  list-style: none;
+  position: absolute;
+  inset-inline-start: 0;
+  top: calc(100% + 4px);
+  font-size: .75rem;
+  color: #dc2626;
+}
+
+/* Options (Remember me & Forgot password) */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  color: var(--black);
+  font-weight: 500;
+  user-select: none;
+}
+
+.forgot-link {
+  color: var(--gold-dark);
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.forgot-link:hover {
+  color: var(--black);
+}
+
+/* Submit Button */
+.submit-btn {
+  background-color: var(--gold-dark);
+  color: var(--black);
+  border: none;
+  border-radius: 6px;
+  padding: 16px;
+  font-family: var(--font-body);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+  text-transform: uppercase;
+}
+
+.submit-btn:hover {
+  background-color: var(--gold);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Bottom Card */
+.contributor-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 8px;
+  background-color: rgba(201, 168, 76, 0.03);
+  text-decoration: none;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.contributor-card:hover {
+  border-color: var(--gold);
+  background-color: rgba(201, 168, 76, 0.06);
+}
+
+.card-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: start;
+}
+
+.avatar-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(201, 168, 76, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-dark);
+  flex-shrink: 0;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.card-sub {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.card-arrow {
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.contributor-card:hover .card-arrow {
+  transform: translateX(4px);
+}
+
+/* RTL Styles */
+html[dir="rtl"] {
+
+  .form-label,
+  .form-input,
+  .checkbox-label,
+  .forgot-link,
+  .submit-btn,
+  .card-title,
+  .card-sub {
+    font-family: var(--font-ar);
+  }
+
+  .form-group,
+  .card-left {
+    text-align: right;
+  }
+
+  .input-icon {
+    left: auto;
+    right: 14px;
+  }
+
+  .form-input {
+    padding: 14px 44px 14px 14px;
+  }
+
+  .password-toggle {
+    right: auto;
+    left: 14px;
+  }
+
+  .contributor-card:hover .card-arrow {
+    transform: translateX(-4px);
+  }
+
+  .card-arrow svg {
+    transform: rotate(180deg);
+  }
+}

@@ -1,12 +1,10 @@
-<section id="newsletter" class="newsletter">
-    <div class="container">
-        <div class="newsletter-box">
-            <h2 [innerHTML]="'NEWSLETTER.TITLE' | translate: { weekly: ('NEWSLETTER.WEEKLY' | translate) }"></h2>
-            <p>{{ 'NEWSLETTER.DESC' | translate }}</p>
-            <form class="newsletter-form" (submit)="$event.preventDefault()">
-                <input type="email" required [placeholder]="'NEWSLETTER.PLACEHOLDER' | translate" />
-                <button type="submit">{{ 'NEWSLETTER.BUTTON' | translate }}</button>
-            </form>
-        </div>
+<div id="newsletter" class="newsletter">
+    <div class="newsletter-box">
+        <p>{{'NEWSLETTER.TITLE' | translate}}</p>
+        <form class="newsletter-form" (submit)="$event.preventDefault()">
+            <label for="email" class="sr-only">{{'NEWSLETTER.EMAIL' | translate}}</label>
+            <input id="email" type="email" required [placeholder]="'NEWSLETTER.PLACEHOLDER' | translate" />
+            <button type="submit">{{ 'NEWSLETTER.BUTTON' | translate }}</button>
+        </form>
     </div>
-</section>
+</div>

@@ -976,17 +976,7 @@ article.case-studies-card {
     color: var(--black);
 }
 
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
+
 
 .case-studies-toolbar {
     padding: 1.25rem 0 1rem;

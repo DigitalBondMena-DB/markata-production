@@ -53,7 +53,7 @@
         </div>
         <div class="case-studies-toolbar__secondary">
             <label class="case-studies-search case-studies-search--inline">
-                <span class="visually-hidden">{{ 'CATEGORY.SEARCH_PLACEHOLDER' | translate }}</span>
+                <span class="sr-only">{{ 'CATEGORY.SEARCH_PLACEHOLDER' | translate }}</span>
                 <input type="search" class="case-studies-search__input" autocomplete="off" [value]="searchQuery()"
                     (input)="onSearchInput($event)" [placeholder]="'CATEGORY.SEARCH_PLACEHOLDER' | translate" />
             </label>
@@ -65,7 +65,6 @@
     </section>
 
     @if (pageResource.isLoading()) {
-    <!-- Skeleton Loading State -->
     <app-skeleton>
         @if (currentPage() === 1 && !filterVal() && !searchQuery()) {
         <div class="case-studies-featured-wrap">

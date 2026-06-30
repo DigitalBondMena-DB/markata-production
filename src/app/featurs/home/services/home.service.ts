@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { httpResource } from '@angular/common/http';
-import { LanguageService } from './language.service';
-import { HomeResponse } from '../interfaces/home.interface';
-import { environment } from '../../../environments/environment';
-import { ApiEndpoints } from '../enums/api-endpoints.enum';
+import { HomeResponse } from '@core/interfaces/home.interface';
+import { LanguageService } from '@core/services/language.service';
+import { environment } from '@env/environment';
+import { ApiEndpoints } from '@core/enums/api-endpoints.enum';
+
 
 @Injectable({
   providedIn: 'root'

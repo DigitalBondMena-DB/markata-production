@@ -3,8 +3,8 @@ import { HeroSecitonComponent } from './components/hero-seciton/hero-seciton.com
 import { DiscoverCategorySectionComponent } from "./components/discover-category-section/discover-category-section.component";
 import { CampaignIntelligenceSectionComponent } from './components/campaign-intelligence-section/campaign-intelligence-section.component';
 import { SctionBuilderComponent } from "../../shared/components/sction-builder/sction-builder.component";
-import { HomeService } from '../../core/services/home.service';
-import { SeoService } from '../../shared/services/seo.service';
+import { SeoService } from '@shared/services/seo.service';
+import { HomeService } from './services/home.service';
 
 @Component({
   selector: 'app-home',

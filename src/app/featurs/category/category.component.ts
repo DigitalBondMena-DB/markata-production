@@ -3,13 +3,13 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { LanguageService } from '../../core/services/language.service';
+import { LanguageService } from '@core/services/language.service';
 import { CategoryService } from './services/category.service';
-import { SeoService } from '../../shared/services/seo.service';
-import { MarkataImgPlaceholderDirective } from '../../shared/directives/markata-img-placeholder.directive';
-import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.component';
-import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
-import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
+import { SeoService } from '@shared/services/seo.service';
+import { MarkataImgPlaceholderDirective } from '@shared/directives/markata-img-placeholder.directive';
+import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
+import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
+import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-category',

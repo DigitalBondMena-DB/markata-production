@@ -21,6 +21,11 @@ export const routes: Routes = [
           import('./featurs/home/home.component').then(m => m.HomeComponent)
       },
       {
+        path: 'privacy-policy',
+        loadComponent: () =>
+          import('./featurs/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent)
+      },
+      {
         path: 'case-studies',
         loadComponent: () =>
           import('./featurs/category/category.component').then(m => m.CategoryComponent)
@@ -49,6 +54,11 @@ export const routes: Routes = [
         path: 'article/:slug',
         loadComponent: () =>
           import('./featurs/article/article.component').then(m => m.ArticleComponent)
+      },
+      {
+        path: 'auth/signin',
+        loadComponent: () =>
+          import('./featurs/auth/signin/signin.component').then(m => m.SigninComponent)
       },
     ]
   },

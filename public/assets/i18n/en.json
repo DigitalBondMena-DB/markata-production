@@ -34,9 +34,8 @@
     "SEE_ALL": "See All Contributors →"
   },
   "NEWSLETTER": {
-    "TITLE": "Intelligence, <span>{{weekly}}</span>",
-    "WEEKLY": "Delivered Weekly",
-    "DESC": "Join 42,000+ marketers across the Arab world who read MARKATA every week.",
+    "EMAIL": "Enter your email",
+    "TITLE": "Subscribe to get the newest updates",
     "PLACEHOLDER": "Your email address",
     "BUTTON": "Subscribe"
   },
@@ -44,29 +43,15 @@
     "SUBTITLE": "Marketing Intelligence",
     "DESC": "The Arab world's most trusted source for marketing intelligence, brand strategy, and creative thinking since 2024.",
     "COL_TOPICS": "Topics",
-    "COL_COMPANY": "Company",
+    "COL_CATEGORY": "Categories",
     "COL_RESOURCES": "Resources",
-    "TOPIC_STRATEGY": "Brand Strategy",
-    "TOPIC_CAMPAIGNS": "Campaign Analysis",
-    "TOPIC_AI_TECH": "AI & Technology",
-    "TOPIC_CONSUMER_INSIGHTS": "Consumer Insights",
-    "TOPIC_ENTREPRENEURSHIP": "Entrepreneurship",
-    "TOPIC_CASE_STUDIES": "Case Studies",
-    "TOPIC_CREATIVITY": "Creativity",
-    "COMPANY_ABOUT": "About MARKATA",
-    "COMPANY_WRITERS": "Our Writers",
-    "COMPANY_ADVERTISE": "Advertise With Us",
-    "COMPANY_CONTRIBUTE": "Contribute",
-    "COMPANY_EVENTS": "Events & Awards",
-    "COMPANY_CONTACT": "Contact",
-    "COMPANY_CAREERS": "Careers",
     "RESOURCE_GLOSSARY": "Marketing Glossary",
     "RESOURCE_TEMPLATES": "Free Templates",
     "RESOURCE_REPORTS": "Industry Reports",
     "RESOURCE_PODCAST": "Podcast",
     "RESOURCE_NEWSLETTER": "Newsletter Archive",
     "RESOURCE_MEDIA_KIT": "Media Kit",
-    "COPYRIGHT": "© 2024–2026 <span>MARKATA</span>. All Rights Reserved. Made with ✦ in Cairo.",
+    "COPYRIGHT": "© 2024–2026 <span>MARKATA</span>. All Rights Reserved. Made with {{image}} in Cairo.",
     "LINK_PRIVACY": "Privacy Policy",
     "LINK_TERMS": "Terms of Use",
     "LINK_COOKIES": "Cookie Policy"
@@ -150,5 +135,23 @@
     "CROSS_READ_2": "Contact research desk",
     "BACK_TO_HOME": "← Back to home",
     "BODY": "<p class=\"article-body-lede\">For decades, Ramadan advertising has been the crown jewel of marketing in the Middle East and North Africa (MENA) region. It is the Super Bowl of the Arab world, a high-stakes arena where brands invest massive budgets in hope of winning consumer hearts. Yet, as media landscape becomes increasingly fragmented and consumer skepticism rises, the traditional playbook of star-studded musical numbers is showing signs of fatigue. Real resonance lies elsewhere.</p><div id=\"section-1\" class=\"article-scroll-anchor\"></div><p class=\"article-body-text\">Analysis of the most successful campaigns of Ramadan 2026 reveals a critical paradigm shift: leading brands are moving from broad emotional appeal to highly localized, specific cultural codes. These brands don’t just seek to entertain; they aim to reflect the lived realities of their consumers, validating their struggles, values, and traditions without being commercial or transactional.</p><blockquote class=\"article-pullquote\"><span class=\"article-pullquote-mark\" aria-hidden=\"true\">“</span><p>The brands that stood out were those that focused on micro-moments of connection rather than sweeping, idealized portrayals of family gatherings.</p></blockquote><div id=\"section-2\" class=\"article-scroll-anchor\"></div><p class=\"article-body-text\">Secondly, memory structures play a crucial role. Campaigns that tapped into collective nostalgia—specifically referencing shared cultural memories from the late 90s and early 2000s—performed 40% better in emotional recall tests compared to those that relied on generic modern themes. This is not about simply looking back; it's about connecting the past to the present in a way that feels authentic and comforting.</p><div id=\"section-3\" class=\"article-scroll-anchor\"></div><p class=\"article-body-text\">Lastly, the integration of cultural codes. Whether it is the subtle representation of local dialects, neighborhood-specific visual references, or referencing traditional storytelling techniques, these micro-signals communicate respect and understanding. In a world where attention is the ultimate currency, these details make the difference between an ad that is watched and a story that is shared.</p>"
+  },
+  "AUTH": {
+    "SIGN_IN": "Sign In",
+    "YOUR_ACCOUNT": "Your account",
+    "SYNC_SAVES": "Sync saves, newsletters, tools, and optional research drops in one place.",
+    "ACCESS_DESC": "Access newsletters, bookmarks, and paywalled analyst notes. We never sell your attention — see our privacy policy for the full stack of controls.",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "REMEMBER_ME": "Remember me",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "CONTINUE": "CONTINUE",
+    "NO_ACCOUNT": "No account?",
+    "REQUEST_ACCESS": "Request contributor access"
+  },
+  "PRIVACY_POLICY": {
+    "PRIVACY": "Privacy",
+    "TITLE": "Privacy Policy",
+    "DESC": "What we collect, why we collect it, and your controls. MARKATA minimizes third-party pixels; signed-in features require an account to sync bookmarks and purchases."
   }
 }

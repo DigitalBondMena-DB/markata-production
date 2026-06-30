@@ -2,15 +2,15 @@ import { Component, inject, input, computed, effect, ViewEncapsulation, signal, 
 import { RouterLink, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LanguageService } from '../../core/services/language.service';
+import { LanguageService } from '@core/services/language.service';
 import { ArticleService } from './services/article.service';
-import { SeoService } from '../../shared/services/seo.service';
-import { MarkataImgPlaceholderDirective } from '../../shared/directives/markata-img-placeholder.directive';
-import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.component';
-import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
-import { environment } from '../../../environments/environment';
+import { SeoService } from '@shared/services/seo.service';
+import { MarkataImgPlaceholderDirective } from '@shared/directives/markata-img-placeholder.directive';
+import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
+import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
+import { environment } from '@env/environment';
 import { DatePipe } from '@angular/common';
-import { SocialSharePipe } from '../../shared/pipes/social-share.pipe';
+import { SocialSharePipe } from '@shared/pipes/social-share.pipe';
 import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

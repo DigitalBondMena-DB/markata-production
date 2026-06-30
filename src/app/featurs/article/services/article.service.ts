@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { httpResource } from '@angular/common/http';
-import { LanguageService } from '../../../core/services/language.service';
-import { ArticleDetailsResponse } from '../../../core/interfaces/article-page.interface';
-import { environment } from '../../../../environments/environment';
-import { ApiEndpoints } from '../../../core/enums/api-endpoints.enum';
+import { LanguageService } from '@core/services/language.service';
+import { ArticleDetailsResponse } from '@core/interfaces/article-page.interface';
+import { environment } from '@env/environment';
+import { ApiEndpoints } from '@core/enums/api-endpoints.enum';
 
 @Injectable({
   providedIn: 'root'

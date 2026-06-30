@@ -1,0 +1,13 @@
+.content {
+    color: var(--black);
+
+    h2 {
+        font-family: var(--font-en);
+        font-size: 1.625rem;
+        font-weight: 700;
+    }
+
+    p {
+        line-height: 1.875rem;
+    }
+}

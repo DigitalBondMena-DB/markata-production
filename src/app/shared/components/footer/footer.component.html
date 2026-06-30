@@ -1,4 +1,3 @@
-<app-subscribe-form />
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -12,36 +11,39 @@
         <p>{{ 'FOOTER.DESC' | translate }}</p>
         <div class="social-links">
           @for (link of socialLinks(); track link.id) {
-            <a [href]="link.url" class="social-link" target="_blank" rel="noopener noreferrer" [title]="link.name">
-              <div markataImg [seed]="link.icon" [alt]="link.name" style="width: 18px; height: 18px; position: relative;"></div>
-            </a>
+          <a [href]="link.url" class="social-link" target="_blank" rel="noopener noreferrer" [title]="link.name">
+            <div markataImg [seed]="link.icon" [alt]="link.name" style="width: 18px; height: 18px; position: relative;">
+            </div>
+          </a>
           }
         </div>
+        <app-subscribe-form />
+
       </div>
 
       <div class="footer-col">
         <h4>{{ 'FOOTER.COL_TOPICS' | translate }}</h4>
         <ul>
-          <li><a routerLink="/strategy">{{ 'FOOTER.TOPIC_STRATEGY' | translate }}</a></li>
-          <li><a routerLink="/category">{{ 'FOOTER.TOPIC_CAMPAIGNS' | translate }}</a></li>
-          <li><a routerLink="/ai-tech">{{ 'FOOTER.TOPIC_AI_TECH' | translate }}</a></li>
-          <li><a routerLink="/resources" fragment="insights">{{ 'FOOTER.TOPIC_CONSUMER_INSIGHTS' | translate }}</a></li>
-          <li><a routerLink="/news">{{ 'FOOTER.TOPIC_ENTREPRENEURSHIP' | translate }}</a></li>
-          <li><a routerLink="/case-studies">{{ 'FOOTER.TOPIC_CASE_STUDIES' | translate }}</a></li>
-          <li><a routerLink="/creativity">{{ 'FOOTER.TOPIC_CREATIVITY' | translate }}</a></li>
+          @for (cat of topics(); track cat.id) {
+          <li>
+            <a [routerLink]="['/', lang.currentLang(), 'topic', cat.slug]" routerLinkActive="active">
+              {{ cat.name }}
+            </a>
+          </li>
+          }
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>{{ 'FOOTER.COL_COMPANY' | translate }}</h4>
+        <h4>{{ 'FOOTER.COL_CATEGORY' | translate }}</h4>
         <ul>
-          <li><a routerLink="/about">{{ 'FOOTER.COMPANY_ABOUT' | translate }}</a></li>
-          <li><a routerLink="/writers">{{ 'FOOTER.COMPANY_WRITERS' | translate }}</a></li>
-          <li><a routerLink="/advertise">{{ 'FOOTER.COMPANY_ADVERTISE' | translate }}</a></li>
-          <li><a routerLink="/contribute">{{ 'FOOTER.COMPANY_CONTRIBUTE' | translate }}</a></li>
-          <li><a routerLink="/events">{{ 'FOOTER.COMPANY_EVENTS' | translate }}</a></li>
-          <li><a routerLink="/contact">{{ 'FOOTER.COMPANY_CONTACT' | translate }}</a></li>
-          <li><a routerLink="/careers">{{ 'FOOTER.COMPANY_CAREERS' | translate }}</a></li>
+          @for (cat of categories(); track cat.id) {
+          <li>
+            <a [routerLink]="['/', lang.currentLang(), 'category', cat.slug]" routerLinkActive="active">
+              {{ cat.name }}
+            </a>
+          </li>
+          }
         </ul>
       </div>
 
@@ -59,11 +61,12 @@
     </div>
 
     <div class="footer-bottom">
-      <p [innerHTML]="'FOOTER.COPYRIGHT' | translate"></p>
+      <p [innerHTML]="'FOOTER.COPYRIGHT' | translate: {image:digitalBondImage}">
+      </p>
       <div class="footer-bottom-links">
-        <a routerLink="/privacy">{{ 'FOOTER.LINK_PRIVACY' | translate }}</a>
-        <a routerLink="/terms">{{ 'FOOTER.LINK_TERMS' | translate }}</a>
-        <a routerLink="/cookies">{{ 'FOOTER.LINK_COOKIES' | translate }}</a>
+        <a [routerLink]="['/', lang.currentLang(), 'privacy-policy']">{{ 'FOOTER.LINK_PRIVACY' | translate }}</a>
+        <a [routerLink]="['/', lang.currentLang(), 'terms']">{{ 'FOOTER.LINK_TERMS' | translate }}</a>
+        <a [routerLink]="['/', lang.currentLang(), 'cookies']">{{ 'FOOTER.LINK_COOKIES' | translate }}</a>
       </div>
     </div>
   </div>

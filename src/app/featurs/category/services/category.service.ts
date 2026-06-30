@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { httpResource } from '@angular/common/http';
-import { LanguageService } from '../../../core/services/language.service';
-import { CategoryPageResponse } from '../../../core/interfaces/category-page.interface';
-import { ApiEndpoints } from '../../../core/enums/api-endpoints.enum';
-import { environment } from '../../../../environments/environment';
+import { LanguageService } from '@core/services/language.service';
+import { CategoryPageResponse } from '@core/interfaces/category-page.interface';
+import { ApiEndpoints } from '@core/enums/api-endpoints.enum';
+import { environment } from '@env/environment';
 
 
 export interface CategoryParams {

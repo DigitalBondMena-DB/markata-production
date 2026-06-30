@@ -1,0 +1,75 @@
+/* Badge */
+.badge-wrapper {
+  margin-bottom: 16px;
+}
+
+.signin-badge {
+  font-weight: 700;
+  display: block;
+  max-width: 170px;
+  color: #9E8030;
+  background-color: #F6EED9;
+  padding: 6px 16px;
+  border-radius: 2px;
+}
+
+/* Title & Subtitle */
+.signin-title {
+  font-family: var(--font-en);
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.signin-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--gray);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Image */
+.image-wrapper {
+  margin-bottom: 24px;
+}
+
+.workspace-img {
+  aspect-ratio: 747 / 320;
+  border-radius: 4px;
+  max-width: 750px;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Privacy notice */
+.privacy-notice {
+  color: var(--black);
+  line-height: 1.875rem;
+  margin-bottom: 32px;
+  text-align: start;
+}
+
+/* RTL Styles */
+html[dir="rtl"] {
+  .signin-badge {
+    font-family: var(--font-ar);
+  }
+
+  .signin-title {
+    font-family: var(--font-ar);
+    font-size: 36px;
+  }
+
+  .signin-subtitle,
+  .privacy-notice {
+    font-family: var(--font-ar);
+  }
+
+  .privacy-notice {
+    text-align: right;
+  }
+}

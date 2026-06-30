@@ -50,11 +50,9 @@
                 <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'search']" title="Search"><img
                         src="assets/icons/search-icon.svg" loading="lazy" decoding="async" width="12" height="12"
                         alt="search button" class="auto-image"></a>
-                <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'bookmarks']" title="Bookmarks"><img
-                        src="assets/icons/heart.svg" loading="lazy" decoding="async" width="12" height="12"
-                        alt="bookmark button" class="auto-image"></a>
             </div>
-            <a class="btn-signin" [routerLink]="['/', lang.currentLang(), 'sign-in']">{{ 'NAVBAR.SIGN_IN' | translate
+            <a class="btn-signin" [routerLink]="['/', lang.currentLang(), 'auth','signin']">{{ 'NAVBAR.SIGN_IN' |
+                translate
                 }}</a>
         </div>
     </div>
