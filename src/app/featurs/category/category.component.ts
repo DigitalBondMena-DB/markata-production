@@ -1,8 +1,7 @@
-import { Component, signal, computed, inject, input, effect, linkedSignal, untracked, ViewEncapsulation } from '@angular/core';
+import { Component, signal, computed, inject, input, effect, linkedSignal, untracked, ViewEncapsulation, debounced } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { LanguageService } from '@core/services/language.service';
 import { CategoryService } from './services/category.service';
 import { SeoService } from '@shared/services/seo.service';
@@ -74,14 +73,8 @@ export class CategoryComponent {
   // Search input query
   readonly searchQuery = signal('');
 
-  // Debounced search query in a signal way
-  readonly searchQueryDebounced = toSignal(
-    toObservable(this.searchQuery).pipe(
-      debounceTime(300),
-      distinctUntilChanged()
-    ),
-    { initialValue: '' }
-  );
+  // Debounced search query using native debounced() from @angular/core
+  readonly searchQueryDebounced = debounced(this.searchQuery, 300);
 
   // Layout view: grid or list
   readonly caseStudiesView = signal<'grid' | 'list'>('grid');
@@ -91,7 +84,7 @@ export class CategoryComponent {
     isCategoryRoute: () => this.isCategoryRoute(),
     slug: () => this.activeSlug() || '',
     filterVal: () => this.filterVal(),
-    searchQueryDebounced: () => this.searchQueryDebounced(),
+    searchQueryDebounced: () => this.searchQueryDebounced.value() || '',
     currentPage: () => this.currentPage()
   });
 
@@ -166,7 +159,6 @@ export class CategoryComponent {
 
     // Reset currentPage when search query changes
     effect(() => {
-      this.searchQueryDebounced();
       untracked(() => {
         if (this.currentPage() !== 1) {
           this.router.navigate([], {
@@ -183,11 +175,6 @@ export class CategoryComponent {
   onFilterChange(event: Event): void {
     const val = (event.target as HTMLSelectElement).value;
     this.filterVal.set(val);
-  }
-
-  onSearchInput(event: Event): void {
-    const val = (event.target as HTMLInputElement).value;
-    this.searchQuery.set(val);
   }
 
   setCaseStudiesView(view: 'grid' | 'list'): void {

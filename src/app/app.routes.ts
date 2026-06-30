@@ -21,14 +21,14 @@ export const routes: Routes = [
           import('./featurs/home/home.component').then(m => m.HomeComponent)
       },
       {
+        path: 'search',
+        loadComponent: () =>
+          import('./featurs/search/search.component').then(m => m.SearchComponent)
+      },
+      {
         path: 'privacy-policy',
         loadComponent: () =>
           import('./featurs/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent)
-      },
-      {
-        path: 'case-studies',
-        loadComponent: () =>
-          import('./featurs/category/category.component').then(m => m.CategoryComponent)
       },
       {
         path: 'category',

@@ -1,0 +1,117 @@
+<section class="inner-pages-container search-page">
+
+  <!-- Page Header -->
+  <header class="search-header">
+    <h1 class="search-title">
+      {{ "SEARCH.SEARCH_ARTICLES" | translate}}
+    </h1>
+  </header>
+
+  <!-- Input Wrapper -->
+  <div class="search-input-container">
+    <div class="search-input-wrapper">
+      <input type="text" (input)="searchQuery.set($event.target.value)"
+        placeholder="{{ 'CATEGORY.SEARCH_PLACEHOLDER' | translate }}" class="search-input-field" />
+    </div>
+  </div>
+
+  @if (searchQueryDebounced.value() && !searchResource.isLoading() && articles().length > 0) {
+  <div class="search-results-info">
+    <p>
+      {{'SEARCH.SEARCH_RESULTS' | translate: { number: meta()?.total} }}
+    </p>
+  </div>
+  }
+
+  <!-- Loading State -->
+  @if (searchResource.isLoading()) {
+  <div class="search-loading-container">
+    <app-skeleton>
+      <div class="case-studies-grid">
+        @for (i of [1, 2, 3]; track i) {
+        <article class="case-studies-card">
+          <div class="case-studies-card__media skeleton-item" style="height: 220px;"></div>
+          <div class="case-studies-card__text">
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+              <div class="skeleton-item" style="height: 14px; width: 80px;"></div>
+              <div class="skeleton-item" style="height: 14px; width: 60px;"></div>
+            </div>
+            <div class="skeleton-item" style="height: 22px; width: 90%; margin-bottom: 12px;"></div>
+            <div class="skeleton-item" style="height: 16px; width: 100%; margin-bottom: 6px;"></div>
+            <div class="skeleton-item" style="height: 16px; width: 75%;"></div>
+          </div>
+        </article>
+        }
+      </div>
+    </app-skeleton>
+  </div>
+  }
+
+  <!-- Empty State -->
+  @if (!searchResource.isLoading() && articles().length === 0) {
+  <div class="search-empty-container">
+    <app-empty-state [title]="'CATEGORY.NO_REPORTS' | translate"
+      [description]="'CATEGORY.NO_ARTICLES_DESC' | translate">
+    </app-empty-state>
+  </div>
+  }
+
+  <!-- Search Grid of Article Cards -->
+  @if (!searchResource.isLoading() && articles().length > 0) {
+  <section class="case-studies-grid" [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
+    @for (card of articles(); track card.id) {
+    <article class="case-studies-card">
+      <a [routerLink]="['/', lang.currentLang(), 'article', card.slug]" class="case-studies-card__link">
+        <div class="case-studies-card__media">
+          <div markataImg [seed]="card.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+          <span class="case-studies-card__shine" aria-hidden="true"></span>
+        </div>
+        <div class="case-studies-card__text">
+          <div class="case-studies-card__meta">
+            @if (card.topic) {
+            <span class="case-studies-card__topic">{{ card.topic.name }}</span>
+            <span class="case-studies-card__dot">·</span>
+            }
+            <span class="case-studies-card__time">
+              {{ card.reading_time }} {{ 'CATEGORY.MIN_READ' | translate }}
+            </span>
+          </div>
+          <h3 class="case-studies-card__title">{{ card.title }}</h3>
+          <p class="case-studies-card__dek">{{ card.short_text }}</p>
+        </div>
+      </a>
+      <div class="case-studies-card__foot">
+        @if (card.author) {
+        <div class="case-studies-card__author" style="display: flex; align-items: center; gap: 8px;">
+          <div class="case-studies-author-avatar"
+            style="width: 24px; height: 24px; border-radius: 50%; overflow: hidden; position: relative;">
+            <div markataImg [seed]="card.author.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+          </div>
+          <span class="case-studies-author-name" style="font-size: 0.85rem; color: var(--color-muted);">
+            {{ card.author.name }}
+          </span>
+        </div>
+        }
+      </div>
+    </article>
+    }
+  </section>
+
+  <!-- Pagination -->
+  @if (meta() && (meta()?.last_page ?? 1) > 1) {
+  <div class="search-pagination-container">
+    <app-pagination [currentPage]="currentPage()" [lastPage]="meta()?.last_page ?? 1"
+      [routeConfig]="['/', lang.currentLang(), 'search']" [queryParams]="routeQueryParams()">
+    </app-pagination>
+  </div>
+  }
+  }
+
+  <!-- Footer link -->
+  <footer class="inner-page-footer inner-prose">
+    <p>
+      <a [routerLink]="['/', lang.currentLang(), 'home']">{{ 'CATEGORY.BACK_TO_HOME' | translate }}</a>
+    </p>
+  </footer>
+
+</section>

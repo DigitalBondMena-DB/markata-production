@@ -1,6 +1,40 @@
 <section id="hero" class="hero">
     <div class="container">
-        @if (articles().length > 0) {
+        @if (isLoading()) {
+        <app-skeleton>
+            <div class="hero-grid">
+                <!-- 1. Hero Main Skeleton -->
+                <div class="hero-main skeleton-item"
+                    style="position: relative; height: 100%; min-height: 480px; background: rgba(0,0,0,0.5);">
+                    <div class="hero-main-content" style="width: 100%; padding: 40px; box-sizing: border-box;">
+                        <div class="skeleton-item"
+                            style="height: 20px; width: 80px; margin-bottom: 12px; border-radius: 4px;"></div>
+                        <div class="skeleton-item"
+                            style="height: 36px; width: 80%; margin-bottom: 16px; border-radius: 4px;"></div>
+                        <div class="skeleton-item"
+                            style="height: 20px; width: 95%; margin-bottom: 24px; border-radius: 4px;"></div>
+                        <div class="hero-meta" style="display: flex; gap: 12px;">
+                            <div class="skeleton-item" style="height: 16px; width: 100px; border-radius: 4px;"></div>
+                            <div class="skeleton-item" style="height: 16px; width: 80px; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Hero Cards 1 to 5 Skeletons -->
+                @for (i of [1, 2, 3, 4, 5]; track i) {
+                <div [class]="'hero-card hero-card-' + i + ' skeleton-item'"
+                    style="position: relative; min-height: 230px; height: 100%; background: rgba(0,0,0,0.5);">
+                    <div class="hero-card-content"
+                        style="width: 100%; padding: 20px; box-sizing: border-box; margin-top: auto;">
+                        <div class="skeleton-item"
+                            style="height: 14px; width: 60px; margin-bottom: 8px; border-radius: 4px;"></div>
+                        <div class="skeleton-item" style="height: 20px; width: 90%; border-radius: 4px;"></div>
+                    </div>
+                </div>
+                }
+            </div>
+        </app-skeleton>
+        } @else if (articles().length > 0) {
         <div class="hero-grid">
             <!-- 1. Hero Main -->
             @let main = articles()[0];

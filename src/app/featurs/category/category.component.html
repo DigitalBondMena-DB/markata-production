@@ -54,8 +54,9 @@
         <div class="case-studies-toolbar__secondary">
             <label class="case-studies-search case-studies-search--inline">
                 <span class="sr-only">{{ 'CATEGORY.SEARCH_PLACEHOLDER' | translate }}</span>
-                <input type="search" class="case-studies-search__input" autocomplete="off" [value]="searchQuery()"
-                    (input)="onSearchInput($event)" [placeholder]="'CATEGORY.SEARCH_PLACEHOLDER' | translate" />
+                <input type="search" class="case-studies-search__input" autocomplete="off"
+                    (input)="searchQuery.set($event.target.value)"
+                    [placeholder]="'CATEGORY.SEARCH_PLACEHOLDER' | translate" />
             </label>
             <button type="button" class="case-studies-clear-btn" (click)="clearCaseStudiesFilters()">
                 {{ 'CATEGORY.CLEAR_FILTERS' | translate }}
@@ -66,7 +67,7 @@
 
     @if (pageResource.isLoading()) {
     <app-skeleton>
-        @if (currentPage() === 1 && !filterVal() && !searchQuery()) {
+        @if (currentPage() === 1 && !filterVal() && !searchQueryDebounced.value()) {
         <div class="case-studies-featured-wrap">
             <div class="case-studies-featured">
                 <div class="case-studies-featured__media skeleton-item" style="height: 380px;"></div>
@@ -112,7 +113,7 @@
         (actionClick)="clearCaseStudiesFilters()">
     </app-empty-state>
     } @else {
-    @if (currentPage() === 1 && !filterVal() && !searchQuery()) {
+    @if (currentPage() === 1 && !filterVal() && !searchQueryDebounced.value()) {
     <section class="case-studies-featured-wrap" aria-labelledby="case-studies-featured-title">
         @let featured = articles()[0];
         <a [routerLink]="['/', lang.currentLang(), 'article', featured.slug]" class="case-studies-featured">
@@ -154,7 +155,7 @@
 
     <section class="case-studies-grid" [class.case-studies-grid--list]="caseStudiesView() === 'list'"
         [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
-        @for (card of (articles().length > 0 && currentPage() === 1 && !filterVal() && !searchQuery() ?
+        @for (card of (articles().length > 0 && currentPage() === 1 && !filterVal() && !searchQueryDebounced.value() ?
         articles().slice(1) : articles()); track card.id) {
         <article class="case-studies-card">
             <a [routerLink]="['/', lang.currentLang(), 'article', card.slug]" class="case-studies-card__link">

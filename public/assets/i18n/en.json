@@ -153,5 +153,13 @@
     "PRIVACY": "Privacy",
     "TITLE": "Privacy Policy",
     "DESC": "What we collect, why we collect it, and your controls. MARKATA minimizes third-party pixels; signed-in features require an account to sync bookmarks and purchases."
+  },
+  "SEARCH": {
+    "SEARCH_RESULTS": "Search Results {{number}}",
+    "SEARCH_ARTICLES": "Search For"
+  },
+  "PAGINATION": {
+    "NEXT_PAGE": "Next page",
+    "PREV_PAGE": "Previous page"
   }
 }

@@ -5,15 +5,17 @@ import { MarkataImgPlaceholderDirective } from '@shared/directives/markata-img-p
 import { LanguageService } from '@core/services/language.service';
 import { Article } from '@core/interfaces/home.interface';
 import { ImageUrlPipe } from '@shared/pipes/image-url.pipe';
+import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-hero-seciton',
-  imports: [TranslatePipe, MarkataImgPlaceholderDirective, RouterLink, ImageUrlPipe],
+  imports: [TranslatePipe, MarkataImgPlaceholderDirective, RouterLink, ImageUrlPipe, SkeletonComponent],
   templateUrl: './hero-seciton.component.html',
   styleUrl: './hero-seciton.component.css',
 })
 export class HeroSecitonComponent {
   readonly lang = inject(LanguageService);
   readonly articles = input.required<Article[]>();
+  readonly isLoading = input<boolean>(false);
 }
 

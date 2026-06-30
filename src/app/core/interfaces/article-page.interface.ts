@@ -1,3 +1,5 @@
+import { Article } from './home.interface';
+
 export interface ImageDetails {
   url: string | null;
   thumbnail: string | null;
@@ -103,5 +105,23 @@ export interface ArticleDetailsResponse {
   };
   meta: {
     locale: string;
+  };
+}
+
+export interface ArticlesListResponse {
+  data: Article[];
+  links: {
+    first: string | null;
+    last: string | null;
+    prev: string | null;
+    next: string | null;
+  };
+  meta: {
+    current_page: number;
+    from: number;
+    last_page: number;
+    per_page: number;
+    to: number;
+    total: number;
   };
 }

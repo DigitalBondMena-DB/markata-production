@@ -12,7 +12,7 @@ export interface PaginationItem {
   selector: 'app-pagination',
   imports: [RouterLink, TranslatePipe],
   templateUrl: './pagination.component.html',
-  encapsulation: ViewEncapsulation.None,
+  styleUrl: './pagination.component.css',
 })
 export class PaginationComponent {
   readonly lang = inject(LanguageService);
