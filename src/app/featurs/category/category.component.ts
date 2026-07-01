@@ -9,10 +9,11 @@ import { MarkataImgPlaceholderDirective } from '@shared/directives/markata-img-p
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
 import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
+import { CaseStudiesCardComponent } from '@shared/components/case-studies-card/case-studies-card.component';
 
 @Component({
   selector: 'app-category',
-  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective, SkeletonComponent, EmptyStateComponent, PaginationComponent],
+  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective, SkeletonComponent, EmptyStateComponent, PaginationComponent, CaseStudiesCardComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
   encapsulation: ViewEncapsulation.None

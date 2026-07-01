@@ -51,9 +51,15 @@
                         src="assets/icons/search-icon.svg" loading="lazy" decoding="async" width="12" height="12"
                         alt="search button" class="auto-image"></a>
             </div>
+            @if(!authService.isLoggedIn()) {
             <a class="btn-signin" [routerLink]="['/', lang.currentLang(), 'auth','signin']">{{ 'NAVBAR.SIGN_IN' |
                 translate
                 }}</a>
+            } @else {
+            <button class="btn-signin" (click)="logout()">
+                {{authService.currentUser()?.name}}
+            </button>
+            }
         </div>
     </div>
 </header>

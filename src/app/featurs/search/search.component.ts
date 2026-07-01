@@ -5,20 +5,20 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { LanguageService } from '@core/services/language.service';
 import { ArticleService } from '../article/services/article.service';
-import { MarkataImgPlaceholderDirective } from '@shared/directives/markata-img-placeholder.directive';
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
 import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
+import { CaseStudiesCardComponent } from '@shared/components/case-studies-card/case-studies-card.component';
 
 @Component({
   selector: 'app-search',
   imports: [
     RouterLink,
     TranslatePipe,
-    MarkataImgPlaceholderDirective,
     SkeletonComponent,
     EmptyStateComponent,
-    PaginationComponent
+    PaginationComponent,
+    CaseStudiesCardComponent
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',

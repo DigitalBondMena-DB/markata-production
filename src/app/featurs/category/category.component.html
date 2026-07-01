@@ -157,48 +157,7 @@
         [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
         @for (card of (articles().length > 0 && currentPage() === 1 && !filterVal() && !searchQueryDebounced.value() ?
         articles().slice(1) : articles()); track card.id) {
-        <article class="case-studies-card">
-            <a [routerLink]="['/', lang.currentLang(), 'article', card.slug]" class="case-studies-card__link">
-                <div class="case-studies-card__media">
-                    <div markataImg [seed]="card.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
-
-                    <span class="case-studies-card__shine" aria-hidden="true"></span>
-                </div>
-                <div class="case-studies-card__text">
-                    <div class="case-studies-card__meta">
-                        @if (card.topic) {
-                        <span class="case-studies-card__topic">{{ card.topic.name }}</span>
-                        <span class="case-studies-card__dot">·</span>
-                        }
-                        <span class="case-studies-card__time">
-                            {{ card.reading_time }} {{ 'CATEGORY.MIN_READ' | translate }}
-                        </span>
-                    </div>
-                    <h3 class="case-studies-card__title">{{ card.title }}</h3>
-                    <p class="case-studies-card__dek">{{ card.short_text }}</p>
-                </div>
-            </a>
-            <div class="case-studies-card__foot">
-                @if (card.author) {
-                <div class="case-studies-card__author" style="display: flex; align-items: center; gap: 8px;">
-                    <div class="case-studies-author-avatar"
-                        style="width: 24px; height: 24px; border-radius: 50%; overflow: hidden; position: relative;">
-                        <div markataImg [seed]="card.author.image?.url ?? ''" style="position: absolute; inset: 0;">
-                        </div>
-                    </div>
-                    <span class="case-studies-author-name" style="font-size: 0.85rem; color: var(--color-muted);">{{
-                        card.author.name }}</span>
-                </div>
-                }
-                <button type="button" class="case-studies-card__bookmark" (click)="caseStudiesBookmark($event)"
-                    [attr.aria-label]="'CATEGORY.SAVE_TO_BOOKMARKS' | translate">
-                    <svg class="case-studies-card__bookmark-svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="M6 4h12v16l-6-4-6 4V4z" stroke-linejoin="round" />
-                    </svg>
-                </button>
-            </div>
-        </article>
+        <app-case-studies-card [card]="card" [view]="caseStudiesView()" [showBookmark]="true" (bookmarkClick)="caseStudiesBookmark($event)" />
         }
     </section>
 

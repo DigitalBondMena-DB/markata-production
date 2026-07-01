@@ -5,6 +5,7 @@ import { LanguageService } from '../../../core/services/language.service';
 import { NavbarService } from './services/navbar.service';
 import { BreakingNewsItem } from '../../../core/interfaces/taxonomies.interface';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  readonly authService = inject(AuthService);
   readonly lang = inject(LanguageService);
   private readonly router = inject(Router);
   private readonly navbarService = inject(NavbarService);
@@ -39,5 +41,13 @@ export class NavbarComponent {
       segments.splice(1, 0, targetLang);
     }
     this.router.navigateByUrl(segments.join('/'));
+  }
+  logout() {
+    this.authService.logout().subscribe({
+      next: (res) => {
+        console.log(res);
+
+      }
+    });
   }
 }
