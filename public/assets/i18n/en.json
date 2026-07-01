@@ -147,7 +147,16 @@
     "FORGOT_PASSWORD": "Forgot password?",
     "CONTINUE": "CONTINUE",
     "NO_ACCOUNT": "No account?",
-    "REQUEST_ACCESS": "Request contributor access"
+    "REQUEST_ACCESS": "Request contributor access",
+    "SIGN_UP": "Sign Up",
+    "CREATE_ACCOUNT": "Create your account and start contributing.",
+    "NAME": "Name",
+    "ENTER_NAME": "Enter your name",
+    "ENTER_MAIL": "Enter your mail",
+    "ENTER_PASSWORD": "Enter your password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm your password",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "Privacy",

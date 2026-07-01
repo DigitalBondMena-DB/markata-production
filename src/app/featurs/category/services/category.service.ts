@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { httpResource } from '@angular/common/http';
 import { LanguageService } from '@core/services/language.service';
 import { CategoryPageResponse } from '@core/interfaces/category-page.interface';
@@ -14,9 +14,7 @@ export interface CategoryParams {
   currentPage: () => number;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class CategoryService {
   private readonly langService = inject(LanguageService);
 

@@ -147,7 +147,16 @@
     "FORGOT_PASSWORD": "نسيت كلمة المرور؟",
     "CONTINUE": "متابعة",
     "NO_ACCOUNT": "ليس لديك حساب؟",
-    "REQUEST_ACCESS": "طلب صلاحية مساهم"
+    "REQUEST_ACCESS": "طلب صلاحية مساهم",
+    "SIGN_UP": "إنشاء حساب",
+    "CREATE_ACCOUNT": "أنشئ حسابك وابدأ في المساهمة.",
+    "NAME": "الاسم",
+    "ENTER_NAME": "أدخل اسمك",
+    "ENTER_MAIL": "أدخل بريدك الإلكتروني",
+    "ENTER_PASSWORD": "أدخل كلمة المرور",
+    "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "أكد كلمة المرور الخاصة بك",
+    "ALREADY_HAVE_ACCOUNT": "لديك حساب بالفعل؟"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "خصوصية",

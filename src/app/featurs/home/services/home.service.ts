@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { httpResource } from '@angular/common/http';
 import { HomeResponse } from '@core/interfaces/home.interface';
 import { LanguageService } from '@core/services/language.service';
@@ -6,9 +6,7 @@ import { environment } from '@env/environment';
 import { ApiEndpoints } from '@core/enums/api-endpoints.enum';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class HomeService {
   private readonly langService = inject(LanguageService);
 

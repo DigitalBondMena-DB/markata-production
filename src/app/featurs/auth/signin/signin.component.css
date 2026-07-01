@@ -260,3 +260,35 @@ html[dir="rtl"] {
     transform: rotate(180deg);
   }
 }
+
+.alert-error {
+  padding: 12px 16px;
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: start;
+  margin-bottom: 16px;
+}
+html[dir="rtl"] .alert-error {
+  text-align: right;
+  font-family: var(--font-ar);
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: var(--black);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

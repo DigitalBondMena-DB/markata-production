@@ -1,23 +1,18 @@
-import { inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { inject, Renderer2, RendererFactory2, Service } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { SeoData } from '../../core/interfaces/home.interface';
 import { environment } from '../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class SeoService {
   private readonly title = inject(Title);
   private readonly meta = inject(Meta);
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
-  private readonly renderer: Renderer2;
+  private readonly renderer = inject(RendererFactory2).createRenderer(null, null)
 
-  constructor(rendererFactory: RendererFactory2) {
-    this.renderer = rendererFactory.createRenderer(null, null);
-  }
 
   updateSeo(seo: SeoData): void {
     if (!seo) return;
@@ -70,11 +65,11 @@ export class SeoService {
   private updateLinkTags(apiCanonicalUrl: string | null): void {
     const siteUrl = environment.siteUrl;
     const currentUrl = this.router.url;
-    
+
     // Process current path segments
     const cleanPath = currentUrl.split('?')[0].split('#')[0];
     const segments = cleanPath.split('/').filter(Boolean);
-    
+
     let pathSegment = '';
     if (segments.length > 0) {
       if (segments[0] === 'ar' || segments[0] === 'en') {

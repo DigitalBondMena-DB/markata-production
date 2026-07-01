@@ -1,9 +1,7 @@
-import { DOCUMENT, inject, Injectable, signal } from '@angular/core';
+import { DOCUMENT, inject, Service, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class LanguageService {
   private readonly translate = inject(TranslateService);
   private readonly _DOCUMENT = inject(DOCUMENT);

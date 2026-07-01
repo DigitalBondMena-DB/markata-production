@@ -1,13 +1,11 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { httpResource } from '@angular/common/http';
 import { LanguageService } from '../../../../core/services/language.service';
 import { TaxonomiesResponse } from '../../../../core/interfaces/taxonomies.interface';
 import { environment } from '../../../../../environments/environment';
 import { ApiEndpoints } from '../../../../core/enums/api-endpoints.enum';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class NavbarService {
   private readonly langService = inject(LanguageService);
 
