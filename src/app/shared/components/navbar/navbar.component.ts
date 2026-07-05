@@ -1,4 +1,5 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../core/services/language.service';
@@ -6,10 +7,11 @@ import { NavbarService } from './services/navbar.service';
 import { BreakingNewsItem } from '../../../core/interfaces/taxonomies.interface';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { AuthService } from '@core/services/auth.service';
+import { UserNameCharPipe } from '@shared/pipes/user-name-char-pipe.pipe';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive, TranslatePipe, DropdownComponent],
+  imports: [RouterLink, UserNameCharPipe, RouterLinkActive, TranslatePipe, DropdownComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -18,6 +20,10 @@ export class NavbarComponent {
   readonly lang = inject(LanguageService);
   private readonly router = inject(Router);
   private readonly navbarService = inject(NavbarService);
+  private readonly platformId = inject(PLATFORM_ID);
+
+  readonly isBrowser = isPlatformBrowser(this.platformId);
+  readonly showAuth = computed(() => this.isBrowser && this.authService.isAuthChecked());
 
   readonly navExact = { exact: true };
 

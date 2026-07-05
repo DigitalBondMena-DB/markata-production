@@ -1,45 +1,42 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { email, form, FormField, minLength, required, validate } from '@angular/forms/signals';
+import { form, FormField, minLength, required, validate } from '@angular/forms/signals';
 import { LanguageService } from '../../../core/services/language.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormInputComponent } from '../../../shared/components/form-input/form-input.component';
 import { AuthModalComponent } from '../../../shared/components/auth-modal/auth-modal.component';
+import { SuccessAlertComponent } from '../../../shared/components/success-alert/success-alert.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
-interface RegisterData {
-  name: string;
-  email: string;
+interface ResetPasswordData {
   password: string;
   confirmPassword: string;
 }
 
 @Component({
-  selector: 'app-register',
-  imports: [FormInputComponent, AuthModalComponent, TranslatePipe, FormField],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  selector: 'app-reset-password',
+  imports: [FormInputComponent, AuthModalComponent, SuccessAlertComponent, TranslatePipe, FormField],
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.css'
 })
-export class RegisterComponent {
+export class ResetPasswordComponent implements OnInit {
   readonly lang = inject(LanguageService);
   readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
+  readonly showSuccess = signal<boolean>(false);
   readonly errorMessage = signal<string | null>(null);
   readonly formErrors = signal<Record<string, string[]> | null>(null);
+  private email = '';
+  private token = '';
 
-  registerModel = signal<RegisterData>({
-    name: '',
-    email: '',
+  resetPasswordModel = signal<ResetPasswordData>({
     password: '',
     confirmPassword: ''
   });
 
-  readonly registerForm = form(this.registerModel, (schemaPath) => {
-    required(schemaPath.name, { message: 'Name is required' });
-    required(schemaPath.email, { message: 'Email is required' });
-    email(schemaPath.email, { message: 'Valid email is required' });
+  readonly resetPasswordForm = form(this.resetPasswordModel, (schemaPath) => {
     required(schemaPath.password, { message: 'Password is required' });
     minLength(schemaPath.password, 8, { message: 'Password must be at least 8 characters long' });
     required(schemaPath.confirmPassword, { message: 'Confirm password is required' });
@@ -52,32 +49,35 @@ export class RegisterComponent {
     });
   });
 
+  ngOnInit(): void {
+    this.email = this.route.snapshot.queryParams['email'] || '';
+    this.token = this.route.snapshot.queryParams['token'] || '';
+  }
+
   closeModal(): void {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onSubmit(event: SubmitEvent): void {
     event.preventDefault();
-    if (this.registerForm().valid() && !this.authService.loading()) {
+    if (this.resetPasswordForm().valid() && !this.authService.loading()) {
       this.errorMessage.set(null);
       this.formErrors.set(null);
 
-      const model = this.registerModel();
       const payload = {
-        name: model.name,
-        email: model.email,
-        password: model.password,
-        password_confirmation: model.confirmPassword
+        email: this.email,
+        token: this.token,
+        password: this.resetPasswordModel().password,
+        password_confirmation: this.resetPasswordModel().confirmPassword
       };
 
-      this.authService.register(payload).subscribe({
+      this.authService.resetPassword(payload).subscribe({
         next: () => {
-          const lang = this.lang.currentLang();
-          this.router.navigate([lang]);
+          this.showSuccess.set(true);
         },
         error: (err) => {
-          console.error('Registration failed:', err);
-          this.errorMessage.set(err.error?.message ?? 'Registration failed.');
+          console.error('Reset password error:', err);
+          this.errorMessage.set(err.error?.message ?? 'Reset password failed.');
           this.formErrors.set(err.error?.errors ?? null);
         }
       });

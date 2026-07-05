@@ -16,3 +16,17 @@ export interface LoginResponse {
   user: User;
   message?: string;
 }
+
+export interface ResetPasswordRequest {
+  email: string;
+  token: string;
+  password: string;
+  password_confirmation: string;
+}
+
+export interface RegisterRequest {
+  email: string;
+  name: string;
+  password: string;
+  password_confirmation: string;
+}

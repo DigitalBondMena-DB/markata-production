@@ -25,6 +25,9 @@ export class SigninComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
+  readonly errorMessage = signal<string | null>(null);
+  readonly formErrors = signal<Record<string, string[]> | null>(null);
+
   signinModel = signal<SignInData>({
     email: '',
     password: '',
@@ -40,6 +43,9 @@ export class SigninComponent {
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
     if (this.signinForm().valid() && !this.authService.loading()) {
+      this.errorMessage.set(null);
+      this.formErrors.set(null);
+
       this.authService.login(this.signinModel()).subscribe({
         next: () => {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'];
@@ -49,6 +55,11 @@ export class SigninComponent {
           } else {
             this.router.navigate([lang]);
           }
+        },
+        error: (err) => {
+          console.error('Signin failed:', err);
+          this.errorMessage.set(err.error?.message ?? 'Signin failed. Please verify your credentials.');
+          this.formErrors.set(err.error?.errors ?? null);
         }
       });
     }

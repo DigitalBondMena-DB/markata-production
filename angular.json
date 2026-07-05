@@ -11,27 +11,21 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "type": "component",
           "skipTests": true
         },
         "@schematics/angular:service": {
-          "type": "service",
           "skipTests": true
         },
         "@schematics/angular:directive": {
-          "type": "directive",
           "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "type": "pipe",
           "skipTests": true
         },
         "@schematics/angular:guard": {
-          "type": "guard",
           "skipTests": true
         },
         "@schematics/angular:interceptor": {
-          "type": "interceptor",
           "skipTests": true
         }
       },

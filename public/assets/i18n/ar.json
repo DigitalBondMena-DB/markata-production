@@ -24,7 +24,9 @@
     "AI_TOOLS": "أدوات الذكاء الاصطناعي",
     "OOH_AND_PRINT": "الإعلانات الخارجية",
     "PR_AND_COMMS": "العلاقات العامة",
-    "MORE": "المزيد"
+    "MORE": "المزيد",
+    "MY_PROFILE": "ملفي الشخصي",
+    "LOGOUT": "تسجيل الخروج"
   },
   "HERO": {
     "EDITORS_PICK": "اختيار المحررين"
@@ -156,7 +158,16 @@
     "ENTER_PASSWORD": "أدخل كلمة المرور",
     "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
     "CONFIRM_PASSWORD_PLACEHOLDER": "أكد كلمة المرور الخاصة بك",
-    "ALREADY_HAVE_ACCOUNT": "لديك حساب بالفعل؟"
+    "ALREADY_HAVE_ACCOUNT": "لديك حساب بالفعل؟",
+    "FORGOT_PASSWORD_TITLE": "نسيت كلمة المرور",
+    "FORGOT_PASSWORD_DESC": "أدخل بريدك الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور.",
+    "RESET_PASSWORD_TITLE": "كلمة مرور جديدة",
+    "RESET_PASSWORD_DESC": "أعد تعيين كلمة المرور الخاصة بك وارجع إلى ماركاتا إف إم.",
+    "RESET_PASSWORD_SUBMIT": "إعادة تعيين كلمة المرور",
+    "SUCCESS": "تم بنجاح",
+    "FORGOT_PASSWORD_SUCCESS": "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.",
+    "RESET_PASSWORD_SUCCESS": "تم إعادة تعيين كلمة المرور الخاصة بك بنجاح.",
+    "BACK_TO_SIGNIN": "العودة لتسجيل الدخول"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "خصوصية",

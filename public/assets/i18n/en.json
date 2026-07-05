@@ -24,7 +24,9 @@
     "AI_TOOLS": "AI Tools",
     "OOH_AND_PRINT": "OOH & Print",
     "PR_AND_COMMS": "PR & Comms",
-    "MORE": "More"
+    "MORE": "More",
+    "MY_PROFILE": "My Profile",
+    "LOGOUT": "Log Out"
   },
   "HERO": {
     "EDITORS_PICK": "Editor's Pick"
@@ -156,7 +158,16 @@
     "ENTER_PASSWORD": "Enter your password",
     "CONFIRM_PASSWORD": "Confirm Password",
     "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm your password",
-    "ALREADY_HAVE_ACCOUNT": "Already have an account?"
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+    "FORGOT_PASSWORD_TITLE": "Forgot Password",
+    "FORGOT_PASSWORD_DESC": "Enter your email to receive a password reset link.",
+    "RESET_PASSWORD_TITLE": "New Password",
+    "RESET_PASSWORD_DESC": "Create a new password and get back to MARKATA FM.",
+    "RESET_PASSWORD_SUBMIT": "RESET PASSWORD",
+    "SUCCESS": "Success",
+    "FORGOT_PASSWORD_SUCCESS": "A password reset link has been sent to your email address.",
+    "RESET_PASSWORD_SUCCESS": "Your password has been successfully reset.",
+    "BACK_TO_SIGNIN": "Back to Sign In"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "Privacy",

@@ -77,9 +77,9 @@
 }
 
 /* Projected items standard styles */
-:host ::ng-deep a,
-:host ::ng-deep button,
-:host ::ng-deep .dropdown-item {
+.dropdown-content ::ng-deep a,
+.dropdown-content ::ng-deep button,
+.dropdown-content ::ng-deep .dropdown-item {
   display: flex;
   align-items: center;
   padding: 10px 16px;
@@ -97,14 +97,14 @@
   box-sizing: border-box;
 }
 
-:host ::ng-deep a:hover,
-:host ::ng-deep button:hover,
-:host ::ng-deep .dropdown-item:hover {
+.dropdown-content ::ng-deep a:hover,
+.dropdown-content ::ng-deep button:hover,
+.dropdown-content ::ng-deep .dropdown-item:hover {
   background: rgba(201, 168, 76, 0.08);
   color: var(--gold);
 }
 
-:host ::ng-deep a.active {
+.dropdown-content ::ng-deep a.active {
   background: rgba(201, 168, 76, 0.12);
   color: var(--gold);
   font-weight: 600;
@@ -201,9 +201,9 @@
     padding-bottom: 12px;
   }
 
-  :host ::ng-deep a,
-  :host ::ng-deep button,
-  :host ::ng-deep .dropdown-item {
+  .dropdown-content ::ng-deep a,
+  .dropdown-content ::ng-deep button,
+  .dropdown-content ::ng-deep .dropdown-item {
     padding: 12px 10px;
     font-size: 13px;
     justify-content: center;
@@ -213,14 +213,14 @@
     background: #fbfbfa;
   }
 
-  :host ::ng-deep a:hover,
-  :host ::ng-deep button:hover,
-  :host ::ng-deep .dropdown-item:hover {
+  .dropdown-content ::ng-deep a:hover,
+  .dropdown-content ::ng-deep button:hover,
+  .dropdown-content ::ng-deep .dropdown-item:hover {
     border-color: rgba(201, 168, 76, 0.3);
     background: rgba(201, 168, 76, 0.04);
   }
 
-  :host ::ng-deep a.active {
+  .dropdown-content ::ng-deep a.active {
     border-color: rgba(201, 168, 76, 0.5);
     background: rgba(201, 168, 76, 0.08);
   }

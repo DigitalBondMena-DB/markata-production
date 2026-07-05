@@ -1,12 +1,11 @@
-import { computed, inject, Injectable, PLATFORM_ID, signal, TransferState, makeStateKey } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { computed, inject, Injectable, signal, TransferState, makeStateKey } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { LoginRequest, User } from '@core/interfaces/auth.interface';
+import { LoginRequest, User, ResetPasswordRequest, RegisterRequest } from '@core/interfaces/auth.interface';
 import { AuthEndpoints } from './auth.constants';
 import { LanguageService } from './language.service';
 
@@ -22,16 +21,18 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly langService = inject(LanguageService);
-  private readonly platformId = inject(PLATFORM_ID);
   private readonly transferState = inject(TransferState);
 
   private readonly _currentUser = signal<User | null>(null);
   private readonly _loading = signal(false);
   private readonly _error = signal<string | null>(null);
+  private readonly _isAuthChecked = signal(false);
 
   readonly currentUser = this._currentUser.asReadonly();
 
   readonly isLoggedIn = computed(() => !!this._currentUser());
+
+  readonly isAuthChecked = this._isAuthChecked.asReadonly();
 
   readonly loading = this._loading.asReadonly();
 
@@ -51,6 +52,7 @@ export class AuthService {
 
         tap(user => {
           this._currentUser.set(user);
+          this._isAuthChecked.set(true);
         }),
 
         catchError(err => {
@@ -77,6 +79,7 @@ export class AuthService {
       const user = this.transferState.get(USER_KEY, null);
       if (user) {
         this._currentUser.set(user);
+        this._isAuthChecked.set(true);
         return of(user);
       }
     }
@@ -96,6 +99,7 @@ export class AuthService {
         tap(user => {
           console.log('Mapped user in checkAuth:', user);
           this._currentUser.set(user);
+          this._isAuthChecked.set(true);
           if (user) {
             this.transferState.set(USER_KEY, user);
           }
@@ -105,6 +109,7 @@ export class AuthService {
             console.error('checkAuth API error:', err);
           }
           this._currentUser.set(null);
+          this._isAuthChecked.set(true);
           return of(null);
         })
       );
@@ -116,6 +121,7 @@ export class AuthService {
     // Clear client-side state immediately
     this._currentUser.set(null);
     this._error.set(null);
+    this._isAuthChecked.set(true);
     const USER_KEY = makeStateKey<User | null>('user');
     this.transferState.remove(USER_KEY);
 
@@ -144,5 +150,78 @@ export class AuthService {
       });
 
     return of(void 0);
+  }
+
+  forgotPassword(email: string): Observable<ApiResponse<any>> {
+    this._loading.set(true);
+    this._error.set(null);
+
+    return this.http
+      .post<ApiResponse<any>>(
+        `${environment.api}${AuthEndpoints.forgotPassword}`,
+        { email }
+      )
+      .pipe(
+        catchError(err => {
+          this._error.set(
+            err.error?.message ?? 'An error occurred. Please try again.'
+          );
+          throw err;
+        }),
+        finalize(() => {
+          this._loading.set(false);
+        })
+      );
+  }
+
+  resetPassword(payload: ResetPasswordRequest): Observable<ApiResponse<any>> {
+    this._loading.set(true);
+    this._error.set(null);
+
+    return this.http
+      .post<ApiResponse<any>>(
+        `${environment.api}${AuthEndpoints.resetPassword}`,
+        payload
+      )
+      .pipe(
+        catchError(err => {
+          this._error.set(
+            err.error?.message ?? 'An error occurred. Please try again.'
+          );
+          throw err;
+        }),
+        finalize(() => {
+          this._loading.set(false);
+        })
+      );
+  }
+
+  register(payload: RegisterRequest): Observable<any> {
+    this._loading.set(true);
+    this._error.set(null);
+
+    return this.http
+      .post<ApiResponse<any>>(
+        `${environment.api}${AuthEndpoints.register}`,
+        payload
+      )
+      .pipe(
+        tap(res => {
+          const user = res?.data?.user || res?.data;
+          if (user && user.id) {
+            this._currentUser.set(user);
+            this._isAuthChecked.set(true);
+          }
+        }),
+        catchError(err => {
+          this._error.set(
+            err.error?.message ?? 'An error occurred during registration.'
+          );
+          throw err;
+        }),
+        finalize(() => {
+          this._loading.set(false);
+        })
+      );
   }
 }

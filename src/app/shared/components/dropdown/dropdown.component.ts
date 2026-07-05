@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, signal } from '@angular/core';
+import { Component, ElementRef, inject, input, signal, contentChild } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown',
@@ -14,6 +14,7 @@ export class DropdownComponent {
 
   readonly label = input<string>('More');
   readonly isOpen = signal(false);
+  readonly customTrigger = contentChild<ElementRef>('dropdownTrigger');
 
   toggle(event: MouseEvent) {
     event.stopPropagation();
@@ -26,13 +27,13 @@ export class DropdownComponent {
 
   onDocumentClick(event: MouseEvent) {
     if (!this.isOpen()) return;
-    
+
     const target = event.target as HTMLElement;
     const clickedInside = this.elementRef.nativeElement.contains(target);
-    
+
     // Check if the click was inside a dropdown-menu link so it closes automatically after clicking a link
     const clickedLink = target.closest('a') || target.tagName === 'A';
-    
+
     if (!clickedInside || clickedLink) {
       this.close();
     }

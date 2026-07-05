@@ -275,6 +275,18 @@ nav {
     }
 }
 
+.logout-btn {
+    color: var(--red) !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover {
+        background-color: color-mix(in oklab, var(--red) 10%, white) !important;
+    }
+}
+
+
 .btn-signin {
     background: linear-gradient(135deg, var(--gold), var(--gold-dark));
     color: var(--black);
@@ -298,6 +310,11 @@ nav {
         display: inline-block;
         text-align: center;
         text-decoration: none;
+    }
+
+    &.logged {
+        padding-inline: 8px;
+        height: 100%;
     }
 }
 

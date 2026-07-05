@@ -275,6 +275,19 @@ html[dir="rtl"] .alert-error {
   text-align: right;
   font-family: var(--font-ar);
 }
+html[dir="rtl"] .field-error-message {
+  text-align: right;
+  font-family: var(--font-ar);
+}
+
+.field-error-message {
+  color: #991b1b;
+  font-size: 12px;
+  margin-top: -18px;
+  margin-bottom: 6px;
+  text-align: start;
+  font-family: var(--font-body);
+}
 
 .loading-spinner {
   display: inline-block;

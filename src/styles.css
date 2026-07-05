@@ -46,6 +46,7 @@ app-shell {
     --dark2: #F4F2EE;
     --dark3: #EDEAE4;
     --white: #FFFFFF;
+    --red: #ED2924;
     --off-white: #F9F8F5;
     --off-white2: #E1E1E1;
     --gray: #777;
@@ -385,6 +386,10 @@ img {
 
 .icon {
     display: inline-block;
+}
+
+[dir="rtl"] .flip-ar {
+    transform: scaleX(-1)
 }
 
 .read-time {
@@ -847,17 +852,6 @@ a.inner-story-card:hover {
         border-right: 3px solid var(--gold);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 @keyframes shimmer {

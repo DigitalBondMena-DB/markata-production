@@ -1,0 +1,24 @@
+<div class="modal-backdrop enter-backdrop-animation" (click)="onConfirm()">
+  <div class="modal-card enter-card-animation" (click)="$event.stopPropagation()">
+
+    <!-- Success Icon -->
+    <div class="success-icon-wrapper">
+      <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="success-icon-circle" cx="26" cy="26" r="25" fill="none"/>
+        <path class="success-icon-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+      </svg>
+    </div>
+
+    <!-- Alert Details -->
+    <div class="alert-content">
+      <h3 class="title">{{ title() }}</h3>
+      <p class="message">{{ message() }}</p>
+    </div>
+
+    <!-- Confirm Button -->
+    <button type="button" class="confirm-btn" (click)="onConfirm()">
+      OK
+    </button>
+
+  </div>
+</div>

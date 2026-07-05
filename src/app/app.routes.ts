@@ -2,10 +2,19 @@ import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { LanguageService } from './core/services/language.service';
 import { langGuard } from './core/guards/lang.guard';
+import { resetPasswordGuard } from './core/guards/reset-password.guard';
 
 
 
 export const routes: Routes = [
+  {
+    path: 'reset-password',
+    redirectTo: () => {
+      const languageService = inject(LanguageService);
+      const defaultLang = languageService.getBrowserOrSavedLang();
+      return `${defaultLang}/auth/signin/reset-password`;
+    }
+  },
   {
     path: ':lang',
     canActivate: [langGuard],
@@ -69,6 +78,17 @@ export const routes: Routes = [
             path: 'register',
             loadComponent: () =>
               import('./featurs/auth/register/register.component').then(m => m.RegisterComponent)
+          },
+          {
+            path: 'forgot-password',
+            loadComponent: () =>
+              import('./featurs/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
+          },
+          {
+            path: 'reset-password',
+            canActivate: [resetPasswordGuard],
+            loadComponent: () =>
+              import('./featurs/auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
           }
         ]
       },
