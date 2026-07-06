@@ -37,13 +37,13 @@ export class ResetPasswordComponent implements OnInit {
   });
 
   readonly resetPasswordForm = form(this.resetPasswordModel, (schemaPath) => {
-    required(schemaPath.password, { message: 'Password is required' });
-    minLength(schemaPath.password, 8, { message: 'Password must be at least 8 characters long' });
-    required(schemaPath.confirmPassword, { message: 'Confirm password is required' });
+    required(schemaPath.password, { message: 'VALIDATION.PASSWORD_REQUIRED' });
+    minLength(schemaPath.password, 8, { message: 'VALIDATION.PASSWORD_MIN_LENGTH' });
+    required(schemaPath.confirmPassword, { message: 'VALIDATION.CONFIRM_PASSWORD_REQUIRED' });
 
     validate(schemaPath.confirmPassword, ({ value, valueOf }) => {
       if (value() !== valueOf(schemaPath.password)) {
-        return { kind: 'mismatch', message: 'Passwords must match' };
+        return { kind: 'mismatch', message: 'VALIDATION.PASSWORDS_MISMATCH' };
       }
       return undefined;
     });

@@ -2,9 +2,6 @@
   "NAVBAR": {
     "RAMADAN_ADS": "Ramadan Ads",
     "BREAKING": "Breaking",
-    "NEWS_AND_TRENDS": "News & Trends",
-    "RESOURCES": "Resources",
-    "EVENTS": "Events",
     "MARKETING_INTELLIGENCE": "Marketing Intelligence",
     "PODCAST": "Podcast",
     "STRATEGY": "Strategy",
@@ -25,6 +22,7 @@
     "OOH_AND_PRINT": "OOH & Print",
     "PR_AND_COMMS": "PR & Comms",
     "MORE": "More",
+    "TOPICS": "Topics",
     "MY_PROFILE": "My Profile",
     "LOGOUT": "Log Out"
   },
@@ -169,6 +167,15 @@
     "RESET_PASSWORD_SUCCESS": "Your password has been successfully reset.",
     "BACK_TO_SIGNIN": "Back to Sign In"
   },
+  "VALIDATION": {
+    "NAME_REQUIRED": "Name is required",
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Valid email is required",
+    "PASSWORD_REQUIRED": "Password is required",
+    "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long",
+    "CONFIRM_PASSWORD_REQUIRED": "Confirm password is required",
+    "PASSWORDS_MISMATCH": "Passwords must match"
+  },
   "PRIVACY_POLICY": {
     "PRIVACY": "Privacy",
     "TITLE": "Privacy Policy",
@@ -181,5 +188,12 @@
   "PAGINATION": {
     "NEXT_PAGE": "Next page",
     "PREV_PAGE": "Previous page"
+  },
+  "PROFILE": {
+    "EDIT_PROFILE": "Edit Profile",
+    "SAVED": "Saved",
+    "SAVED_CONTENT": "Saved content",
+    "NO_FAVORITES_TITLE": "No saved content yet",
+    "NO_FAVORITES_DESC": "When you bookmark articles, they will show up here."
   }
 }

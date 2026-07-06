@@ -61,6 +61,7 @@ export interface ArticleDetails {
   category: TaxonomyInfo | null;
   topic: TaxonomyInfo | null;
   is_favorite?: boolean | null;
+  audio_url?: string | null;
   created_at: string;
 }
 

@@ -2,9 +2,6 @@
   "NAVBAR": {
     "RAMADAN_ADS": "إعلانات رمضان",
     "BREAKING": "عاجل",
-    "NEWS_AND_TRENDS": "أخبار وتوجهات",
-    "RESOURCES": "موارد",
-    "EVENTS": "فعاليات",
     "MARKETING_INTELLIGENCE": "استخبارات تسويقية",
     "PODCAST": "البودكاست",
     "STRATEGY": "الاستراتيجية",
@@ -25,6 +22,7 @@
     "OOH_AND_PRINT": "الإعلانات الخارجية",
     "PR_AND_COMMS": "العلاقات العامة",
     "MORE": "المزيد",
+    "TOPICS": "المواضيع",
     "MY_PROFILE": "ملفي الشخصي",
     "LOGOUT": "تسجيل الخروج"
   },
@@ -169,6 +167,15 @@
     "RESET_PASSWORD_SUCCESS": "تم إعادة تعيين كلمة المرور الخاصة بك بنجاح.",
     "BACK_TO_SIGNIN": "العودة لتسجيل الدخول"
   },
+  "VALIDATION": {
+    "NAME_REQUIRED": "الاسم مطلوب",
+    "EMAIL_REQUIRED": "البريد الإلكتروني مطلوب",
+    "EMAIL_INVALID": "يجب إدخال بريد إلكتروني صالح",
+    "PASSWORD_REQUIRED": "كلمة المرور مطلوبة",
+    "PASSWORD_MIN_LENGTH": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+    "CONFIRM_PASSWORD_REQUIRED": "تأكيد كلمة المرور مطلوب",
+    "PASSWORDS_MISMATCH": "كلمتا المرور غير متطابقتين"
+  },
   "PRIVACY_POLICY": {
     "PRIVACY": "خصوصية",
     "TITLE": "سياسة الخصوصية",
@@ -181,5 +188,12 @@
   "PAGINATION": {
     "NEXT_PAGE": "الصفحة التالية",
     "PREV_PAGE": "الصفحة السابقة"
+  },
+  "PROFILE": {
+    "EDIT_PROFILE": "تعديل الملف الشخصي",
+    "SAVED": "محفوظ",
+    "SAVED_CONTENT": "المحتوى المحفوظ",
+    "NO_FAVORITES_TITLE": "لا يوجد محتوى محفوظ بعد",
+    "NO_FAVORITES_DESC": "عند حفظ المقالات، ستظهر لك في هذه الصفحة."
   }
 }

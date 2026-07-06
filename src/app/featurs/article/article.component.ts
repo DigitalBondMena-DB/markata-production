@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { SocialSharePipe } from '@shared/pipes/social-share.pipe';
 import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AudioPlayerComponent } from '@shared/components/audio-player/audio-player.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     SkeletonComponent,
     EmptyStateComponent,
     DatePipe,
-    SocialSharePipe
+    SocialSharePipe,
+    AudioPlayerComponent
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',

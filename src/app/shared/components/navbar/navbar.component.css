@@ -39,7 +39,6 @@
 .top-bar-ticker {
     font-size: 11px;
     font-weight: 600;
-    max-width: 850px;
     color: var(--black);
     letter-spacing: 0.5px;
     white-space: nowrap;
@@ -50,34 +49,6 @@
         min-width: 0;
         flex: 1 1 200px;
         order: 2;
-    }
-}
-
-.top-bar-links {
-    margin-inline-start: auto;
-    display: flex;
-    gap: 20px;
-
-    & a {
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--black);
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        transition: opacity 0.2s;
-
-        &:hover {
-            opacity: 0.6;
-        }
-    }
-
-    @media (max-width: 720px) {
-        margin-left: 0;
-        order: 3;
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 12px 20px;
     }
 }
 
@@ -132,13 +103,18 @@ header:not(.article-feature-head):not(.inner-page-hero):not(.case-studies-head) 
     }
 
     .ramadan-btn {
-        color: #000;
-        font-size: .875rem;
-        font-weight: 500;
+        font-size: clamp(.625rem, .5vw, .75rem);
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #444;
+        padding: .5rem .75rem;
+        border-radius: 3px;
+        transition: all 0.2s;
+        white-space: nowrap;
         display: flex;
         align-items: center;
-        gap: .5rem;
-        text-transform: capitalize;
+        gap: 5px;
     }
 }
 
@@ -288,7 +264,7 @@ nav {
 
 
 .btn-signin {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    background: var(--gold-gradient);
     color: var(--black);
     font-size: 12px;
     font-weight: 700;
@@ -315,6 +291,7 @@ nav {
     &.logged {
         padding-inline: 8px;
         height: 100%;
+        border-radius: 8px;
     }
 }
 

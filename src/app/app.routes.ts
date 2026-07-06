@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { LanguageService } from './core/services/language.service';
 import { langGuard } from './core/guards/lang.guard';
 import { resetPasswordGuard } from './core/guards/reset-password.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 
 
@@ -43,6 +44,12 @@ export const routes: Routes = [
         path: 'privacy-policy',
         loadComponent: () =>
           import('./featurs/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent)
+      },
+      {
+        path: 'profile',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./featurs/profile/profile.component').then(m => m.ProfileComponent)
       },
       {
         path: 'category',

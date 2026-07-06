@@ -30,12 +30,10 @@
   </div>
   }
   @if (showBookmark()) {
-  <button type="button" class="case-studies-card__bookmark" (click)="onBookmark($event)"
-    [attr.aria-label]="'CATEGORY.SAVE_TO_BOOKMARKS' | translate">
-    <svg class="case-studies-card__bookmark-svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M6 4h12v16l-6-4-6 4V4z" stroke-linejoin="round" />
-    </svg>
-  </button>
+  <app-bookmark-button
+    [cardId]="card().id"
+    [isFavorite]="card().is_favorite"
+    (favoriteChanged)="onFavoriteChanged($event)">
+  </app-bookmark-button>
   }
 </div>

@@ -39,6 +39,7 @@
 /* Desktop Styles */
 .dropdown-menu {
   position: absolute;
+  inset-inline-end: 0;
   top: 100%;
   margin-top: 8px;
   background: rgba(255, 255, 255, 0.95);
@@ -56,17 +57,6 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-}
-
-/* RTL / LTR Alignment Support */
-:host-context([dir="rtl"]) .dropdown-menu {
-  right: 0;
-  left: auto;
-}
-
-:host-context([dir="ltr"]) .dropdown-menu {
-  left: 0;
-  right: auto;
 }
 
 @keyframes slideDown {

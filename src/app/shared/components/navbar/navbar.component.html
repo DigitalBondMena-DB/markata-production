@@ -3,11 +3,6 @@
     <div class="top-bar-inner">
         <span class="top-bar-label">{{ 'NAVBAR.BREAKING' | translate }}</span>
         <span class="top-bar-ticker">{{ tickerText() }}</span>
-        <div class="top-bar-links">
-            <a [routerLink]="['/', lang.currentLang(), 'news']">{{ 'NAVBAR.NEWS_AND_TRENDS' | translate }}</a>
-            <a [routerLink]="['/', lang.currentLang(), 'resources']">{{ 'NAVBAR.RESOURCES' | translate }}</a>
-            <a [routerLink]="['/', lang.currentLang(), 'events']">{{ 'NAVBAR.EVENTS' | translate }}</a>
-        </div>
     </div>
 </div>
 
@@ -21,7 +16,7 @@
             </div>
         </a>
         <nav>
-            @for (cat of taxonomiesData()?.categories ?? []; track cat.id) {
+            @for (cat of displayedCategories(); track cat.id) {
             <a [routerLink]="['/', lang.currentLang(), 'category', cat.slug]" routerLinkActive="active"
                 [routerLinkActiveOptions]="navExact">
                 {{ cat.name }}
@@ -33,7 +28,7 @@
                 </div>
                 {{'NAVBAR.RAMADAN_ADS' | translate}}
             </a>
-            <app-dropdown [label]="'NAVBAR.MORE' | translate">
+            <app-dropdown [label]="'NAVBAR.TOPICS' | translate">
                 @for (topic of taxonomiesData()?.topics ?? []; track topic.id) {
                 <a [routerLink]="['/', lang.currentLang(), 'topic', topic.slug]" routerLinkActive="active"
                     [routerLinkActiveOptions]="navExact">
@@ -41,6 +36,16 @@
                 </a>
                 }
             </app-dropdown>
+            @if (moreCategories().length > 0) {
+            <app-dropdown [label]="'NAVBAR.MORE' | translate">
+                @for (cat of moreCategories(); track cat.id) {
+                <a [routerLink]="['/', lang.currentLang(), 'category', cat.slug]" routerLinkActive="active"
+                    [routerLinkActiveOptions]="navExact">
+                    {{ cat.name }}
+                </a>
+                }
+            </app-dropdown>
+            }
         </nav>
         @let isArabic = lang.currentLang() === 'ar';
         <div class="header-actions">

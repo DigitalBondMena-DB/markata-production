@@ -1,0 +1,12 @@
+<app-profile-header
+  [user]="currentUser()"
+  [savedCount]="totalCount()">
+</app-profile-header>
+
+<app-profile-saved
+  [favorites]="favorites()"
+  [totalCount]="totalCount()"
+  [currentPage]="currentPage()"
+  [lastPage]="lastPage()"
+  (removeFavorite)="onRemoveFavorite($event)">
+</app-profile-saved>

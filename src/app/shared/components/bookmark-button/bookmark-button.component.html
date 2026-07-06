@@ -1,0 +1,17 @@
+<button 
+  type="button" 
+  class="bookmark-btn" 
+  [class.bookmark-btn--favorited]="isFavorite()"
+  [class.bookmark-btn--adding]="animatingState() === 'adding'"
+  [class.bookmark-btn--removing]="animatingState() === 'removing'"
+  [class.bookmark-btn--loading]="isLoading()"
+  [disabled]="isLoading()"
+  (click)="toggleFavorite($event)"
+  [attr.aria-label]="'CATEGORY.SAVE_TO_BOOKMARKS' | translate"
+>
+  <span class="bookmark-ripple" aria-hidden="true"></span>
+  <svg class="bookmark-icon" width="20" height="20" viewBox="0 0 24 24"
+    [attr.fill]="isFavorite() ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <path d="M6 4h12v16l-6-4-6 4V4z" stroke-linejoin="round" />
+  </svg>
+</button>

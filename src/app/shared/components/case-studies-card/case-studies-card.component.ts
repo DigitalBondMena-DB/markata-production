@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '@core/services/language.service';
 import { MarkataImgPlaceholderDirective } from '@shared/directives/markata-img-placeholder.directive';
+import { BookmarkButtonComponent } from '../bookmark-button/bookmark-button.component';
 
 @Component({
   selector: 'app-case-studies-card',
-  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective],
+  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective, BookmarkButtonComponent],
   templateUrl: './case-studies-card.component.html',
   styleUrl: './case-studies-card.component.css',
   host: {
@@ -21,10 +22,10 @@ export class CaseStudiesCardComponent {
   readonly view = input<'grid' | 'list'>('grid');
   readonly showBookmark = input<boolean>(true);
 
-  readonly bookmarkClick = output<Event>();
+  readonly bookmarkClick = output<any>();
 
-  onBookmark(event: Event) {
-    event.stopPropagation();
+  onFavoriteChanged(event: { id: number; isFavorite: boolean }) {
+    this.card().is_favorite = event.isFavorite;
     this.bookmarkClick.emit(event);
   }
 }

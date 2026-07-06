@@ -1,0 +1,132 @@
+.bookmark-btn {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: -8px -4px -8px 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gold-dark);
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  overflow: visible;
+}
+
+.bookmark-btn:hover {
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--black);
+}
+
+.bookmark-btn--favorited {
+  color: var(--gold-dark);
+}
+
+.bookmark-btn--favorited:hover {
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--gold-dark);
+}
+
+.bookmark-icon {
+  display: block;
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+/* Animations */
+
+/* Adding to favorites animation (success) */
+.bookmark-btn--adding .bookmark-icon {
+  animation: bookmarkPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* Ripple burst effect on success add */
+.bookmark-btn--adding .bookmark-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.4) 0%, rgba(201, 168, 76, 0) 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rippleBurst 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) both;
+}
+
+/* Removing from favorites animation */
+.bookmark-btn--removing .bookmark-icon {
+  animation: bookmarkWiggle 0.6s ease-in-out both;
+}
+
+/* Loading state styles */
+.bookmark-btn--loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bookmark-btn--loading .bookmark-icon {
+  animation: bookmarkPulse 1s infinite alternate ease-in-out;
+}
+
+@keyframes bookmarkPop {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.4) rotate(15deg);
+  }
+  60% {
+    transform: scale(0.9) rotate(-10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes rippleBurst {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+  }
+  100% {
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+  }
+}
+
+@keyframes bookmarkWiggle {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.8) rotate(-15deg);
+  }
+  40% {
+    transform: scale(1.1) rotate(15deg);
+  }
+  60% {
+    transform: scale(0.9) rotate(-10deg);
+  }
+  80% {
+    transform: scale(1.05) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes bookmarkPulse {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}

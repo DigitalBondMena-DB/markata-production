@@ -1,9 +1,11 @@
 import { Component, input, model, output, signal, computed } from '@angular/core';
 import { FormValueControl } from '@angular/forms/signals';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-form-input',
   standalone: true,
+  imports: [TranslatePipe],
   templateUrl: './form-input.component.html',
   styleUrl: './form-input.component.css'
 })

@@ -136,6 +136,11 @@
     </aside>
 
     <article class="article-body-col">
+      <!-- @if (article.audio_url) { -->
+      <app-audio-player [audioUrl]="'https://m.youtube.com/watch?v=Jc68l9451V4'"
+        [title]="article.title"></app-audio-player>
+      <!-- } -->
+
       @if (article.first_paragraph) {
       <p class="article-body-lede"
         style="font-size: 1.25rem; line-height: 1.6; font-weight: 500; margin-bottom: 1.5rem; color: var(--color-text-intense);">

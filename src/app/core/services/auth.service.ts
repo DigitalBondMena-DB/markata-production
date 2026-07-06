@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal, TransferState, makeStateKey } from '@angular/core';
+import { computed, inject, signal, TransferState, makeStateKey, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -14,9 +14,7 @@ interface ApiResponse<T> {
   message?: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
@@ -89,7 +87,6 @@ export class AuthService {
         `${environment.api}${AuthEndpoints.me}`
       )
       .pipe(
-        tap(res => console.log('Raw checkAuth API response:', res)),
         map(res => {
           if (res && res.data) {
             return res.data.user || res.data;
@@ -97,7 +94,6 @@ export class AuthService {
           return res;
         }),
         tap(user => {
-          console.log('Mapped user in checkAuth:', user);
           this._currentUser.set(user);
           this._isAuthChecked.set(true);
           if (user) {
@@ -116,8 +112,6 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
-    console.log("logout method called in AuthService");
-
     // Clear client-side state immediately
     this._currentUser.set(null);
     this._error.set(null);
@@ -145,7 +139,7 @@ export class AuthService {
         })
       )
       .subscribe({
-        next: () => console.log('Background logout API request succeeded'),
+        next: () => { },
         complete: () => this._loading.set(false)
       });
 

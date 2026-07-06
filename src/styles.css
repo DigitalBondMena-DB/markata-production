@@ -43,6 +43,7 @@ app-shell {
     --gold-dark: #A07830;
     --black: #0A0A0A;
     --dark: #111111;
+    --gold-gradient: linear-gradient(135deg, var(--gold), var(--gold-dark));
     --dark2: #F4F2EE;
     --dark3: #EDEAE4;
     --white: #FFFFFF;

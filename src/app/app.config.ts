@@ -3,8 +3,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideTranslateService, TranslateService } from "@ngx-translate/core";
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/guards/auth.interceptor';
 import { AuthService } from './core/services/auth.service';
 import enTranslations from '../../public/assets/i18n/en.json';
@@ -27,10 +26,6 @@ export const appConfig: ApplicationConfig = {
       return authService.checkAuth();
     }),
     provideTranslateService({
-      loader: provideTranslateHttpLoader({
-        prefix: '/assets/i18n/',
-        suffix: '.json'
-      }),
       fallbackLang: 'en'
     })
   ]

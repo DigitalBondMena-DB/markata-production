@@ -31,6 +31,14 @@ export class NavbarComponent {
   readonly tickerFallbackAr = 'تحديثات مثيرة قادمة قريباً إلى ماركاتا! تابعونا.';
   readonly taxonomiesData = computed(() => this.navbarService.taxonomiesResource.value()?.data ?? null);
 
+  readonly displayedCategories = computed(() => {
+    return this.taxonomiesData()?.categories?.slice(0, 5) ?? [];
+  });
+
+  readonly moreCategories = computed(() => {
+    return this.taxonomiesData()?.categories?.slice(5) ?? [];
+  });
+
   readonly tickerText = computed(() => {
     const news = this.taxonomiesData()?.breaking_news ?? [];
     if (news.length === 0) {
@@ -50,9 +58,7 @@ export class NavbarComponent {
   }
   logout() {
     this.authService.logout().subscribe({
-      next: (res) => {
-        console.log(res);
-
+      next: () => {
       }
     });
   }

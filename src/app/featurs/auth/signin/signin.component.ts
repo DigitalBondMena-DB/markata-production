@@ -35,9 +35,9 @@ export class SigninComponent {
   });
 
   readonly signinForm = form(this.signinModel, (schemaPath) => {
-    required(schemaPath.email, { message: "email is required" });
-    email(schemaPath.email, { message: "valid email is required" });
-    required(schemaPath.password, { message: "password is required" });
+    required(schemaPath.email, { message: 'VALIDATION.EMAIL_REQUIRED' });
+    email(schemaPath.email, { message: 'VALIDATION.EMAIL_INVALID' });
+    required(schemaPath.password, { message: 'VALIDATION.PASSWORD_REQUIRED' });
   });
 
   onSubmit(event: SubmitEvent) {

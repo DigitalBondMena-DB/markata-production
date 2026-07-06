@@ -33,8 +33,8 @@ export class ForgotPasswordComponent {
   });
 
   readonly forgotPasswordForm = form(this.forgotPasswordModel, (schemaPath) => {
-    required(schemaPath.email, { message: 'Email is required' });
-    email(schemaPath.email, { message: 'Valid email is required' });
+    required(schemaPath.email, { message: 'VALIDATION.EMAIL_REQUIRED' });
+    email(schemaPath.email, { message: 'VALIDATION.EMAIL_INVALID' });
   });
 
   closeModal(): void {
@@ -47,7 +47,7 @@ export class ForgotPasswordComponent {
     if (this.forgotPasswordForm().valid() && !this.authService.loading()) {
       this.errorMessage.set(null);
       this.formErrors.set(null);
-      
+
       const emailVal = this.forgotPasswordModel().email;
       this.authService.forgotPassword(emailVal).subscribe({
         next: () => {

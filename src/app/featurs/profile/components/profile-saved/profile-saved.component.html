@@ -1,0 +1,31 @@
+<div class="profile-saved-container container">
+
+  @if (favorites().length > 0) {
+  <div class="saved-header">
+    <h2 class="saved-title">{{ 'PROFILE.SAVED_CONTENT' | translate }} ({{ totalCount() }})</h2>
+    <div class="gold-indicator"></div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="saved-grid">
+    @for (item of favorites(); track item.id) {
+    <app-case-studies-card [card]="item" [showBookmark]="true" (bookmarkClick)="removeFavorite.emit(item.id)">
+    </app-case-studies-card>
+    }
+  </div>
+
+  <!-- Pagination -->
+  @if (lastPage() > 1) {
+  <div class="pagination-wrapper">
+    <app-pagination [currentPage]="currentPage()" [lastPage]="lastPage()" [routeConfig]="routeConfig">
+    </app-pagination>
+  </div>
+  }
+  } @else {
+  <div class="empty-state-wrapper">
+    <app-empty-state [title]="'PROFILE.NO_FAVORITES_TITLE' | translate"
+      [description]="'PROFILE.NO_FAVORITES_DESC' | translate">
+    </app-empty-state>
+  </div>
+  }
+</div>

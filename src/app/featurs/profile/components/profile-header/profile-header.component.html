@@ -1,0 +1,31 @@
+<div class="profile-header-container">
+  <img src="assets/images/profile/profile-bg-decoration.webp" loading="lazy" decoding="async" alt="" role="presentation"
+    class="bg-decore-image" width="562">
+  <div class="profile-header-inner container">
+    <div class="profile-user-info">
+      <!-- Initials badge -->
+      <div class="profile-avatar">
+        {{ (user()?.name | userNameChar) || 'U' }}
+      </div>
+
+      <!-- Text details -->
+      <div class="profile-details">
+        <div class="profile-name-row">
+          <h1 class="profile-name">{{ user()?.name }}</h1>
+          <span class="profile-badge">Subscriber</span>
+        </div>
+        <p class="profile-saved-count">
+          <span class="count-number">{{ savedCount() }}</span>
+          {{ 'PROFILE.SAVED' | translate }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="profile-actions">
+      <a class="edit-profile-btn">
+        {{ 'PROFILE.EDIT_PROFILE' | translate }}
+      </a>
+    </div>
+  </div>
+</div>

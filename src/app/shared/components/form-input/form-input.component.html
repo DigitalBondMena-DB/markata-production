@@ -28,7 +28,7 @@
   </div>
   @if (touched() && invalid()) {
   <ul class="error-list">
-    <li>{{ errors()[0].message }}</li>
+    <li>{{ errors()[0].message | translate }}</li>
   </ul>
   }
 </div>

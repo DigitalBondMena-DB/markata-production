@@ -1,0 +1,4 @@
+/* Profile container styles - subcomponents manage their own layout */
+:host {
+  display: block;
+}
