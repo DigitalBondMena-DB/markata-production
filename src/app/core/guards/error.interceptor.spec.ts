@@ -37,7 +37,7 @@ describe('errorInterceptor', () => {
     httpMock.verify();
   });
 
-  it('should navigate to /lang/404 when a 404 HttpErrorResponse is received', () => {
+  it('should NOT navigate to /lang/404 when a 404 HttpErrorResponse is received', () => {
     httpClient.get('/api/test-404').subscribe({
       next: () => {},
       error: (error) => {
@@ -48,7 +48,7 @@ describe('errorInterceptor', () => {
     const req = httpMock.expectOne('/api/test-404');
     req.flush('Not Found', { status: 404, statusText: 'Not Found' });
 
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['en', '404']);
+    expect(routerSpy.navigate).not.toHaveBeenCalled();
   });
 
   it('should NOT navigate when response status is not 404', () => {

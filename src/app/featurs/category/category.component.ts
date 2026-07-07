@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject, input, effect, linkedSignal, untracked, ViewEncapsulation, debounced } from '@angular/core';
+import { Component, signal, computed, inject, input, effect, linkedSignal, untracked, ViewEncapsulation, debounced, RESPONSE_INIT } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -24,6 +24,7 @@ export class CategoryComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly seoService = inject(SeoService);
   private readonly categoryService = inject(CategoryService);
+  private readonly responseInit = inject(RESPONSE_INIT, { optional: true });
 
   // Router binds the :slug parameter automatically
   readonly slug = input<string>('case-studies');
@@ -90,7 +91,12 @@ export class CategoryComponent {
   });
 
   // Computed properties mapping the API response data
-  readonly pageData = computed(() => this.pageResource.value()?.data);
+  readonly pageData = computed(() => {
+    if (this.pageResource.status() === 'resolved') {
+      return this.pageResource.value()?.data;
+    }
+    return undefined;
+  });
   readonly articles = computed(() => this.pageData()?.articles?.data ?? []);
   readonly meta = computed(() => this.pageData()?.articles?.meta);
 
@@ -115,8 +121,22 @@ export class CategoryComponent {
   });
 
   constructor() {
+    // Set 404 status code if category page fails to load on SSR
+    effect(() => {
+      const isLoaded = !this.pageResource.isLoading();
+      const hasError = !!this.pageResource.error();
+      const hasNoData = !this.pageData();
+
+      if (isLoaded && (hasError || hasNoData) && this.responseInit) {
+        this.responseInit.status = 404;
+      }
+    });
+
     // Sync SEO metadata and handle language mismatch
     effect(() => {
+      if (this.pageResource.status() !== 'resolved') {
+        return;
+      }
       const response = this.pageResource.value();
       if (response?.seo) {
         this.seoService.updateSeo(response.seo);

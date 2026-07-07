@@ -1,4 +1,4 @@
-import { Component, inject, input, computed, effect, ViewEncapsulation, signal, linkedSignal, untracked, DestroyRef, Renderer2 } from '@angular/core';
+import { Component, inject, input, computed, effect, ViewEncapsulation, signal, linkedSignal, untracked, DestroyRef, Renderer2, RESPONSE_INIT } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -40,6 +40,7 @@ export class ArticleComponent {
   private readonly seoService = inject(SeoService);
   private readonly articleService = inject(ArticleService);
   private readonly router = inject(Router);
+  private readonly responseInit = inject(RESPONSE_INIT, { optional: true });
 
   readonly slug = input<string>();
 
@@ -71,12 +72,30 @@ export class ArticleComponent {
   readonly articleResource = this.articleService.getArticle(this.activeSlug);
 
 
-  readonly articleData = computed(() =>
-    this.articleResource.value()?.data
-  );
-  readonly nextArticles = computed(() => this.articleResource.value()?.next_articles ?? []);
-  readonly relatedArticles = computed(() => this.articleResource.value()?.related_articles ?? []);
-  readonly randomArticles = computed(() => this.articleResource.value()?.random_articles ?? []);
+  readonly articleData = computed(() => {
+    if (this.articleResource.status() === 'resolved') {
+      return this.articleResource.value()?.data;
+    }
+    return undefined;
+  });
+  readonly nextArticles = computed(() => {
+    if (this.articleResource.status() === 'resolved') {
+      return this.articleResource.value()?.next_articles ?? [];
+    }
+    return [];
+  });
+  readonly relatedArticles = computed(() => {
+    if (this.articleResource.status() === 'resolved') {
+      return this.articleResource.value()?.related_articles ?? [];
+    }
+    return [];
+  });
+  readonly randomArticles = computed(() => {
+    if (this.articleResource.status() === 'resolved') {
+      return this.articleResource.value()?.random_articles ?? [];
+    }
+    return [];
+  });
 
   // Formatted article body HTML (handles both raw HTML and plain text paragraphs)
   readonly articleBodyHtml = computed(() => {
@@ -140,7 +159,21 @@ export class ArticleComponent {
 
 
   constructor() {
+    // Set 404 status code if article is not found on SSR
     effect(() => {
+      const isLoaded = !this.articleResource.isLoading();
+      const hasError = !!this.articleResource.error();
+      const hasNoData = !this.articleData();
+
+      if (isLoaded && (hasError || hasNoData) && this.responseInit) {
+        this.responseInit.status = 404;
+      }
+    });
+
+    effect(() => {
+      if (this.articleResource.status() !== 'resolved') {
+        return;
+      }
       const response = this.articleResource.value();
       if (response?.seo) {
         this.seoService.updateSeo(response.seo);

@@ -106,7 +106,8 @@ export const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: '404'
+        loadComponent: () =>
+          import('./featurs/not-found/not-found.component').then(m => m.NotFoundComponent)
       }
     ]
   },
@@ -121,10 +122,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: () => {
-      const languageService = inject(LanguageService);
-      const defaultLang = languageService.getBrowserOrSavedLang();
-      return `${defaultLang}/404`;
-    }
+    loadComponent: () =>
+      import('./featurs/not-found/not-found.component').then(m => m.NotFoundComponent)
   }
 ];
