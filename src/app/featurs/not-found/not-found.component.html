@@ -1,0 +1,20 @@
+<section class="not-found-section">
+  <div class="inner-pages-container text-center">
+    <div class="error-container">
+      <div class="error-code" aria-hidden="true">
+        {{ 'NOT_FOUND.CODE' | translate }}
+      </div>
+      <h1 class="error-title">
+        {{ 'NOT_FOUND.TITLE' | translate }}
+      </h1>
+      <p class="error-desc">
+        {{ 'NOT_FOUND.DESC' | translate }}
+      </p>
+      <div class="action-wrapper">
+        <a [routerLink]="['/', currentLang()]" class="back-home-btn">
+          {{ 'NOT_FOUND.BACK_HOME' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

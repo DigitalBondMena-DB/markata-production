@@ -195,5 +195,11 @@
     "SAVED_CONTENT": "Saved content",
     "NO_FAVORITES_TITLE": "No saved content yet",
     "NO_FAVORITES_DESC": "When you bookmark articles, they will show up here."
+  },
+  "NOT_FOUND": {
+    "CODE": "404",
+    "TITLE": "Page Not Found",
+    "DESC": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "BACK_HOME": "Go Back Home"
   }
 }

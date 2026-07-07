@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/guards/auth.interceptor';
+import { errorInterceptor } from './core/guards/error.interceptor';
 import { AuthService } from './core/services/auth.service';
 import enTranslations from '../../public/assets/i18n/en.json';
 import arTranslations from '../../public/assets/i18n/ar.json';
@@ -14,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
     provideAppInitializer(() => {
       const translate = inject(TranslateService);
       translate.setTranslation('en', enTranslations);

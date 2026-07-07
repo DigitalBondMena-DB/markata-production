@@ -136,10 +136,9 @@
     </aside>
 
     <article class="article-body-col">
-      <!-- @if (article.audio_url) { -->
-      <app-audio-player [audioUrl]="'https://m.youtube.com/watch?v=Jc68l9451V4'"
-        [title]="article.title"></app-audio-player>
-      <!-- } -->
+      @if (article?.audio?.url) {
+      <app-audio-player [audioUrl]="article?.audio?.url" [title]="article.title"></app-audio-player>
+      }
 
       @if (article.first_paragraph) {
       <p class="article-body-lede"

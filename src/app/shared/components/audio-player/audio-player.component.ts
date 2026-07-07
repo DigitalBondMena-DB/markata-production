@@ -1,10 +1,10 @@
-import { Component, inject, input, signal, computed, effect, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, inject, input, signal, computed, effect, PLATFORM_ID, OnDestroy, untracked } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-audio-player',
-  standalone: true,
   imports: [TranslatePipe],
   templateUrl: './audio-player.component.html',
   styleUrl: './audio-player.component.css',
@@ -23,7 +23,7 @@ export class AudioPlayerComponent implements OnDestroy {
   readonly title = input<string | null>(null);
 
   // Internal Audio Element (Browser only)
-  private audio: HTMLAudioElement | null = null;
+  private readonly audio = signal<HTMLAudioElement | null>(null);
 
   // Reactive State
   readonly playing = signal(false);
@@ -33,7 +33,7 @@ export class AudioPlayerComponent implements OnDestroy {
   readonly volume = signal(1); // 0 to 1
   readonly muted = signal(false);
   readonly speed = signal(1); // 1, 1.25, 1.5, 2
-  
+
   // Speed options
   readonly speedOptions = [1, 1.25, 1.5, 2];
 
@@ -58,9 +58,36 @@ export class AudioPlayerComponent implements OnDestroy {
   constructor() {
     // React to audioUrl changes
     effect(() => {
-      const url = this.audioUrl();
+      const audioUrl = this.audioUrl();
+      const url = audioUrl ? `${environment.imageBaseUrl}/uploads/${audioUrl}` : null;
+      console.log(url);
+
       if (this.isBrowser) {
-        this.initializeAudio(url);
+        untracked(() => this.initializeAudio(url));
+      }
+    });
+
+    // Sync volume to audio element
+    effect(() => {
+      const audioObj = this.audio();
+      if (audioObj) {
+        audioObj.volume = this.volume();
+      }
+    });
+
+    // Sync muted state to audio element
+    effect(() => {
+      const audioObj = this.audio();
+      if (audioObj) {
+        audioObj.muted = this.muted();
+      }
+    });
+
+    // Sync playback rate to audio element
+    effect(() => {
+      const audioObj = this.audio();
+      if (audioObj) {
+        audioObj.playbackRate = this.speed();
       }
     });
   }
@@ -82,12 +109,7 @@ export class AudioPlayerComponent implements OnDestroy {
 
     this.loading.set(true);
     const audioObj = new Audio(url);
-    this.audio = audioObj;
-
-    // Apply current settings
-    audioObj.volume = this.volume();
-    audioObj.muted = this.muted();
-    audioObj.playbackRate = this.speed();
+    this.audio.set(audioObj);
 
     // Event Listeners
     audioObj.addEventListener('canplay', () => {
@@ -129,67 +151,63 @@ export class AudioPlayerComponent implements OnDestroy {
   }
 
   private cleanupAudio(): void {
-    if (this.audio) {
-      this.audio.pause();
-      this.audio.src = '';
-      this.audio.load();
-      this.audio = null;
+    const audioObj = this.audio();
+    if (audioObj) {
+      audioObj.pause();
+      audioObj.src = '';
+      audioObj.load();
+      this.audio.set(null);
     }
   }
 
   togglePlay(): void {
-    if (!this.audio) return;
+    const audioObj = this.audio();
+    if (!audioObj) return;
 
     if (this.playing()) {
-      this.audio.pause();
+      audioObj.pause();
     } else {
-      this.audio.play().catch(err => {
+      audioObj.play().catch(err => {
         console.error('Playback failed:', err);
       });
     }
   }
 
   seek(event: Event): void {
-    if (!this.audio) return;
+    const audioObj = this.audio();
+    if (!audioObj) return;
     const inputEl = event.target as HTMLInputElement;
     const value = parseFloat(inputEl.value);
-    this.audio.currentTime = value;
+    audioObj.currentTime = value;
     this.currentTime.set(value);
   }
 
   toggleMute(): void {
-    if (!this.audio) return;
-    const newMuted = !this.muted();
-    this.audio.muted = newMuted;
-    this.muted.set(newMuted);
+    this.muted.update(muted => !muted);
   }
 
   setVolume(event: Event): void {
-    if (!this.audio) return;
     const inputEl = event.target as HTMLInputElement;
     const val = parseFloat(inputEl.value);
-    this.audio.volume = val;
     this.volume.set(val);
     if (val > 0 && this.muted()) {
-      this.audio.muted = false;
       this.muted.set(false);
     }
   }
 
   cycleSpeed(): void {
-    if (!this.audio) return;
     const currentSpeed = this.speed();
     const currentIndex = this.speedOptions.indexOf(currentSpeed);
     const nextIndex = (currentIndex + 1) % this.speedOptions.length;
     const nextSpeed = this.speedOptions[nextIndex];
-    
-    this.audio.playbackRate = nextSpeed;
+
     this.speed.set(nextSpeed);
   }
 
   // Keyboard accessibility
   handleKeyDown(event: KeyboardEvent): void {
-    if (!this.audio) return;
+    const audioObj = this.audio();
+    if (!audioObj) return;
 
     switch (event.key) {
       case ' ':
@@ -200,27 +218,25 @@ export class AudioPlayerComponent implements OnDestroy {
       case 'ArrowLeft':
         event.preventDefault();
         // Seek backward 5 seconds
-        const prevTime = Math.max(0, this.audio.currentTime - 5);
-        this.audio.currentTime = prevTime;
+        const prevTime = Math.max(0, audioObj.currentTime - 5);
+        audioObj.currentTime = prevTime;
         break;
       case 'ArrowRight':
         event.preventDefault();
         // Seek forward 5 seconds
-        const nextTime = Math.min(this.duration(), this.audio.currentTime + 5);
-        this.audio.currentTime = nextTime;
+        const nextTime = Math.min(this.duration(), audioObj.currentTime + 5);
+        audioObj.currentTime = nextTime;
         break;
       case 'ArrowUp':
         event.preventDefault();
         // Increase volume by 10%
-        const incVol = Math.min(1, this.audio.volume + 0.1);
-        this.audio.volume = incVol;
+        const incVol = Math.min(1, this.volume() + 0.1);
         this.volume.set(incVol);
         break;
       case 'ArrowDown':
         event.preventDefault();
         // Decrease volume by 10%
-        const decVol = Math.max(0, this.audio.volume - 0.1);
-        this.audio.volume = decVol;
+        const decVol = Math.max(0, this.volume() - 0.1);
         this.volume.set(decVol);
         break;
     }

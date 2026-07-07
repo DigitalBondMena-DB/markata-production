@@ -1,0 +1,108 @@
+.not-found-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 350px);
+  background-color: var(--white);
+  padding: 3.5rem 1.5rem 6rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.error-container {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.error-code {
+  font-size: 7.5rem;
+  font-weight: 900;
+  line-height: 1;
+  font-family: var(--font-en);
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.05em;
+  animation: pulse 3s infinite ease-in-out;
+}
+
+:host-context([dir="rtl"]) .error-code {
+  font-family: var(--font-ar);
+  font-size: 6.5rem;
+}
+
+.error-title {
+  font-family: var(--font-en);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--black);
+  margin: 0;
+}
+
+:host-context([dir="rtl"]) .error-title {
+  font-family: var(--font-ar);
+}
+
+.error-desc {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--gray);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+:host-context([dir="rtl"]) .error-desc {
+  font-family: var(--font-ar);
+}
+
+.action-wrapper {
+  margin-top: 1rem;
+}
+
+.back-home-btn {
+  display: inline-block;
+  background-color: var(--gold-dark);
+  color: var(--black);
+  border: none;
+  border-radius: 6px;
+  padding: 14px 28px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+:host-context([dir="rtl"]) .back-home-btn {
+  font-family: var(--font-ar);
+  letter-spacing: 0;
+}
+
+.back-home-btn:hover {
+  background-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(201, 168, 76, 0.25);
+}
+
+.back-home-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
