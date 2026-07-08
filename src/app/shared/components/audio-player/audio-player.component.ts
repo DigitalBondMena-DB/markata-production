@@ -1,7 +1,9 @@
-import { Component, inject, input, signal, computed, effect, PLATFORM_ID, OnDestroy, untracked } from '@angular/core';
+import { Component, inject, input, signal, computed, effect, PLATFORM_ID, OnDestroy, untracked, Renderer2, DestroyRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { environment } from '@env/environment';
+import { fromEvent } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-audio-player',
@@ -17,6 +19,7 @@ import { environment } from '@env/environment';
 export class AudioPlayerComponent implements OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly isBrowser = isPlatformBrowser(this.platformId);
+  private readonly renderer = inject(Renderer2);
 
   // Inputs
   readonly audioUrl = input<string | null>(null);
@@ -24,15 +27,16 @@ export class AudioPlayerComponent implements OnDestroy {
 
   // Internal Audio Element (Browser only)
   private readonly audio = signal<HTMLAudioElement | null>(null);
+  private readonly destroyRef = inject(DestroyRef);
 
   // Reactive State
   readonly playing = signal(false);
   readonly currentTime = signal(0);
   readonly duration = signal(0);
   readonly loading = signal(false);
-  readonly volume = signal(1); // 0 to 1
+  readonly volume = signal(1);
   readonly muted = signal(false);
-  readonly speed = signal(1); // 1, 1.25, 1.5, 2
+  readonly speed = signal(1);
 
   // Speed options
   readonly speedOptions = [1, 1.25, 1.5, 2];
@@ -51,7 +55,7 @@ export class AudioPlayerComponent implements OnDestroy {
     return `${Math.round(this.volume() * 100)}%`;
   });
   readonly ariaLabel = computed(() => {
-    const audioTitle = this.title() || 'Audio Player';
+    const audioTitle = this.title() || '';
     return `Audio Player: ${audioTitle}`;
   });
 
@@ -59,9 +63,7 @@ export class AudioPlayerComponent implements OnDestroy {
     // React to audioUrl changes
     effect(() => {
       const audioUrl = this.audioUrl();
-      const url = audioUrl ? `${environment.imageBaseUrl}/uploads/${audioUrl}` : null;
-      console.log(url);
-
+      const url = audioUrl ? `${environment.imageBaseUrl}/${audioUrl}` : null;
       if (this.isBrowser) {
         untracked(() => this.initializeAudio(url));
       }
@@ -71,7 +73,7 @@ export class AudioPlayerComponent implements OnDestroy {
     effect(() => {
       const audioObj = this.audio();
       if (audioObj) {
-        audioObj.volume = this.volume();
+        this.renderer.setProperty(audioObj, 'volume', this.volume());
       }
     });
 
@@ -79,7 +81,7 @@ export class AudioPlayerComponent implements OnDestroy {
     effect(() => {
       const audioObj = this.audio();
       if (audioObj) {
-        audioObj.muted = this.muted();
+        this.renderer.setProperty(audioObj, 'muted', this.muted());
       }
     });
 
@@ -87,14 +89,12 @@ export class AudioPlayerComponent implements OnDestroy {
     effect(() => {
       const audioObj = this.audio();
       if (audioObj) {
-        audioObj.playbackRate = this.speed();
+        this.renderer.setProperty(audioObj, 'playbackRate', this.speed());
       }
     });
   }
 
-  ngOnDestroy(): void {
-    this.cleanupAudio();
-  }
+
 
   private initializeAudio(url: string | null): void {
     this.cleanupAudio();
@@ -108,53 +108,71 @@ export class AudioPlayerComponent implements OnDestroy {
     }
 
     this.loading.set(true);
-    const audioObj = new Audio(url);
+    const audioObj = this.renderer.createElement('audio') as HTMLAudioElement;
+    this.renderer.setAttribute(audioObj, 'src', url);
     this.audio.set(audioObj);
 
-    // Event Listeners
-    audioObj.addEventListener('canplay', () => {
-      this.loading.set(false);
-    });
 
-    audioObj.addEventListener('loadedmetadata', () => {
-      this.duration.set(audioObj.duration || 0);
-      this.loading.set(false);
-    });
+    // Event Listeners using RxJS fromEvent
+    fromEvent(audioObj, 'canplay')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.loading.set(false);
+      });
 
-    audioObj.addEventListener('timeupdate', () => {
-      this.currentTime.set(audioObj.currentTime || 0);
-    });
+    fromEvent(audioObj, 'loadedmetadata')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.duration.set(audioObj.duration || 0);
+        this.loading.set(false);
+      });
 
-    audioObj.addEventListener('playing', () => {
-      this.playing.set(true);
-      this.loading.set(false);
-    });
+    fromEvent(audioObj, 'timeupdate')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.currentTime.set(audioObj.currentTime || 0);
+      });
 
-    audioObj.addEventListener('pause', () => {
-      this.playing.set(false);
-    });
+    fromEvent(audioObj, 'playing')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.playing.set(true);
+        this.loading.set(false);
+      });
 
-    audioObj.addEventListener('ended', () => {
-      this.playing.set(false);
-      this.currentTime.set(0);
-    });
+    fromEvent(audioObj, 'pause')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.playing.set(false);
+      });
 
-    audioObj.addEventListener('waiting', () => {
-      this.loading.set(true);
-    });
+    fromEvent(audioObj, 'ended')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.playing.set(false);
+        this.currentTime.set(0);
+      });
 
-    audioObj.addEventListener('error', () => {
-      this.loading.set(false);
-      this.playing.set(false);
-      console.error('Audio playback error occurred.');
-    });
+    fromEvent(audioObj, 'waiting')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.loading.set(true);
+      });
+
+    fromEvent(audioObj, 'error')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.loading.set(false);
+        this.playing.set(false);
+        console.error('Audio playback error occurred.');
+      });
   }
 
   private cleanupAudio(): void {
     const audioObj = this.audio();
     if (audioObj) {
       audioObj.pause();
-      audioObj.src = '';
+      this.renderer.setAttribute(audioObj, 'src', '');
       audioObj.load();
       this.audio.set(null);
     }
@@ -178,7 +196,7 @@ export class AudioPlayerComponent implements OnDestroy {
     if (!audioObj) return;
     const inputEl = event.target as HTMLInputElement;
     const value = parseFloat(inputEl.value);
-    audioObj.currentTime = value;
+    this.renderer.setProperty(audioObj, 'currentTime', value);
     this.currentTime.set(value);
   }
 
@@ -219,13 +237,13 @@ export class AudioPlayerComponent implements OnDestroy {
         event.preventDefault();
         // Seek backward 5 seconds
         const prevTime = Math.max(0, audioObj.currentTime - 5);
-        audioObj.currentTime = prevTime;
+        this.renderer.setProperty(audioObj, 'currentTime', prevTime);
         break;
       case 'ArrowRight':
         event.preventDefault();
         // Seek forward 5 seconds
         const nextTime = Math.min(this.duration(), audioObj.currentTime + 5);
-        audioObj.currentTime = nextTime;
+        this.renderer.setProperty(audioObj, 'currentTime', nextTime);
         break;
       case 'ArrowUp':
         event.preventDefault();
@@ -247,5 +265,8 @@ export class AudioPlayerComponent implements OnDestroy {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
+  ngOnDestroy(): void {
+    this.cleanupAudio();
   }
 }

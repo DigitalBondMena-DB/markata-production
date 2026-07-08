@@ -350,6 +350,12 @@
   min-width: 0;
 }
 
+.article-body-html {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
 .article-scroll-anchor {
   scroll-margin-top: 108px;
   height: 0;

@@ -204,7 +204,6 @@ export class ArticleComponent {
       const headingId = this.activeHeadingId();
       if (headingId) {
         try {
-          // Using Renderer2/DOCUMENT to access DOM safely
           const element = this.renderer.selectRootElement(`#${headingId}`, true);
           if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -20,11 +20,7 @@ export class MarkataImgPlaceholderDirective implements AfterViewInit {
     const el = this.host.nativeElement;
     let img = el.querySelector('img') as HTMLImageElement;
 
-    const fallback =
-      'data:image/svg+xml,' +
-      encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600"><rect fill="#EDEAE4" width="900" height="600"/></svg>'
-      );
+    const fallback = 'assets/icons/digital-bond.svg';
 
     if (!img) {
       const imageUrl = `${environment.imageBaseUrl}${this.seed()}`;

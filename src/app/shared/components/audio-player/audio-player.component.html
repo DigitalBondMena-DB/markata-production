@@ -1,6 +1,5 @@
 <div class="audio-player-card" (keydown)="handleKeyDown($event)" tabindex="0">
   <div class="player-left-section">
-    <!-- Play/Pause Button -->
     <button type="button" class="play-btn" (click)="togglePlay()"
       [attr.aria-label]="playing() ? 'Pause audio' : 'Play audio'" [class.btn-loading]="loading()">
       @if (loading()) {
@@ -21,10 +20,6 @@
   </div>
 
   <div class="player-middle-section">
-    <!-- Title / Helper -->
-
-
-    <!-- Timeline Slider -->
     <div class="timeline-container">
       <span class="time-label current-time" aria-live="off">{{ formattedCurrentTime() }}</span>
       <div class="timeline-slider-wrapper">
@@ -40,13 +35,10 @@
   </div>
 
   <div class="player-right-section">
-    <!-- Speed Selector -->
     <button type="button" class="speed-btn" (click)="cycleSpeed()"
       [attr.aria-label]="'Change speed, current: ' + speed() + 'x'" title="Playback Speed">
       {{ speed() }}x
     </button>
-
-    <!-- Mute/Volume Area -->
     <div class="volume-container">
       <button type="button" class="volume-btn" (click)="toggleMute()"
         [attr.aria-label]="muted() || volume() === 0 ? 'Unmute audio' : 'Mute audio'" [attr.aria-pressed]="muted()">

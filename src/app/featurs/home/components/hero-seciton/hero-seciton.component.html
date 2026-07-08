@@ -36,7 +36,6 @@
         </app-skeleton>
         } @else if (articles().length > 0) {
         <div class="hero-grid">
-            <!-- 1. Hero Main -->
             @let main = articles()[0];
             <div class="hero-main markata-click-target" [routerLink]="['/', lang.currentLang(), 'article', main.slug]">
                 @if (main.image?.url) {
@@ -63,8 +62,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- 2. Hero Card 1 (AI Tech) -->
             @if (articles().length > 1) {
             @let art1 = articles()[1];
             <div class="hero-card hero-card-1 markata-click-target"
@@ -86,8 +83,6 @@
                 </div>
             </div>
             }
-
-            <!-- 3. Hero Card 2 (Consumer Insights) -->
             @if (articles().length > 2) {
             @let art2 = articles()[2];
             <div class="hero-card hero-card-2 markata-click-target"
@@ -109,8 +104,6 @@
                 </div>
             </div>
             }
-
-            <!-- 4. Hero Card 3 (Creativity / Why Ads) -->
             @if (articles().length > 3) {
             @let art3 = articles()[3];
             <div class="hero-card hero-card-3 markata-click-target"
