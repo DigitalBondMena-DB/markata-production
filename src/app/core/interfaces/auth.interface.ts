@@ -31,3 +31,9 @@ export interface RegisterRequest {
   password: string;
   password_confirmation: string;
 }
+
+export interface ChangePasswordRequest {
+  current_password: string;
+  password: string;
+  password_confirmation: string;
+}

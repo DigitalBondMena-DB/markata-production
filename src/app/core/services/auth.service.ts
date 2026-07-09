@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { LoginRequest, User, ResetPasswordRequest, RegisterRequest } from '@core/interfaces/auth.interface';
+import { LoginRequest, User, ResetPasswordRequest, RegisterRequest, ChangePasswordRequest } from '@core/interfaces/auth.interface';
 import { AuthEndpoints } from './auth.constants';
 import { LanguageService } from './language.service';
 
@@ -146,6 +146,22 @@ export class AuthService {
     return of(void 0);
   }
 
+  logoutLocally(): void {
+    // Clear client-side state immediately
+    this._currentUser.set(null);
+    this._error.set(null);
+    this._isAuthChecked.set(true);
+    const USER_KEY = makeStateKey<User | null>('user');
+    this.transferState.remove(USER_KEY);
+
+    // Navigate to signin immediately
+    this.router.navigate([
+      this.langService.currentLang(),
+      'auth',
+      'signin',
+    ]);
+  }
+
   forgotPassword(email: string): Observable<ApiResponse<any>> {
     this._loading.set(true);
     this._error.set(null);
@@ -243,6 +259,28 @@ export class AuthService {
         catchError(err => {
           this._error.set(
             err.error?.message ?? 'An error occurred while updating profile.'
+          );
+          throw err;
+        }),
+        finalize(() => {
+          this._loading.set(false);
+        })
+      );
+  }
+
+  changePassword(payload: ChangePasswordRequest): Observable<any> {
+    this._loading.set(true);
+    this._error.set(null);
+
+    return this.http
+      .post<ApiResponse<any>>(
+        `${environment.api}${AuthEndpoints.changePassword}`,
+        payload
+      )
+      .pipe(
+        catchError(err => {
+          this._error.set(
+            err.error?.message ?? 'An error occurred while changing password.'
           );
           throw err;
         }),

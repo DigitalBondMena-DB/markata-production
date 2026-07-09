@@ -1,16 +1,12 @@
-/* Badge */
-.badge-wrapper {
-  /* margin-bottom: 16px; */
-}
-
 .signin-badge {
   font-weight: 700;
   display: block;
-  max-width: 170px;
   color: #9E8030;
   background-color: #F6EED9;
-  padding: 6px 16px;
+  padding: 2px 11px;
   border-radius: 2px;
+  width: fit-content;
+  min-width: 170px;
 }
 
 /* Title & Subtitle */

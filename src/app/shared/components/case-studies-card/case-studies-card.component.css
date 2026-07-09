@@ -3,6 +3,14 @@
   flex-direction: column;
   background: var(--white);
   transition: border-color 0.2s, box-shadow 0.2s;
+
+  & img {
+    background: linear-gradient(135deg, #1a1200, #2d2000, #1a1500);
+  }
+
+  &:nth-child(even) img {
+    background: linear-gradient(135deg, #0f1520, #162030, #0a1018);
+  }
 }
 
 .case-studies-card__shine {
@@ -169,6 +177,12 @@
   gap: 0 24px;
   text-decoration: none;
   color: inherit;
+}
+
+.case-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 :host.case-studies-card--list .case-studies-card__media {

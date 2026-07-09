@@ -47,15 +47,21 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        canActivate: [authGuard],
+        canMatch: [authGuard],
         loadComponent: () =>
           import('./featurs/profile/profile.component').then(m => m.ProfileComponent)
       },
       {
         path: 'profile/edit',
-        canActivate: [authGuard],
+        canMatch: [authGuard],
         loadComponent: () =>
           import('./featurs/profile/edit-profile/edit-profile.component').then(m => m.EditProfileComponent)
+      },
+      {
+        path: 'profile/change-password',
+        canMatch: [authGuard],
+        loadComponent: () =>
+          import('./featurs/profile/change-password/change-password.component').then(m => m.ChangePasswordComponent)
       },
       {
         path: 'category',

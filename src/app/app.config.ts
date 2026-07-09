@@ -6,8 +6,8 @@ import { environment } from '@env/environment';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './core/guards/auth.interceptor';
-import { errorInterceptor } from './core/guards/error.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { AuthService } from './core/services/auth.service';
 import enTranslations from '../../public/assets/i18n/en.json';
 import arTranslations from '../../public/assets/i18n/ar.json';
@@ -39,14 +39,14 @@ export const appConfig: ApplicationConfig = {
         if (src.startsWith('http') || src.startsWith('data:') || src.startsWith('assets/') || src.startsWith('/assets/')) {
           return src;
         }
-        
+
         let finalSrc = src;
         if (src.includes('?')) {
           const parts = src.split('?');
           const baseSrc = parts[0];
           const query = parts[1];
           const params = new URLSearchParams(query);
-          
+
           if (config.width) {
             if (config.width <= 300 && params.has('thumbnail')) {
               finalSrc = params.get('thumbnail')!;

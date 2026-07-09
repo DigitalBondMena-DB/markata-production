@@ -175,7 +175,10 @@
     "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long",
     "CONFIRM_PASSWORD_REQUIRED": "Confirm password is required",
     "PASSWORDS_MISMATCH": "Passwords must match",
-    "PHONE_REQUIRED": "Phone number is required"
+    "PHONE_REQUIRED": "Phone number is required",
+    "CURRENT_PASSWORD_REQUIRED": "Current password is required",
+    "NEW_PASSWORD_REQUIRED": "New password is required",
+    "PLEASE_CORRECT_ERRORS": "Please correct the following errors:"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "Privacy",
@@ -198,6 +201,14 @@
     "NO_CHANGES": "No changes were made.",
     "PHONE_NUMBER": "Phone Number",
     "ENTER_PHONE": "Enter your phone number",
+    "CHANGE_PASSWORD": "Change Password",
+    "SUCCESS_PASSWORD_CHANGE": "Password changed successfully.",
+    "CURRENT_PASSWORD": "Current Password",
+    "ENTER_CURRENT_PASSWORD": "Enter your current password",
+    "NEW_PASSWORD": "New Password",
+    "ENTER_NEW_PASSWORD": "Enter your new password",
+    "CONFIRM_NEW_PASSWORD": "Confirm New Password",
+    "ENTER_CONFIRM_NEW_PASSWORD": "Confirm your new password",
     "SAVED": "Saved",
     "SAVED_CONTENT": "Saved content",
     "NO_FAVORITES_TITLE": "No saved content yet",

@@ -122,7 +122,13 @@
 
 .profile-actions {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+
+  @media screen and (min-width: 640px) {
+    flex-direction: row;
+  }
 }
 
 .edit-profile-btn {
@@ -137,7 +143,8 @@
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.25s ease;
-  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
 }
 
 :host-context([dir="rtl"]) .edit-profile-btn {
@@ -151,6 +158,38 @@
 }
 
 .edit-profile-btn:active {
+  transform: translateY(0);
+}
+
+.change-password-btn {
+  background: var(--gold-gradient, linear-gradient(135deg, #c9a84c 0%, #a38234 100%));
+  color: var(--black, #000000);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+:host-context([dir="rtl"]) .change-password-btn {
+  font-family: var(--font-ar);
+}
+
+.change-password-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.change-password-btn:active {
   transform: translateY(0);
 }
 
@@ -179,8 +218,15 @@
     font-size: 20px;
   }
 
-  .edit-profile-btn {
+  .profile-actions {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .edit-profile-btn,
+  .change-password-btn {
     width: 100%;
     text-align: center;
+    box-sizing: border-box;
   }
 }

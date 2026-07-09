@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanMatchFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { LanguageService } from '../services/language.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanMatchFn = () => {
   const authService = inject(AuthService);
   const languageService = inject(LanguageService);
   const router = inject(Router);
@@ -13,9 +13,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
 
   const lang = languageService.currentLang();
-  const returnUrl = state.url;
+  const returnUrl = router.currentNavigation()?.extractedUrl.toString();
 
   return router.createUrlTree([lang, 'auth', 'signin'], {
-    queryParams: { returnUrl }
+    queryParams: returnUrl ? { returnUrl } : undefined
   });
 };

@@ -5,5 +5,6 @@ export const AuthEndpoints = {
   forgotPassword: 'auth/forgot-password',
   resetPassword: 'auth/reset-password',
   register: 'auth/register',
-  profile: 'profile'
+  profile: 'profile',
+  changePassword: 'auth/change-password'
 };

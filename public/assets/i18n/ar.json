@@ -175,7 +175,10 @@
     "PASSWORD_MIN_LENGTH": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
     "CONFIRM_PASSWORD_REQUIRED": "تأكيد كلمة المرور مطلوب",
     "PASSWORDS_MISMATCH": "كلمتا المرور غير متطابقتين",
-    "PHONE_REQUIRED": "رقم الهاتف مطلوب"
+    "PHONE_REQUIRED": "رقم الهاتف مطلوب",
+    "CURRENT_PASSWORD_REQUIRED": "كلمة المرور الحالية مطلوبة",
+    "NEW_PASSWORD_REQUIRED": "كلمة المرور الجديدة مطلوبة",
+    "PLEASE_CORRECT_ERRORS": "يرجى تصحيح الأخطاء التالية:"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "خصوصية",
@@ -198,6 +201,14 @@
     "NO_CHANGES": "لم يتم إجراء أي تغييرات.",
     "PHONE_NUMBER": "رقم الهاتف",
     "ENTER_PHONE": "أدخل رقم الهاتف",
+    "CHANGE_PASSWORD": "تغيير كلمة المرور",
+    "SUCCESS_PASSWORD_CHANGE": "تم تغيير كلمة المرور بنجاح.",
+    "CURRENT_PASSWORD": "كلمة المرور الحالية",
+    "ENTER_CURRENT_PASSWORD": "أدخل كلمة المرور الحالية",
+    "NEW_PASSWORD": "كلمة المرور الجديدة",
+    "ENTER_NEW_PASSWORD": "أدخل كلمة المرور الجديدة",
+    "CONFIRM_NEW_PASSWORD": "تأكيد كلمة المرور الجديدة",
+    "ENTER_CONFIRM_NEW_PASSWORD": "أكد كلمة المرور الجديدة",
     "SAVED": "محفوظ",
     "SAVED_CONTENT": "المحتوى المحفوظ",
     "NO_FAVORITES_TITLE": "لا يوجد محتوى محفوظ بعد",

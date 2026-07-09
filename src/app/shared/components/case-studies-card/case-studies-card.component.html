@@ -1,39 +1,40 @@
-<a [routerLink]="['/', lang.currentLang(), 'article', card().slug]" class="case-studies-card__link">
-  <div class="case-studies-card__media">
-    <img [markataImage]="card().image" [ngSrc]="card().image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
-    <span class="case-studies-card__shine" aria-hidden="true"></span>
-  </div>
-  <div class="case-studies-card__text">
-    <div class="case-studies-card__meta">
-      @if (card().topic) {
-      <span class="case-studies-card__topic">{{ card().topic.name }}</span>
-      <span class="case-studies-card__dot">·</span>
-      }
-      <span class="case-studies-card__time">
-        {{ card().reading_time }} {{ 'CATEGORY.MIN_READ' | translate }}
+<article class="case-card">
+  <a [routerLink]="['/', lang.currentLang(), 'article', card().slug]" class="case-studies-card__link">
+    <div class="case-studies-card__media">
+      <img [markataImage]="card().image" [ngSrc]="card().image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
+      <span class="case-studies-card__shine" aria-hidden="true"></span>
+    </div>
+    <div class="case-studies-card__text">
+      <div class="case-studies-card__meta">
+        @if (card().topic) {
+        <span class="case-studies-card__topic">{{ card().topic.name }}</span>
+        <span class="case-studies-card__dot">·</span>
+        }
+        <span class="case-studies-card__time">
+          {{ card().reading_time }} {{ 'CATEGORY.MIN_READ' | translate }}
+        </span>
+      </div>
+      <h3 class="case-studies-card__title">{{ card().title }}</h3>
+      <p class="case-studies-card__dek">{{ card().short_text }}</p>
+    </div>
+  </a>
+  <div class="case-studies-card__foot">
+    @if (card().author) {
+    <div class="case-studies-card__author" style="display: flex; align-items: center; gap: 8px;">
+      <div class="case-studies-author-avatar"
+        style="width: 24px; height: 24px; border-radius: 50%; overflow: hidden; position: relative;">
+        <img [markataImage]="card().author.image" [ngSrc]="card().author.image?.url || 'assets/icons/digital-bond.svg'"
+          fill alt="">
+      </div>
+      <span class="case-studies-author-name" style="font-size: 0.85rem; color: var(--color-muted);">
+        {{ card().author.name }}
       </span>
     </div>
-    <h3 class="case-studies-card__title">{{ card().title }}</h3>
-    <p class="case-studies-card__dek">{{ card().short_text }}</p>
+    }
+    @if (showBookmark()) {
+    <app-bookmark-button [cardId]="card().id" [isFavorite]="card().is_favorite"
+      (favoriteChanged)="onFavoriteChanged($event)">
+    </app-bookmark-button>
+    }
   </div>
-</a>
-<div class="case-studies-card__foot">
-  @if (card().author) {
-  <div class="case-studies-card__author" style="display: flex; align-items: center; gap: 8px;">
-    <div class="case-studies-author-avatar"
-      style="width: 24px; height: 24px; border-radius: 50%; overflow: hidden; position: relative;">
-      <img [markataImage]="card().author.image" [ngSrc]="card().author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
-    </div>
-    <span class="case-studies-author-name" style="font-size: 0.85rem; color: var(--color-muted);">
-      {{ card().author.name }}
-    </span>
-  </div>
-  }
-  @if (showBookmark()) {
-  <app-bookmark-button
-    [cardId]="card().id"
-    [isFavorite]="card().is_favorite"
-    (favoriteChanged)="onFavoriteChanged($event)">
-  </app-bookmark-button>
-  }
-</div>
+</article>
