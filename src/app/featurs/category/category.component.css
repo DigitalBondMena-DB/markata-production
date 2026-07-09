@@ -18,40 +18,11 @@
     gap: 16px;
 }
 
-.case-studies-head__titles {
-    flex: 1;
-    min-width: 280px;
-}
-
-.case-studies-archive-kicker {
-    display: inline-block;
-    font-size: .6875rem;
-    font-weight: 800;
-    letter-spacing: .0938rem;
-    text-transform: uppercase;
-    color: var(--gold-dark);
-    margin-bottom: 4px;
-}
-
-.case-studies-h1 {
-    font-family: var(--font-en);
-    font-size: clamp(2.25rem, 3vw, 3.75rem);
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--black);
-    letter-spacing: -0.0313rem;
-    margin: 0;
-}
-
-:host-context([dir="rtl"]) .case-studies-h1 {
-    font-family: var(--font-ar);
-    font-size: 38px;
-}
-
 .case-studies-stat {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    align-self: flex-end;
     gap: 2px;
     flex-shrink: 0;
 }

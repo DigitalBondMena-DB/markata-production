@@ -1,6 +1,6 @@
 /* Badge */
 .badge-wrapper {
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 }
 
 .signin-badge {
@@ -49,8 +49,6 @@
 .privacy-notice {
   color: var(--black);
   line-height: 1.875rem;
-  margin-bottom: 32px;
-  text-align: start;
 }
 
 /* RTL Styles */
@@ -67,9 +65,5 @@ html[dir="rtl"] {
   .signin-subtitle,
   .privacy-notice {
     font-family: var(--font-ar);
-  }
-
-  .privacy-notice {
-    text-align: right;
   }
 }

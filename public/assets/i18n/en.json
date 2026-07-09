@@ -174,7 +174,8 @@
     "PASSWORD_REQUIRED": "Password is required",
     "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long",
     "CONFIRM_PASSWORD_REQUIRED": "Confirm password is required",
-    "PASSWORDS_MISMATCH": "Passwords must match"
+    "PASSWORDS_MISMATCH": "Passwords must match",
+    "PHONE_REQUIRED": "Phone number is required"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "Privacy",
@@ -191,6 +192,12 @@
   },
   "PROFILE": {
     "EDIT_PROFILE": "Edit Profile",
+    "UPDATE_DATA": "Update Data",
+    "SAVE_CHANGES": "Save Changes",
+    "SUCCESS_UPDATE": "Profile updated successfully.",
+    "NO_CHANGES": "No changes were made.",
+    "PHONE_NUMBER": "Phone Number",
+    "ENTER_PHONE": "Enter your phone number",
     "SAVED": "Saved",
     "SAVED_CONTENT": "Saved content",
     "NO_FAVORITES_TITLE": "No saved content yet",

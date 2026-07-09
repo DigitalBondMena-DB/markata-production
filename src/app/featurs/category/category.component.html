@@ -2,18 +2,8 @@
 
     <header class="case-studies-head">
         <div class="case-studies-head__row">
-            <div class="case-studies-head__titles">
-                <span class="case-studies-archive-kicker">
-                    {{ (isCategoryRoute() ? 'CATEGORY.CATEGORY_LABEL' : 'CATEGORY.TOPIC_LABEL') | translate }}
-                </span>
-                <h1 class="case-studies-h1">{{ pageTitle() }}</h1>
-                @if (pageData()?.meta_description) {
-                <p class="case-studies-head__description"
-                    style="margin-top: 8px; color: var(--color-muted); max-width: 600px;">
-                    {{ pageData()?.meta_description }}
-                </p>
-                }
-            </div>
+            <app-main-inner-header [title]="pageTitle()" [description]="pageData()?.meta_description ?? ''"
+                [badge]="(isCategoryRoute() ? 'CATEGORY.CATEGORY_LABEL' : 'CATEGORY.TOPIC_LABEL') | translate" />
             <div class="case-studies-stat">
                 <span class="case-studies-stat__value">{{ meta()?.total ?? 0 }}</span>
                 <span class="case-studies-stat__label">{{ 'CATEGORY.ARTICLES_LABEL' | translate }}</span>
@@ -118,7 +108,8 @@
         @let featured = articles()[0];
         <a [routerLink]="['/', lang.currentLang(), 'article', featured.slug]" class="case-studies-featured">
             <div class="case-studies-featured__media">
-                <img [markataImage]="featured.image" [ngSrc]="featured.image?.url || 'assets/icons/digital-bond.svg'" priority fill alt="">
+                <img [markataImage]="featured.image" [ngSrc]="featured.image?.url || 'assets/icons/digital-bond.svg'"
+                    priority fill alt="">
                 @if (featured.topic) {
                 <div class="case-studies-featured__badges">
                     <span class="case-studies-badge case-studies-badge--featured">{{ featured.topic.name }}</span>
@@ -137,7 +128,8 @@
                     @if (featured.author) {
                     <div class="case-studies-featured__author">
                         <div class="case-studies-author-avatar">
-                             <img [markataImage]="featured.author.image" [ngSrc]="featured.author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
+                            <img [markataImage]="featured.author.image"
+                                [ngSrc]="featured.author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
                         </div>
                         <div>
                             <p class="case-studies-author-name">{{ featured.author.name }}</p>
@@ -155,7 +147,8 @@
         [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
         @for (card of (articles().length > 0 && currentPage() === 1 && !filterVal() && !searchQueryDebounced.value() ?
         articles().slice(1) : articles()); track card.id) {
-        <app-case-studies-card [card]="card" [view]="caseStudiesView()" [showBookmark]="true" (bookmarkClick)="caseStudiesBookmark($event)" />
+        <app-case-studies-card [card]="card" [view]="caseStudiesView()" [showBookmark]="true"
+            (bookmarkClick)="caseStudiesBookmark($event)" />
         }
     </section>
 

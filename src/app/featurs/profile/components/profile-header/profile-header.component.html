@@ -23,7 +23,7 @@
 
     <!-- Actions -->
     <div class="profile-actions">
-      <a class="edit-profile-btn">
+      <a [routerLink]="['/', lang.currentLang(), 'profile', 'edit']" class="edit-profile-btn">
         {{ 'PROFILE.EDIT_PROFILE' | translate }}
       </a>
     </div>

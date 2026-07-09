@@ -6,6 +6,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client
   },
   {
+    path: ':lang/profile/edit',
+    renderMode: RenderMode.Client
+  },
+  {
     path: ':lang/auth/signin',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: async () => [{ lang: 'ar' }, { lang: 'en' }]

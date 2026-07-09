@@ -52,6 +52,12 @@ export const routes: Routes = [
           import('./featurs/profile/profile.component').then(m => m.ProfileComponent)
       },
       {
+        path: 'profile/edit',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./featurs/profile/edit-profile/edit-profile.component').then(m => m.EditProfileComponent)
+      },
+      {
         path: 'category',
         loadComponent: () =>
           import('./featurs/category/category.component').then(m => m.CategoryComponent)

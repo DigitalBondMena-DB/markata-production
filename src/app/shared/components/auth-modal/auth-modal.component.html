@@ -10,7 +10,7 @@
     </button>
 
     <!-- Header Details -->
-    <div class="modal-header">
+    <!-- <div class="modal-header">
       @if (badge()) {
       <span class="badge">{{ badge() }}</span>
       }
@@ -18,8 +18,8 @@
       <h2 class="title">{{ modalTitle() }}</h2>
       }
       <p class="subtitle">{{ subtitle() }}</p>
-    </div>
-
+    </div> -->
+    <app-main-inner-header [title]="modalTitle()" [description]="subtitle()" [badge]="badge()" />
     <!-- Content (Form) -->
     <ng-content></ng-content>
 

@@ -4,5 +4,6 @@ export const AuthEndpoints = {
   logout: 'auth/logout',
   forgotPassword: 'auth/forgot-password',
   resetPassword: 'auth/reset-password',
-  register: 'auth/register'
+  register: 'auth/register',
+  profile: 'profile'
 };

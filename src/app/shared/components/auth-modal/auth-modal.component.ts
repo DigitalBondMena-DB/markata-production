@@ -1,8 +1,9 @@
 import { Component, input, output } from '@angular/core';
+import { MainInnerHeaderComponent } from "../main-inner-header/main-inner-header.component";
 
 @Component({
   selector: 'app-auth-modal',
-  imports: [],
+  imports: [MainInnerHeaderComponent],
   templateUrl: './auth-modal.component.html',
   styleUrl: './auth-modal.component.css'
 })

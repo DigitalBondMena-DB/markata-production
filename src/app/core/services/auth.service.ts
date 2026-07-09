@@ -218,4 +218,37 @@ export class AuthService {
         })
       );
   }
+
+  updateProfile(payload: { name: string; email: string; phone?: string }): Observable<User> {
+    this._loading.set(true);
+    this._error.set(null);
+
+    return this.http
+      .patch<ApiResponse<{ user: User } | User>>(
+        `${environment.api}${AuthEndpoints.profile}`,
+        payload
+      )
+      .pipe(
+        map(res => {
+          if ('data' in res && res.data) {
+            return (res.data as any).user || res.data;
+          }
+          return res;
+        }),
+        tap(user => {
+          if (user) {
+            this._currentUser.set(user);
+          }
+        }),
+        catchError(err => {
+          this._error.set(
+            err.error?.message ?? 'An error occurred while updating profile.'
+          );
+          throw err;
+        }),
+        finalize(() => {
+          this._loading.set(false);
+        })
+      );
+  }
 }

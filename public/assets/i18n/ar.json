@@ -174,7 +174,8 @@
     "PASSWORD_REQUIRED": "كلمة المرور مطلوبة",
     "PASSWORD_MIN_LENGTH": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
     "CONFIRM_PASSWORD_REQUIRED": "تأكيد كلمة المرور مطلوب",
-    "PASSWORDS_MISMATCH": "كلمتا المرور غير متطابقتين"
+    "PASSWORDS_MISMATCH": "كلمتا المرور غير متطابقتين",
+    "PHONE_REQUIRED": "رقم الهاتف مطلوب"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "خصوصية",
@@ -191,6 +192,12 @@
   },
   "PROFILE": {
     "EDIT_PROFILE": "تعديل الملف الشخصي",
+    "UPDATE_DATA": "تعديل البيانات",
+    "SAVE_CHANGES": "حفظ التغييرات",
+    "SUCCESS_UPDATE": "تم تحديث الملف الشخصي بنجاح.",
+    "NO_CHANGES": "لم يتم إجراء أي تغييرات.",
+    "PHONE_NUMBER": "رقم الهاتف",
+    "ENTER_PHONE": "أدخل رقم الهاتف",
     "SAVED": "محفوظ",
     "SAVED_CONTENT": "المحتوى المحفوظ",
     "NO_FAVORITES_TITLE": "لا يوجد محتوى محفوظ بعد",

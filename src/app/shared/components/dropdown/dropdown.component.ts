@@ -7,6 +7,8 @@ import { Component, ElementRef, inject, input, signal, contentChild } from '@ang
   host: {
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'close()',
+    '(mouseenter)': 'onMouseEnter()',
+    '(mouseleave)': 'onMouseLeave()',
   },
 })
 export class DropdownComponent {
@@ -23,6 +25,18 @@ export class DropdownComponent {
 
   close() {
     this.isOpen.set(false);
+  }
+
+  onMouseEnter() {
+    if (window.matchMedia('(hover: hover)').matches) {
+      this.isOpen.set(true);
+    }
+  }
+
+  onMouseLeave() {
+    if (window.matchMedia('(hover: hover)').matches) {
+      this.isOpen.set(false);
+    }
   }
 
   onDocumentClick(event: MouseEvent) {

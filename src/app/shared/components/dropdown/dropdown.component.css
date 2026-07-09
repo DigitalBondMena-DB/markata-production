@@ -59,6 +59,16 @@
   gap: 2px;
 }
 
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
+}
+
 @keyframes slideDown {
   to {
     opacity: 1;

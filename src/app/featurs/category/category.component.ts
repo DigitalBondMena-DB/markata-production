@@ -11,10 +11,11 @@ import { SkeletonComponent } from '@shared/components/skeleton/skeleton.componen
 import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { CaseStudiesCardComponent } from '@shared/components/case-studies-card/case-studies-card.component';
+import { MainInnerHeaderComponent } from "@shared/components/main-inner-header/main-inner-header.component";
 
 @Component({
   selector: 'app-category',
-  imports: [RouterLink, TranslatePipe, NgOptimizedImage, MarkataImageDirective, SkeletonComponent, EmptyStateComponent, PaginationComponent, CaseStudiesCardComponent],
+  imports: [RouterLink, TranslatePipe, NgOptimizedImage, MarkataImageDirective, SkeletonComponent, EmptyStateComponent, PaginationComponent, CaseStudiesCardComponent, MainInnerHeaderComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
   encapsulation: ViewEncapsulation.None
