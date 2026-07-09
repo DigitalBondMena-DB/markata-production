@@ -118,8 +118,7 @@
         @let featured = articles()[0];
         <a [routerLink]="['/', lang.currentLang(), 'article', featured.slug]" class="case-studies-featured">
             <div class="case-studies-featured__media">
-                <div markataImg [seed]="featured.image?.url ?? ''" [eager]="true" [highPriority]="true"
-                    style="position: absolute; inset: 0;"></div>
+                <img [markataImage]="featured.image" [ngSrc]="featured.image?.url || 'assets/icons/digital-bond.svg'" priority fill alt="">
                 @if (featured.topic) {
                 <div class="case-studies-featured__badges">
                     <span class="case-studies-badge case-studies-badge--featured">{{ featured.topic.name }}</span>
@@ -138,8 +137,7 @@
                     @if (featured.author) {
                     <div class="case-studies-featured__author">
                         <div class="case-studies-author-avatar">
-                            <div markataImg [seed]="featured.author.image?.url ?? ''"
-                                style="position: absolute; inset: 0;"></div>
+                             <img [markataImage]="featured.author.image" [ngSrc]="featured.author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
                         </div>
                         <div>
                             <p class="case-studies-author-name">{{ featured.author.name }}</p>

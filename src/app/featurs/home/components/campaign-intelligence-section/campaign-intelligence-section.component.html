@@ -12,8 +12,7 @@
             @let main = articles()[0];
             <div class="featured-main-card markata-click-target"
                 [routerLink]="['/', lang.currentLang(), 'article', main.slug]">
-                <div markataImg class="img-placeholder ph-10" [seed]="main?.image?.url ?? ''"
-                    style="position: absolute; inset: 0"></div>
+                <img [markataImage]="main?.image" [ngSrc]="main?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder ph-10" alt="">
 
                 <div class="featured-main-card-overlay"></div>
                 <div class="featured-main-card-content">
@@ -31,9 +30,8 @@
                 <div class="featured-list-item markata-click-target"
                     [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
                     <div class="fli-thumb">
-                        <div markataImg class="img-placeholder" [seed]="art.image?.url ?? ''"
-                            style="position: absolute; inset: 0; background: #1a1200" [alt]="art?.image?.alt ?? ''">
-                        </div>
+                        <img [markataImage]="art.image" [ngSrc]="art.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder"
+                            style="background: #1a1200" [alt]="art?.image?.alt ?? ''">
 
                     </div>
                     <div class="fli-info">

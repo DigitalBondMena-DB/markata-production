@@ -31,16 +31,19 @@
   } @else {
   @let article = articleData()!;
   <header class="article-feature-head">
+    @if(article?.category?.name) {
     <p class="inner-kicker article-feature-kicker">
-      {{ article.category?.name || article.topic?.name }}
+      {{ article.category?.name }}
     </p>
+    }
     <h1 class="article-feature-h1">{{ article.title }}</h1>
     <p class="article-feature-dek">{{ article.short_text }}</p>
     <div class="article-meta-row">
       @if (article.author) {
       <div class="article-meta-author">
         <div class="article-avatar">
-          <div markataImg [seed]="article.author.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+          <img [markataImage]="article.author.image"
+            [ngSrc]="article.author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
         </div>
         <div>
           <a href="#" class="article-author-name">{{ article.author.name }}</a>
@@ -84,8 +87,8 @@
   @if (article.image?.url) {
   <div class="article-hero-wrap">
     <div class="article-hero-aspect">
-      <div markataImg [seed]="article.image.url" [eager]="true" [highPriority]="true"
-        style="position: absolute; inset: 0;"></div>
+      <img [markataImage]="article.image" [ngSrc]="article.image.url || 'assets/icons/digital-bond.svg'" priority fill
+        class="ph-5">
     </div>
     @if (article.image_alt || article.image.alt) {
     <div class="article-hero-credit-wrap">
@@ -157,7 +160,8 @@
           @for (nextArt of nextArticles(); track nextArt.id) {
           <a [routerLink]="['/', lang.currentLang(), 'article', nextArt.slug]" class="article-up-next">
             <div class="article-up-next-img">
-              <div markataImg [seed]="nextArt.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+              <img [markataImage]="nextArt.image" [ngSrc]="nextArt.image?.url || 'assets/icons/digital-bond.svg'" fill
+                alt="">
             </div>
             <h5>{{ nextArt.title }}</h5>
           </a>
@@ -197,7 +201,8 @@
       <a [routerLink]="['/', lang.currentLang(), 'article', rand.slug]" class="article-related-tile">
         @if (rand.image?.url) {
         <div class="article-related-tile__media">
-          <div markataImg [seed]="rand.image.url" style="position: absolute; inset: 0;"></div>
+          <img [markataImage]="rand.image" [class]="'ph-'+($index + 1)"
+            [ngSrc]="rand.image.url || 'assets/icons/digital-bond.svg'" fill alt="">
         </div>
         }
         <div class="article-related-tile__body">

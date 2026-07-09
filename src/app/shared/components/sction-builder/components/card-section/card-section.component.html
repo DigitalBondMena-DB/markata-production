@@ -10,9 +10,8 @@
             <div class="article-card markata-click-target"
                 [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
                 <div class="article-card-img">
-                    <div markataImg class="img-placeholder" [seed]="art?.image?.url ?? ''"
-                        [alt]="art?.image?.alt ?? art.title" style="position: absolute; inset: 0; background: #1a1200">
-                    </div>
+                    <img [markataImage]="art?.image" [ngSrc]="art?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder"
+                        [alt]="art?.image?.alt ?? art.title" style="background: #1a1200">
 
                     @if (art.topic) {
                     <span class="cat-pill">{{ art.topic.name }}</span>
@@ -25,10 +24,9 @@
                         <span class="author">
                             <span class="author-avatar" style="position: relative;">
 
-                                <div markataImg class="img-placeholder" [seed]="art?.author?.image?.url ?? ''"
+                                <img [markataImage]="art?.author?.image" [ngSrc]="art?.author?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder"
                                     [alt]="art?.author?.image?.alt ?? ''"
-                                    style="position: absolute; inset: 0; background: #1a0f1a; border-radius: 50%;">
-                                </div>
+                                    style="background: #1a0f1a; border-radius: 50%;">
 
                             </span>
                             <span>{{ art?.author?.name }}</span>

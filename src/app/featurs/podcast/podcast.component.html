@@ -29,7 +29,7 @@
     <section class="podcast-x-hero" aria-label="Featured episode">
         <div class="podcast-x-hero__frame" aria-hidden="true"></div>
         <div class="podcast-x-hero__media">
-            <div markataImg seed="markata-pod-cinematic-hero" [eager]="true" [highPriority]="true"></div>
+            <img markataImage ngSrc="markata-pod-cinematic-hero" priority fill alt="">
         </div>
         <div class="podcast-x-hero__scrim"></div>
         <div class="podcast-x-container podcast-x-hero__grid">
@@ -136,7 +136,7 @@
                         @if (ep.layout === 'feature') {
                         <a class="podcast-x-card podcast-x-card--feature" [routerLink]="['/', homePathForEpisode(ep)]">
                             <div class="podcast-x-card__media podcast-x-card__media--video">
-                                <div markataImg [seed]="ep.imgSeed" [eager]="true" [highPriority]="true"></div>
+                                <img markataImage [ngSrc]="ep.imgSeed" priority fill alt="">
                                 <span class="podcast-x-duration">{{ ep.duration }}</span>
                                 <div class="podcast-x-play" aria-hidden="true"><span>&#9654;</span></div>
                             </div>
@@ -158,7 +158,7 @@
                         } @else {
                         <a class="podcast-x-card" [routerLink]="['/', homePathForEpisode(ep)]">
                             <div class="podcast-x-card__media">
-                                <div markataImg [seed]="ep.imgSeed"></div>
+                                <img markataImage [ngSrc]="ep.imgSeed" fill alt="">
                                 <span class="podcast-x-duration">{{ ep.duration }}</span>
                             </div>
                             <span class="podcast-x-cat" [class.podcast-x-cat--accent]="ep.categoryVariant === 'accent'"
@@ -216,7 +216,7 @@
                     <h3 class="podcast-x-aside-title">{{ lang.t('MARKATA originals', 'إنتاج ماركاتا') }}</h3>
                     <a class="podcast-x-series" routerLink="/podcast" fragment="podcast-feed">
                         <div class="podcast-x-series__media">
-                            <div markataImg seed="markata-pod-series-a"></div>
+                            <img markataImage ngSrc="markata-pod-series-a" fill alt="">
                             <div class="podcast-x-series__scrim"></div>
                             <div class="podcast-x-series__cap">
                                 <span class="podcast-x-series__tag">{{ lang.t('New series', 'سلسلة جديدة') }}</span>
@@ -226,7 +226,7 @@
                     </a>
                     <a class="podcast-x-series" routerLink="/podcast" fragment="podcast-feed">
                         <div class="podcast-x-series__media">
-                            <div markataImg seed="markata-pod-series-b"></div>
+                            <img markataImage ngSrc="markata-pod-series-b" fill alt="">
                             <div class="podcast-x-series__scrim"></div>
                             <div class="podcast-x-series__cap">
                                 <span class="podcast-x-series__name">{{

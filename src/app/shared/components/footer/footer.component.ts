@@ -1,15 +1,16 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { NgOptimizedImage } from '@angular/common';
 import { SubscribeFormComponent } from './components/subscribe-form/subscribe-form.component';
 import { SocialService } from '../../services/social.service';
-import { MarkataImgPlaceholderDirective } from '../../directives/markata-img-placeholder.directive';
+import { MarkataImageDirective } from '../../directives/markata-image.directive';
 import { NavbarService } from '../navbar/services/navbar.service';
 import { LanguageService } from '@core/services/language.service';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink, TranslatePipe, SubscribeFormComponent, MarkataImgPlaceholderDirective],
+  imports: [RouterLink, TranslatePipe, SubscribeFormComponent, NgOptimizedImage, MarkataImageDirective],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
 })

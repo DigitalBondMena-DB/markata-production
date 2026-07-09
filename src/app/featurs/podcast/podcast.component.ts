@@ -1,14 +1,15 @@
 import { Component, computed, DOCUMENT, inject, signal } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { LanguageService } from '@core/services/language.service';
-import { MarkataImgPlaceholderDirective } from "@shared/directives/markata-img-placeholder.directive";
+import { NgOptimizedImage } from '@angular/common';
+import { MarkataImageDirective } from "@shared/directives/markata-image.directive";
 import { PodcastService } from './services/podcast.service';
 import { RouterLink } from '@angular/router';
 import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-podcast',
-  imports: [MarkataImgPlaceholderDirective, RouterLink],
+  imports: [NgOptimizedImage, MarkataImageDirective, RouterLink],
   templateUrl: './podcast.component.html',
   styleUrl: './podcast.component.css',
 })

@@ -1,13 +1,14 @@
 import { Component, input, output, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { NgOptimizedImage } from '@angular/common';
 import { LanguageService } from '@core/services/language.service';
-import { MarkataImgPlaceholderDirective } from '@shared/directives/markata-img-placeholder.directive';
+import { MarkataImageDirective } from '@shared/directives/markata-image.directive';
 import { BookmarkButtonComponent } from '../bookmark-button/bookmark-button.component';
 
 @Component({
   selector: 'app-case-studies-card',
-  imports: [RouterLink, TranslatePipe, MarkataImgPlaceholderDirective, BookmarkButtonComponent],
+  imports: [RouterLink, TranslatePipe, NgOptimizedImage, MarkataImageDirective, BookmarkButtonComponent],
   templateUrl: './case-studies-card.component.html',
   styleUrl: './case-studies-card.component.css',
   host: {

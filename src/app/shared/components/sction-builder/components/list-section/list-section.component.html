@@ -10,8 +10,8 @@
       @for (art of data().articles; track art.id; let i = $index) {
       <div [class]="'cs-card cs-card-' + ((i % 8) + 1) + ' markata-click-target'"
         [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
-        <div markataImg class="img-placeholder" [seed]="art?.image?.url ?? ''"
-          style="position: absolute; inset: 0; background: #1a1200"></div>
+        <img [markataImage]="art?.image" [ngSrc]="art?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder" alt=""
+          style="background: #1a1200">
 
         <div class="cs-card-overlay"></div>
         <div class="cs-card-content">

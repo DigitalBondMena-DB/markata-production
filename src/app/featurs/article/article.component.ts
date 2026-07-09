@@ -5,7 +5,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '@core/services/language.service';
 import { ArticleService } from './services/article.service';
 import { SeoService } from '@shared/services/seo.service';
-import { MarkataImgPlaceholderDirective } from '@shared/directives/markata-img-placeholder.directive';
+import { NgOptimizedImage } from '@angular/common';
+import { MarkataImageDirective } from '@shared/directives/markata-image.directive';
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
 import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
 import { environment } from '@env/environment';
@@ -21,7 +22,8 @@ import { AudioPlayerComponent } from '@shared/components/audio-player/audio-play
   imports: [
     RouterLink,
     TranslatePipe,
-    MarkataImgPlaceholderDirective,
+    NgOptimizedImage,
+    MarkataImageDirective,
     SkeletonComponent,
     EmptyStateComponent,
     DatePipe,

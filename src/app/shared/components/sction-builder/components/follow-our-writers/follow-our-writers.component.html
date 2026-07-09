@@ -9,9 +9,9 @@
       @for (author of authors(); track author.id) {
       <div class="writer-card">
         <div class="writer-avatar" style="position: relative;">
-          <div markataImg class="img-placeholder" [seed]="author.image?.url ?? ''"
+          <img [markataImage]="author.image" [ngSrc]="author.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder"
             [alt]="author.image?.alt ?? author.name"
-            style="position: absolute; inset: 0; background: #1a1200; border-radius: 50%;"></div>
+            style="background: #1a1200; border-radius: 50%;">
 
         </div>
         <div class="writer-info">

@@ -1,6 +1,6 @@
 <a [routerLink]="['/', lang.currentLang(), 'article', card().slug]" class="case-studies-card__link">
   <div class="case-studies-card__media">
-    <div markataImg [seed]="card().image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+    <img [markataImage]="card().image" [ngSrc]="card().image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
     <span class="case-studies-card__shine" aria-hidden="true"></span>
   </div>
   <div class="case-studies-card__text">
@@ -22,7 +22,7 @@
   <div class="case-studies-card__author" style="display: flex; align-items: center; gap: 8px;">
     <div class="case-studies-author-avatar"
       style="width: 24px; height: 24px; border-radius: 50%; overflow: hidden; position: relative;">
-      <div markataImg [seed]="card().author.image?.url ?? ''" style="position: absolute; inset: 0;"></div>
+      <img [markataImage]="card().author.image" [ngSrc]="card().author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
     </div>
     <span class="case-studies-author-name" style="font-size: 0.85rem; color: var(--color-muted);">
       {{ card().author.name }}

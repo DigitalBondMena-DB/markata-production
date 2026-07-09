@@ -888,3 +888,30 @@ a.inner-story-card:hover {
         opacity: 1;
     }
 }
+
+/* markataImage directive placeholder & loading styles */
+img[markataImage] {
+    transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+img[markataImage].markata-img-loading {
+    filter: blur(10px);
+    background: linear-gradient(90deg, #edeae4 25%, #f4f2ee 50%, #edeae4 75%);
+    background-size: 200% 100%;
+    animation: markata-img-shimmer 1.5s infinite linear;
+}
+
+img[markataImage].markata-img-error {
+    filter: none !important;
+    background: #f5f5f5 !important;
+    object-fit: contain !important;
+}
+
+@keyframes markata-img-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

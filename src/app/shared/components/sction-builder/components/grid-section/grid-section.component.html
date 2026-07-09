@@ -12,8 +12,7 @@
             <a class="podcast-spotlight-card podcast-spotlight-card--lead"
                 [routerLink]="['/', lang.currentLang(), 'article', lead.slug]">
                 <div class="podcast-spotlight-media">
-                    <div markataImg class="img-placeholder" [seed]="lead?.image?.url ?? ''"
-                        style="position: absolute; inset: 0" [alt]="lead?.image?.alt ?? ''"></div>
+                    <img [markataImage]="lead?.image" [ngSrc]="lead?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder" [alt]="lead?.image?.alt ?? ''">
                     <span class="podcast-spotlight-duration">{{ lead.reading_time }} {{ lang.t('min read', 'دقائق
                         قراءة') }}</span>
                 </div>
@@ -31,8 +30,7 @@
             <a class="podcast-spotlight-card" [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
                 <div class="podcast-spotlight-media podcast-spotlight-media--sm">
 
-                    <div markataImg class="img-placeholder" [seed]="art?.image?.url ?? ''" [alt]="art?.image?.alt ?? ''"
-                        style="position: absolute; inset: 0"></div>
+                    <img [markataImage]="art?.image" [ngSrc]="art?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder" [alt]="art?.image?.alt ?? ''">
 
                     <span class="podcast-spotlight-duration">{{ art.reading_time }} {{ lang.t('min read', 'دقائق')
                         }}</span>
