@@ -142,11 +142,6 @@ export class PodcastComponent {
     });
   });
 
-  readonly showLoadMore = computed(() => {
-    if (this.revealedPaginated()) return false;
-    return this.episodes.some((e) => e.paginated);
-  });
-
   readonly chips: { desk: string; en: string; ar: string }[] = [
     { desk: 'all', en: 'All media', ar: 'كل المحتوى' },
     { desk: 'strategy', en: 'Strategy', ar: 'الاستراتيجية' },

@@ -10,6 +10,10 @@ app-shell {
     position: relative;
 }
 
+.d-block {
+    display: block;
+}
+
 .home-podcast-cta {
     text-align: center;
     margin: 2rem 0 3rem;
@@ -911,6 +915,7 @@ img[markataImage].markata-img-error {
     0% {
         background-position: 200% 0;
     }
+
     100% {
         background-position: -200% 0;
     }

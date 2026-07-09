@@ -1,30 +1,5 @@
 <main class="inner-wrap inner-podcast-page inner-podcast-x">
-    <section class="podcast-x-masthead" aria-label="MARKATA FM">
-        <div class="podcast-x-masthead__texture" aria-hidden="true"></div>
-        <div class="podcast-x-container podcast-x-masthead__grid">
-            <div class="podcast-x-masthead__brand">
-                <div class="podcast-x-masthead__wordmark">{{ lang.t('MARKATA', 'ماركاتا') }}</div>
-                <div class="podcast-x-masthead__fm-badge">
-                    <span class="podcast-x-masthead__fm">{{ lang.t('FM', 'إف إم') }}</span>
-                </div>
-            </div>
-            <div class="podcast-x-masthead__pitch">
-                <p class="podcast-x-masthead__tagline">
-                    {{
-                    lang.t(
-                    'The region’s marketing broadcast — studio sessions, field notes, bilingual transcripts.',
-                    'البث التسويقي للمنطقة — جلسات استوديو، ملاحظات ميدانية، نصوص ثنائية اللغة.'
-                    )
-                    }}
-                </p>
-                <div class="podcast-x-eq" aria-hidden="true">
-                    @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track i) {
-                    <span></span>
-                    }
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <section class="podcast-x-hero" aria-label="Featured episode">
         <div class="podcast-x-hero__frame" aria-hidden="true"></div>
@@ -34,11 +9,6 @@
         <div class="podcast-x-hero__scrim"></div>
         <div class="podcast-x-container podcast-x-hero__grid">
             <div class="podcast-x-hero__copy">
-                <div class="podcast-x-hero__labels">
-                    <span class="podcast-x-pill">{{ lang.t('New episode', 'حلقة جديدة') }}</span>
-                    <span class="podcast-x-hero__season">{{ lang.t('Season 4 · Ep. 12', 'الموسم 4 · الحلقة 12')
-                        }}</span>
-                </div>
                 <h1 class="podcast-x-hero-title">
                     <span class="podcast-x-hero-line">{{ lang.t('The future of', 'مستقبل') }}</span>
                     <span class="podcast-x-hero-line podcast-x-hero-accent">{{
@@ -67,32 +37,12 @@
         </div>
     </section>
 
-    <section class="podcast-x-filter" aria-label="Categories">
-        <div class="podcast-x-container podcast-x-filter__inner">
-            <div class="podcast-x-chips" role="group" aria-label="Filter episodes by desk">
-                @for (c of chips; track c.desk) {
-                <button type="button" class="podcast-x-chip" [class.podcast-x-chip--active]="selectedDesk() === c.desk"
-                    (click)="selectDesk(c.desk)">
-                    {{ lang.t(c.en, c.ar) }}
-                </button>
-                }
-            </div>
-            <span class="podcast-x-sort">{{ lang.t('Latest first', 'الأحدث أولاً') }}</span>
-        </div>
-        <div class="podcast-x-container podcast-x-desk-links">
-            <span class="podcast-x-desk-links__label">{{ lang.t('Open a desk', 'افتح مكتباً') }}</span>
-            <a routerLink="/strategy">{{ lang.t('Strategy', 'الاستراتيجية') }}</a>
-            <span class="podcast-x-desk-links__dot" aria-hidden="true">·</span>
-            <a routerLink="/ai-tech">{{ lang.t('AI & Tech', 'التقنية') }}</a>
-            <span class="podcast-x-desk-links__dot" aria-hidden="true">·</span>
-            <a routerLink="/creativity">{{ lang.t('Creativity', 'الإبداع') }}</a>
-            <span class="podcast-x-desk-links__dot" aria-hidden="true">·</span>
-            <a routerLink="/news">{{ lang.t('News', 'الأخبار') }}</a>
-        </div>
-    </section>
-
     <section class="podcast-x-stats" aria-label="Programme notes">
         <div class="podcast-x-container podcast-x-stats__row">
+            <div class="podcast-x-stat">
+                <span class="podcast-x-stat__val">180+</span>
+                <span class="podcast-x-stat__lab">{{ lang.t('Episodes in the archive', 'حلقات في الأرشيف') }}</span>
+            </div>
             <div class="podcast-x-stat">
                 <span class="podcast-x-stat__val">180+</span>
                 <span class="podcast-x-stat__lab">{{ lang.t('Episodes in the archive', 'حلقات في الأرشيف') }}</span>
@@ -170,13 +120,6 @@
                     </div>
                     }
                 </div>
-                @if (showLoadMore()) {
-                <div class="podcast-x-loadmore-wrap">
-                    <button type="button" class="podcast-x-loadmore" (click)="loadMore()">
-                        {{ lang.t('Load more episodes', 'حمّل المزيد من الحلقات') }}
-                    </button>
-                </div>
-                }
             </div>
 
             <aside class="podcast-x-aside" aria-label="Sidebar">
@@ -193,23 +136,6 @@
                             </div>
                         </a>
                         }
-                    </div>
-                </div>
-                <div class="podcast-x-subscribe">
-                    <div class="podcast-x-subscribe__glow" aria-hidden="true"></div>
-                    <div class="podcast-x-subscribe__inner">
-                        <h3 class="podcast-x-subscribe__title">{{ lang.t('Never miss a beat.', 'لا تفوّت حلقة.') }}</h3>
-                        <p class="podcast-x-subscribe__dek">
-                            {{
-                            lang.t(
-                            'Weekly MARKATA FM notes plus links we cite—straight from the editor desk.',
-                            'ملاحظات ماركاتا إف إم أسبوعياً مع الروابط التي نستشهد بها—مباشرة من مكتب التحرير.'
-                            )
-                            }}
-                        </p>
-                        <a class="podcast-x-subscribe__btn" routerLink="/">{{
-                            lang.t('Open the archive', 'افتح الأرشيف')
-                            }}</a>
                     </div>
                 </div>
                 <div class="podcast-x-originals">
@@ -237,23 +163,6 @@
                     </a>
                 </div>
             </aside>
-        </div>
-    </section>
-
-    <section class="podcast-x-bottom" aria-label="Newsletter">
-        <div class="podcast-x-container podcast-x-bottom__inner">
-            <span class="podcast-x-bottom__kicker">{{ lang.t('Stay informed', 'ابق على اطلاع') }}</span>
-            <h2 class="podcast-x-bottom__title">
-                {{
-                lang.t(
-                'Unlock the full depth of MARKATA storytelling.',
-                'استكشف عمق سرد ماركاتا بالكامل.'
-                )
-                }}
-            </h2>
-            <a class="podcast-x-bottom__btn" routerLink="/sign-in">{{
-                lang.t('Sign in to sync saves', 'سجّل الدخول لمزامنة المحفوظات')
-                }}</a>
         </div>
     </section>
 </main>

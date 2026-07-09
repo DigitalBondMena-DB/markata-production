@@ -1,1 +1,5 @@
 <app-main-layout />
+
+@if (serverErrorService.hasError()) {
+  <app-server-error-popup [error]="serverErrorService.errorDetails()" (close)="serverErrorService.clearError()" />
+}

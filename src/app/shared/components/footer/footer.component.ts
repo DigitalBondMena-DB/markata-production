@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { NgOptimizedImage } from '@angular/common';
-import { SubscribeFormComponent } from './components/subscribe-form/subscribe-form.component';
+import { SubscribeFormComponent } from '../subscribe-form/subscribe-form.component';
 import { SocialService } from '../../services/social.service';
 import { MarkataImageDirective } from '../../directives/markata-image.directive';
 import { NavbarService } from '../navbar/services/navbar.service';

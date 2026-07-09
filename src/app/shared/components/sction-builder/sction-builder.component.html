@@ -1,5 +1,5 @@
 <div class="builder-section">
-  @for (item of sections(); track item.id || item.type) {
+  @for (item of sections(); track item.id) {
   @if (item.type === 'writers') {
   <app-follow-our-writers [authors]="authors()" />
   } @else {

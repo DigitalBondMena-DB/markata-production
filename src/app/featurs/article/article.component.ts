@@ -15,6 +15,7 @@ import { SocialSharePipe } from '@shared/pipes/social-share.pipe';
 import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AudioPlayerComponent } from '@shared/components/audio-player/audio-player.component';
+import { SubscribeFormComponent } from '@shared/components/subscribe-form/subscribe-form.component';
 
 
 @Component({
@@ -28,7 +29,8 @@ import { AudioPlayerComponent } from '@shared/components/audio-player/audio-play
     EmptyStateComponent,
     DatePipe,
     SocialSharePipe,
-    AudioPlayerComponent
+    AudioPlayerComponent,
+    SubscribeFormComponent
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
