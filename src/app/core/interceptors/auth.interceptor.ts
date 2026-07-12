@@ -8,12 +8,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   const url = req.url.toLowerCase();
-  if (!environment.isProduction) {
-    const isAuthRequest = url.includes('/auth/') || url.includes('/favorites') || url.includes('/categories') || url.includes('/profile');
+  const isAuthRequest = url.includes('/auth/') || url.includes('/favorites') || url.includes('/categories') || url.includes('/profile') || url.includes('/broadcast');
 
-    if (!isAuthRequest) {
-      return next(req);
-    }
+  if (!isAuthRequest) {
+    return next(req);
   }
 
   const serverRequest = inject(REQUEST, { optional: true }) as any;

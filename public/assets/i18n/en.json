@@ -219,5 +219,28 @@
     "TITLE": "Page Not Found",
     "DESC": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
     "BACK_HOME": "Go Back Home"
+  },
+  "PODCAST": {
+    "SAVE_EPISODE": "Save episode",
+    "EPISODE": "Episode",
+    "FAVORITES": "Favorites",
+    "TOP_LISTENS": "Top listens this week",
+    "RECENT_EPISODES": "Recent episodes",
+    "MARKATA_ORIGINALS": "MARKATA originals",
+    "NEW_SERIES": "New series",
+    "NEW_EPISODE": "New episode",
+    "DEEP_GROOVES": "Deep grooves",
+    "MORNING_STRATEGY": "The morning strategy",
+    "UNDER_MAINTENANCE": "Under Maintenance",
+    "STATS_EPISODES": "Episodes in the archive",
+    "STATS_LANGUAGES": "Languages every season",
+    "STATS_LENGTH": "Average deep-dive length",
+    "SHOW_NOTES": "Show notes",
+    "GET_EPISODES_BY_EMAIL": "Get episodes by email",
+    "ERROR_LOADING": "Failed to load podcasts. Please try again later.",
+    "THE_FUTURE_OF": "The future of",
+    "MARKETING_INTELLIGENCE": "marketing intelligence.",
+    "HERO_DEK": "Long-form MARKATA FM conversations with strategists, creatives, and operators across MENA—bilingual show notes every week.",
+    "MIN_READ": "min read"
   }
 }

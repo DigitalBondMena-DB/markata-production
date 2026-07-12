@@ -18,4 +18,16 @@ export class NavbarService {
       },
     };
   });
+
+  readonly specialCategoryRoutes: Record<string, string> = {
+    'broadcast': 'podcasts'
+  };
+
+  getCategoryRoute(slug: string): any[] {
+    const specialRoute = this.specialCategoryRoutes[slug];
+    if (specialRoute) {
+      return ['/', this.langService.currentLang(), specialRoute];
+    }
+    return ['/', this.langService.currentLang(), 'category', slug];
+  }
 }

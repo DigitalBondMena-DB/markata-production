@@ -22,6 +22,10 @@ export class NavbarComponent {
   private readonly navbarService = inject(NavbarService);
   private readonly platformId = inject(PLATFORM_ID);
 
+  getCategoryRoute(slug: string): any[] {
+    return this.navbarService.getCategoryRoute(slug);
+  }
+
   readonly isBrowser = isPlatformBrowser(this.platformId);
   readonly showAuth = computed(() => this.isBrowser && this.authService.isAuthChecked());
 

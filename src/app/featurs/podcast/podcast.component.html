@@ -1,168 +1,169 @@
 <main class="inner-wrap inner-podcast-page inner-podcast-x">
 
-
+    <!-- Hero Section -->
     <section class="podcast-x-hero" aria-label="Featured episode">
         <div class="podcast-x-hero__frame" aria-hidden="true"></div>
         <div class="podcast-x-hero__media">
+            @if (latest(); as lat) {
+            <img [markataImage]="lat.image" [ngSrc]="lat.image?.url || 'assets/icons/digital-bond.svg'" priority fill
+                [alt]="lat.title">
+            } @else {
             <img markataImage ngSrc="markata-pod-cinematic-hero" priority fill alt="">
+            }
         </div>
         <div class="podcast-x-hero__scrim"></div>
         <div class="podcast-x-container podcast-x-hero__grid">
             <div class="podcast-x-hero__copy">
                 <h1 class="podcast-x-hero-title">
-                    <span class="podcast-x-hero-line">{{ lang.t('The future of', 'مستقبل') }}</span>
-                    <span class="podcast-x-hero-line podcast-x-hero-accent">{{
-                        lang.t('marketing intelligence.', 'استخبارات التسويق.')
-                        }}</span>
+                    <span class="podcast-x-hero-line">
+                        {{ latest() ? latest()!.title : ('PODCAST.THE_FUTURE_OF' | translate) }}
+                    </span>
+                    @if (!latest()) {
+                    <span class="podcast-x-hero-line podcast-x-hero-accent">{{ 'PODCAST.MARKETING_INTELLIGENCE' |
+                        translate }}</span>
+                    }
                 </h1>
                 <p class="podcast-x-hero-dek">
-                    {{
-                    lang.t(
-                    'Long-form MARKATA FM conversations with strategists, creatives, and operators across MENA—bilingual
-                    show notes every week.',
-                    'حوارات ماركاتا إف إم مع استراتيجيين ومبدعين ومشغلين في الشرق الأوسط وشماله—ملاحظات حلقة ثنائية
-                    اللغة أسبوعياً.'
-                    )
-                    }}
+                    {{ latest() ? latest()!.short_text : ('PODCAST.HERO_DEK' | translate) }}
                 </p>
                 <div class="podcast-x-hero-actions">
-                    <a class="podcast-x-btn podcast-x-btn--primary" routerLink="/strategy"><span
-                            class="podcast-x-btn-ic" aria-hidden="true">&#9654;</span><span>{{ lang.t('Show notes',
-                            'ملاحظات الحلقة') }}</span></a>
-                    <a class="podcast-x-btn podcast-x-btn--ghost" routerLink="/resources"><span class="podcast-x-btn-ic"
-                            aria-hidden="true">&#9835;</span><span>{{ lang.t('Get episodes by email', 'استقبل الحلقات
-                            بالبريد') }}</span></a>
+                    @if (latest() && latest()?.video_url) {
+                    <button class="podcast-x-btn podcast-x-btn--primary" (click)="playVideo(latest()!.video_url)">
+                        <span class="podcast-x-btn-ic" aria-hidden="true">&#9654;</span>
+                        <span>{{ 'PODCAST.SHOW_NOTES' | translate }}</span>
+                    </button>
+                    } @else {
+                    <a class="podcast-x-btn podcast-x-btn--primary" routerLink="/strategy">
+                        <span class="podcast-x-btn-ic" aria-hidden="true">&#9654;</span>
+                        <span>{{ 'PODCAST.SHOW_NOTES' | translate }}</span>
+                    </a>
+                    }
+                    <a class="podcast-x-btn podcast-x-btn--ghost" routerLink="/resources">
+                        <span class="podcast-x-btn-ic" aria-hidden="true">&#9835;</span>
+                        <span>{{ 'PODCAST.GET_EPISODES_BY_EMAIL' | translate }}</span>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Stats Section -->
+    @if (counters().length > 0) {
     <section class="podcast-x-stats" aria-label="Programme notes">
-        <div class="podcast-x-container podcast-x-stats__row">
+        <div class="podcast-x-container podcast-x-stats__row"
+            [style.--col-count]="counters().length">
+            @for (counter of counters(); track counter.id) {
             <div class="podcast-x-stat">
-                <span class="podcast-x-stat__val">180+</span>
-                <span class="podcast-x-stat__lab">{{ lang.t('Episodes in the archive', 'حلقات في الأرشيف') }}</span>
+                <span class="podcast-x-stat__val">{{ counter.value }}</span>
+                <span class="podcast-x-stat__lab">{{ counter.title }}</span>
             </div>
-            <div class="podcast-x-stat">
-                <span class="podcast-x-stat__val">180+</span>
-                <span class="podcast-x-stat__lab">{{ lang.t('Episodes in the archive', 'حلقات في الأرشيف') }}</span>
-            </div>
-            <div class="podcast-x-stat podcast-x-stat--accent">
-                <span class="podcast-x-stat__val">2</span>
-                <span class="podcast-x-stat__lab">{{ lang.t('Languages every season', 'لغتان كل موسم') }}</span>
-            </div>
-            <div class="podcast-x-stat">
-                <span class="podcast-x-stat__val">45m</span>
-                <span class="podcast-x-stat__lab">{{ lang.t('Average deep-dive length', 'متوسط عمق الحلقة') }}</span>
-            </div>
+            }
         </div>
     </section>
+    }
 
+    <!-- Main Feed Section -->
     <section class="podcast-x-main">
         <div class="podcast-x-container podcast-x-split">
-            <div class="podcast-x-feed" [class.podcast-x-feed--loading]="showSkeleton()" id="podcast-feed">
-                @if (showSkeleton()) {
-                <div class="podcast-x-skeleton" aria-hidden="true">
-                    <div class="podcast-x-skeleton__bar podcast-x-skeleton__bar--wide"></div>
-                    <div class="podcast-x-skeleton__grid">
-                        <div class="podcast-x-skeleton__card"></div>
-                        <div class="podcast-x-skeleton__card"></div>
-                        <div class="podcast-x-skeleton__card"></div>
+            <div class="podcast-x-feed" id="podcast-feed">
+                <div class="podcast-x-section-head">
+                    <h2 class="podcast-x-section-title">{{ 'PODCAST.RECENT_EPISODES' | translate }}</h2>
+                </div>
+
+                @if (isLoading()) {
+                <app-skeleton>
+                    <div class="podcast-x-skeleton" aria-hidden="true" style="margin-bottom: 30px;">
+                        <div class="podcast-x-skeleton__bar podcast-x-skeleton__bar--wide"
+                            style="height: 24px; width: 180px; margin-bottom: 20px; background: rgba(0,0,0,0.1); border-radius: 4px;">
+                        </div>
+                        <div class="podcast-x-skeleton__grid"
+                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+                            <div class="podcast-x-skeleton__card"
+                                style="height: 320px; background: rgba(0,0,0,0.06); border-radius: 8px;"></div>
+                            <div class="podcast-x-skeleton__card"
+                                style="height: 320px; background: rgba(0,0,0,0.06); border-radius: 8px;"></div>
+                            <div class="podcast-x-skeleton__card"
+                                style="height: 320px; background: rgba(0,0,0,0.06); border-radius: 8px;"></div>
+                        </div>
+                    </div>
+                </app-skeleton>
+                } @else if (error()) {
+                <div class="error-container" style="padding: 40px; text-align: center; color: #ef4444;">
+                    <p>{{ 'PODCAST.ERROR_LOADING' | translate }}</p>
+                </div>
+                } @else {
+                <div class="podcast-x-bento">
+                    @for (ep of broadcasts(); track ep.id) {
+                    <app-broadcast-card [broadcast]="ep" [layout]="$index === 0 ? 'feature' : 'card'"
+                        (play)="playVideo($event)">
+                    </app-broadcast-card>
+                    }
+                </div>
+                }
+
+                <!-- Pagination Component -->
+                @if (!isLoading() && paginationMeta(); as meta) {
+                <div style="margin-top: 40px; display: flex; justify-content: center;">
+                    <app-pagination [currentPage]="meta.current_page" [lastPage]="meta.last_page"
+                        [routeConfig]="['/', lang.currentLang(), 'podcasts']">
+                    </app-pagination>
+                </div>
+                }
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="podcast-x-aside" aria-label="Sidebar">
+                @if (featuredBroadcasts().length > 0) {
+                <div class="podcast-x-panel">
+                    <h3 class="podcast-x-aside-title">{{ 'PODCAST.TOP_LISTENS' | translate }}</h3>
+                    <div class="podcast-x-trend-list">
+                        @for (tr of featuredBroadcasts(); track tr.id) {
+                        <a class="podcast-x-trend" (click)="playVideo(tr.video_url)" style="cursor: pointer;">
+                            <span class="podcast-x-trend-num">{{ $index + 1 | number }}</span>
+                            <div>
+                                <h5 class="podcast-x-trend-title">{{ tr.title }}</h5>
+                                <p class="podcast-x-trend-meta">
+                                    {{ tr.reading_time }} {{ 'PODCAST.MIN_READ' | translate }}
+                                </p>
+                            </div>
+                        </a>
+                        }
                     </div>
                 </div>
                 }
-                <div class="podcast-x-section-head">
-                    <h2 class="podcast-x-section-title">{{ lang.t('Recent episodes', 'أحدث الحلقات') }}</h2>
-                </div>
-                <div class="podcast-x-bento">
-                    @for (ep of visibleEpisodes(); track ep.id) {
-                    <div class="podcast-x-card-wrap" [class.podcast-x-card-wrap--paginated]="!!ep.paginated">
-                        <button type="button" class="podcast-x-save"
-                            [class.podcast-x-save--saved]="saved.ids().has(ep.id)"
-                            [attr.aria-pressed]="saved.ids().has(ep.id) ? 'true' : 'false'"
-                            [attr.aria-label]="lang.t('Save episode', 'احفظ الحلقة')" (click)="toggleSave(ep, $event)">
-                            <span class="podcast-x-save__ic" aria-hidden="true">{{ saveIcon(ep) }}</span>
-                        </button>
-                        @if (ep.layout === 'feature') {
-                        <a class="podcast-x-card podcast-x-card--feature" [routerLink]="['/', homePathForEpisode(ep)]">
-                            <div class="podcast-x-card__media podcast-x-card__media--video">
-                                <img markataImage [ngSrc]="ep.imgSeed" priority fill alt="">
-                                <span class="podcast-x-duration">{{ ep.duration }}</span>
-                                <div class="podcast-x-play" aria-hidden="true"><span>&#9654;</span></div>
+
+                @if (favoritesv().length > 0) {
+                <div class="podcast-x-originals">
+                    <h3 class="podcast-x-aside-title">{{ 'PODCAST.FAVORITES' | translate }}</h3>
+                    @for (fav of favoritesv(); track fav.id) {
+                    <a class="podcast-x-series" (click)="playVideo(fav.video_url)" style="cursor: pointer;">
+                        <div class="podcast-x-series__media">
+                            <img [markataImage]="fav.image" [ngSrc]="fav.image?.url || 'assets/icons/digital-bond.svg'" fill [alt]="fav.title">
+                            <div class="podcast-x-series__scrim"></div>
+                            <div class="podcast-x-series__cap">
+                                <span class="podcast-x-series__tag">{{ fav.reading_time }} {{ 'PODCAST.MIN_READ' | translate }}</span>
+                                <span class="podcast-x-series__name">{{ fav.title }}</span>
                             </div>
-                            <div class="podcast-x-card__body">
-                                <div class="podcast-x-card__meta">
-                                    <span class="podcast-x-cat">{{ lang.t(ep.categoryEn, ep.categoryAr) }}</span>
-                                    @if (ep.dateEn && ep.dateAr) {
-                                    <span class="podcast-x-date">{{ lang.t(ep.dateEn, ep.dateAr) }}</span>
-                                    }
-                                </div>
-                                <h3 class="podcast-x-card__title podcast-x-card__title--lg">
-                                    {{ lang.t(ep.titleEn, ep.titleAr) }}
-                                </h3>
-                                @if (ep.excerptEn && ep.excerptAr) {
-                                <p class="podcast-x-card__excerpt">{{ lang.t(ep.excerptEn, ep.excerptAr) }}</p>
-                                }
-                            </div>
-                        </a>
-                        } @else {
-                        <a class="podcast-x-card" [routerLink]="['/', homePathForEpisode(ep)]">
-                            <div class="podcast-x-card__media">
-                                <img markataImage [ngSrc]="ep.imgSeed" fill alt="">
-                                <span class="podcast-x-duration">{{ ep.duration }}</span>
-                            </div>
-                            <span class="podcast-x-cat" [class.podcast-x-cat--accent]="ep.categoryVariant === 'accent'"
-                                [class.podcast-x-cat--muted]="ep.categoryVariant === 'muted'">{{ lang.t(ep.categoryEn,
-                                ep.categoryAr) }}</span>
-                            <h4 class="podcast-x-card__title">{{ lang.t(ep.titleEn, ep.titleAr) }}</h4>
-                        </a>
-                        }
-                    </div>
+                        </div>
+                    </a>
                     }
                 </div>
-            </div>
-
-            <aside class="podcast-x-aside" aria-label="Sidebar">
-                <div class="podcast-x-panel">
-                    <h3 class="podcast-x-aside-title">{{ lang.t('Top listens this week', 'الأكثر استماعاً هذا الأسبوع')
-                        }}</h3>
-                    <div class="podcast-x-trend-list">
-                        @for (tr of sidebarTrends; track tr.num) {
-                        <a class="podcast-x-trend" [routerLink]="['/', tr.homePath]">
-                            <span class="podcast-x-trend-num">{{ tr.num }}</span>
-                            <div>
-                                <h5 class="podcast-x-trend-title">{{ lang.t(tr.titleEn, tr.titleAr) }}</h5>
-                                <p class="podcast-x-trend-meta">{{ lang.t(tr.metaEn, tr.metaAr) }}</p>
-                            </div>
-                        </a>
-                        }
-                    </div>
-                </div>
-                <div class="podcast-x-originals">
-                    <h3 class="podcast-x-aside-title">{{ lang.t('MARKATA originals', 'إنتاج ماركاتا') }}</h3>
-                    <a class="podcast-x-series" routerLink="/podcast" fragment="podcast-feed">
-                        <div class="podcast-x-series__media">
-                            <img markataImage ngSrc="markata-pod-series-a" fill alt="">
-                            <div class="podcast-x-series__scrim"></div>
-                            <div class="podcast-x-series__cap">
-                                <span class="podcast-x-series__tag">{{ lang.t('New series', 'سلسلة جديدة') }}</span>
-                                <span class="podcast-x-series__name">{{ lang.t('Deep grooves', 'نقرات عميقة') }}</span>
-                            </div>
-                        </div>
-                    </a>
-                    <a class="podcast-x-series" routerLink="/podcast" fragment="podcast-feed">
-                        <div class="podcast-x-series__media">
-                            <img markataImage ngSrc="markata-pod-series-b" fill alt="">
-                            <div class="podcast-x-series__scrim"></div>
-                            <div class="podcast-x-series__cap">
-                                <span class="podcast-x-series__name">{{
-                                    lang.t('The morning strategy', 'الاستراتيجية الصباحية')
-                                    }}</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                }
             </aside>
         </div>
     </section>
 </main>
+
+<!-- Video Popup Modal -->
+@if (sanitizedVideoUrl()) {
+<div class="video-modal-backdrop" (click)="closeVideo()">
+    <div class="video-modal-container" (click)="$event.stopPropagation()">
+        <button class="btn-close-video" (click)="closeVideo()">&times;</button>
+        <div class="video-iframe-wrapper">
+            <iframe [src]="sanitizedVideoUrl()" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+}

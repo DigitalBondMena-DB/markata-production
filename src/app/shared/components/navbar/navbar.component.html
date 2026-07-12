@@ -17,8 +17,7 @@
         </a>
         <nav>
             @for (cat of displayedCategories(); track cat.id) {
-            <a [routerLink]="['/', lang.currentLang(), 'category', cat.slug]" routerLinkActive="active"
-                [routerLinkActiveOptions]="navExact">
+            <a [routerLink]="getCategoryRoute(cat.slug)" routerLinkActive="active" [routerLinkActiveOptions]="navExact">
                 {{ cat.name }}
             </a>
             }
@@ -39,7 +38,7 @@
             @if (moreCategories().length > 0) {
             <app-dropdown [label]="'NAVBAR.MORE' | translate">
                 @for (cat of moreCategories(); track cat.id) {
-                <a [routerLink]="['/', lang.currentLang(), 'category', cat.slug]" routerLinkActive="active"
+                <a [routerLink]="getCategoryRoute(cat.slug)" routerLinkActive="active"
                     [routerLinkActiveOptions]="navExact">
                     {{ cat.name }}
                 </a>
@@ -52,9 +51,9 @@
             <div class="header-links">
                 <button type="button" class="icon-btn"
                     (click)="isArabic ? changeLanguage('en') : changeLanguage('ar')">{{isArabic ? 'EN' : 'ع' }}</button>
-                <a class="icon-btn" [routerLink]="['/', lang.currentLang(), 'search']" title="Search"><img
-                        src="assets/icons/search-icon.svg" loading="lazy" decoding="async" width="12" height="12"
-                        alt="search button" class="auto-image"></a>
+                <a class="icon-btn" aria-label="search page" [routerLink]="['/', lang.currentLang(), 'search']"
+                    title="Search"><img src="assets/icons/search-icon.svg" loading="lazy" decoding="async" width="12"
+                        height="12" alt="" role="presentation" class="auto-image"></a>
             </div>
             @if (showAuth()) {
             @if(!authService.isLoggedIn()) {

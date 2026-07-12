@@ -1,15 +1,15 @@
 @if (customTrigger()) {
-  <div (click)="toggle($event)" style="display: contents;">
-    <ng-content select="[dropdownTrigger]"></ng-content>
-  </div>
+<div (click)="toggle($event)" style="display: contents;">
+  <ng-content select="[dropdownTrigger]"></ng-content>
+</div>
 } @else {
-  <button type="button" class="dropdown-trigger" [attr.aria-expanded]="isOpen()" aria-haspopup="true"
-    (click)="toggle($event)">
-    <span class="trigger-label">{{ label() }}</span>
-    <svg class="chevron-icon" [class.open]="isOpen()" viewBox="0 0 24 24" width="12" height="12">
-      <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-    </svg>
-  </button>
+<button type="button" class="dropdown-trigger" [attr.aria-expanded]="isOpen()" aria-haspopup="true"
+  (click)="toggle($event)">
+  <span class="trigger-label">{{ label() }}</span>
+  <svg class="chevron-icon" [class.open]="isOpen()" viewBox="0 0 24 24" width="12" height="12">
+    <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+  </svg>
+</button>
 }
 
 @if (isOpen()) {

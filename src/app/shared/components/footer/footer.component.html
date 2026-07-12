@@ -38,7 +38,7 @@
         <ul>
           @for (cat of categories(); track cat.id) {
           <li>
-            <a [routerLink]="['/', lang.currentLang(), 'category', cat.slug]" routerLinkActive="active">
+            <a [routerLink]="getCategoryRoute(cat.slug)" routerLinkActive="active">
               {{ cat.name }}
             </a>
           </li>

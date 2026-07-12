@@ -91,7 +91,7 @@ header:not(.article-feature-head):not(.inner-page-hero):not(.case-studies-head) 
     }
 
     @media (max-width: 720px) {
-        flex-wrap: wrap;
+        flex-direction: column;
         height: auto;
         min-height: 64px;
         padding: 10px 16px;

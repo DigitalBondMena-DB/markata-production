@@ -22,6 +22,10 @@ export class FooterComponent {
   readonly categories = computed(() => this.navbarService.taxonomiesResource.value()?.data.categories.slice(0, 7) ?? []);
   readonly topics = computed(() => this.navbarService.taxonomiesResource.value()?.data.topics.slice(0, 7) ?? []);
 
+  getCategoryRoute(slug: string): any[] {
+    return this.navbarService.getCategoryRoute(slug);
+  }
+
   readonly socialLinks = computed(() => {
     const data = this.socialService.socialResource.value()?.data;
     if (!data) return [];

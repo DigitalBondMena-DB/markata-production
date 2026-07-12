@@ -1,5 +1,5 @@
 export const environment = {
-  isProduction: false,
+  isProduction: true,
   api: 'https://admin.mrkata.com/api/v1/',
   siteUrl: 'https://mrkata.com',
   imageBaseUrl: 'https://admin.mrkata.com/'
