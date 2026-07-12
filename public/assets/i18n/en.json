@@ -130,9 +130,6 @@
     "RELATED_TILE_2_TITLE": "Launching a Luxury Brand in Saudi Arabia: What Traditional Rules Don't Tell You",
     "RELATED_TILE_2_DEK": "Understanding the shifting preferences of millennial and Gen Z Saudi luxury consumers.",
     "RELATED_TILE_2_DATE": "June 10, 2026",
-    "CROSS_READ": "Cross-read",
-    "CROSS_READ_1": "About our methodology",
-    "CROSS_READ_2": "Contact research desk",
     "BACK_TO_HOME": "← Back to home",
     "BODY": "<p class=\"article-body-lede\">For decades, Ramadan advertising has been the crown jewel of marketing in the Middle East and North Africa (MENA) region. It is the Super Bowl of the Arab world, a high-stakes arena where brands invest massive budgets in hope of winning consumer hearts. Yet, as media landscape becomes increasingly fragmented and consumer skepticism rises, the traditional playbook of star-studded musical numbers is showing signs of fatigue. Real resonance lies elsewhere.</p><div id=\"section-1\" class=\"article-scroll-anchor\"></div><p class=\"article-body-text\">Analysis of the most successful campaigns of Ramadan 2026 reveals a critical paradigm shift: leading brands are moving from broad emotional appeal to highly localized, specific cultural codes. These brands don’t just seek to entertain; they aim to reflect the lived realities of their consumers, validating their struggles, values, and traditions without being commercial or transactional.</p><blockquote class=\"article-pullquote\"><span class=\"article-pullquote-mark\" aria-hidden=\"true\">“</span><p>The brands that stood out were those that focused on micro-moments of connection rather than sweeping, idealized portrayals of family gatherings.</p></blockquote><div id=\"section-2\" class=\"article-scroll-anchor\"></div><p class=\"article-body-text\">Secondly, memory structures play a crucial role. Campaigns that tapped into collective nostalgia—specifically referencing shared cultural memories from the late 90s and early 2000s—performed 40% better in emotional recall tests compared to those that relied on generic modern themes. This is not about simply looking back; it's about connecting the past to the present in a way that feels authentic and comforting.</p><div id=\"section-3\" class=\"article-scroll-anchor\"></div><p class=\"article-body-text\">Lastly, the integration of cultural codes. Whether it is the subtle representation of local dialects, neighborhood-specific visual references, or referencing traditional storytelling techniques, these micro-signals communicate respect and understanding. In a world where attention is the ultimate currency, these details make the difference between an ad that is watched and a story that is shared.</p>"
   },
@@ -241,6 +238,9 @@
     "THE_FUTURE_OF": "The future of",
     "MARKETING_INTELLIGENCE": "marketing intelligence.",
     "HERO_DEK": "Long-form MARKATA FM conversations with strategists, creatives, and operators across MENA—bilingual show notes every week.",
-    "MIN_READ": "min read"
+    "MIN_READ": "min read",
+    "NEW_EPISODES": "New Episodes",
+    "RECOMMENDED_PODCASTS": "Recommended Podcasts",
+    "RELATED_PODCASTS": "Related Podcasts"
   }
 }

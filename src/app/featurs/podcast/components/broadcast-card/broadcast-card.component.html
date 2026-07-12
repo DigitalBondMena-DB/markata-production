@@ -1,36 +1,36 @@
 <div class="podcast-x-card-wrap" [class.podcast-x-card-wrap--feature]="layout() === 'feature'">
-  <app-bookmark-button 
-      [cardId]="broadcast().id" 
-      [isFavorite]="broadcast().is_favorite"
-      (favoriteChanged)="onFavoriteChanged($event)">
+  <app-bookmark-button [cardId]="broadcast().id" [isFavorite]="broadcast().is_favorite ?? false"
+    (favoriteChanged)="onFavoriteChanged($event)">
   </app-bookmark-button>
-  
+
   @if (layout() === 'feature') {
-    <a class="podcast-x-card podcast-x-card--feature" (click)="onPlayClick($event)" style="cursor: pointer;">
-      <div class="podcast-x-card__media podcast-x-card__media--video">
-        <img [markataImage]="broadcast().image" [ngSrc]="broadcast().image?.url || 'assets/icons/digital-bond.svg'" priority fill [alt]="broadcast().title">
-        <span class="podcast-x-duration">{{ broadcast().reading_time }} {{ 'PODCAST.MIN_READ' | translate }}</span>
-        <div class="podcast-x-play" aria-hidden="true"><span>&#9654;</span></div>
+  <a class="podcast-x-card podcast-x-card--feature"
+    [routerLink]="['/', lang.currentLang(), 'podcasts', broadcast().slug]">
+    <div class="podcast-x-card__media podcast-x-card__media--video">
+      <img [markataImage]="broadcast().image" [ngSrc]="broadcast().image?.url || 'assets/icons/digital-bond.svg'"
+        priority fill [alt]="broadcast().title">
+      <span class="podcast-x-duration">{{ broadcast().reading_time }} {{ 'PODCAST.MIN_READ' | translate }}</span>
+    </div>
+    <div class="podcast-x-card__body">
+      <div class="podcast-x-card__meta">
+        <span class="podcast-x-cat">{{ 'PODCAST.EPISODE' | translate }}</span>
+        <span class="podcast-x-date">{{ broadcast().published_at | date:'mediumDate' }}</span>
       </div>
-      <div class="podcast-x-card__body">
-        <div class="podcast-x-card__meta">
-          <span class="podcast-x-cat">{{ 'PODCAST.EPISODE' | translate }}</span>
-          <span class="podcast-x-date">{{ broadcast().published_at | date:'mediumDate' }}</span>
-        </div>
-        <h3 class="podcast-x-card__title podcast-x-card__title--lg">
-          {{ broadcast().title }}
-        </h3>
-        <p class="podcast-x-card__excerpt">{{ broadcast().short_text }}</p>
-      </div>
-    </a>
+      <h3 class="podcast-x-card__title podcast-x-card__title--lg">
+        {{ broadcast().title }}
+      </h3>
+      <p class="podcast-x-card__excerpt">{{ broadcast().short_text }}</p>
+    </div>
+  </a>
   } @else {
-    <a class="podcast-x-card" (click)="onPlayClick($event)" style="cursor: pointer;">
-      <div class="podcast-x-card__media">
-        <img [markataImage]="broadcast().image" [ngSrc]="broadcast().image?.url || 'assets/icons/digital-bond.svg'" fill [alt]="broadcast().title">
-        <span class="podcast-x-duration">{{ broadcast().reading_time }} {{ 'PODCAST.MIN_READ' | translate }}</span>
-      </div>
-      <span class="podcast-x-cat">{{ 'PODCAST.EPISODE' | translate }}</span>
-      <h4 class="podcast-x-card__title">{{ broadcast().title }}</h4>
-    </a>
+  <a class="podcast-x-card" [routerLink]="['/', lang.currentLang(), 'podcasts', broadcast().slug]">
+    <div class="podcast-x-card__media">
+      <img [markataImage]="broadcast().image" [ngSrc]="broadcast().image?.url || 'assets/icons/digital-bond.svg'" fill
+        [alt]="broadcast().title">
+      <span class="podcast-x-duration">{{ broadcast().reading_time }} {{ 'PODCAST.MIN_READ' | translate }}</span>
+    </div>
+    <span class="podcast-x-cat">{{ 'PODCAST.EPISODE' | translate }}</span>
+    <h4 class="podcast-x-card__title">{{ broadcast().title }}</h4>
+  </a>
   }
 </div>

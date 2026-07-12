@@ -1,6 +1,6 @@
-<main class="inner-wrap inner-page article-feature-page" [attr.data-page]="'article'"
+<main class="inner-wrap inner-page article-feature-page" [attr.data-page]="'podcast'"
   [attr.dir]="lang.currentLang() === 'ar' ? 'rtl' : 'ltr'">
-  @if (articleResource.isLoading()) {
+  @if (podcastResource.isLoading()) {
   <!-- Skeleton Loader -->
   <app-skeleton>
     <header class="article-feature-head">
@@ -22,53 +22,57 @@
       <div class="skeleton-item" style="height: 450px; border-radius: 8px; width: 100%;"></div>
     </div>
   </app-skeleton>
-  } @else if (!articleData()) {
+  } @else if (!podcastData()) {
   <!-- Empty State / Not Found -->
   <app-empty-state [title]="'BLOG_DETAILS.ARTICLE_NOT_FOUND' | translate"
     [description]="'BLOG_DETAILS.ARTICLE_NOT_FOUND_DESC' | translate"
     [actionText]="'BLOG_DETAILS.BACK_TO_HOME' | translate" [routerLink]="['/', lang.currentLang(), 'home']">
   </app-empty-state>
   } @else {
-  @let article = articleData()!;
+  @let podcast = podcastData()!;
   <header class="article-feature-head">
-    @if(article?.category?.name) {
+    @if(podcast?.category?.name) {
     <p class="inner-kicker article-feature-kicker">
-      {{ article.category?.name }}
+      {{ podcast.category?.name }}
+    </p>
+    } @else {
+    <p class="inner-kicker article-feature-kicker">
+      {{ 'PODCAST.EPISODE' | translate }}
     </p>
     }
-    <h1 class="article-feature-h1">{{ article.title }}</h1>
-    <p class="article-feature-dek">{{ article.short_text }}</p>
+    <h1 class="article-feature-h1">{{ podcast.title }}</h1>
+    <p class="article-feature-dek">{{ podcast.short_text }}</p>
     <div class="article-meta-row">
-      @if (article.author) {
+      @if (podcast.author) {
       <div class="article-meta-author">
-        <div class="article-avatar">
-          <img [markataImage]="article.author.image" class="ph-1"
-            [ngSrc]="article.author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
+        <div class="article-avatar ph-1">
+          <img [markataImage]="podcast.author.image"
+            [ngSrc]="podcast.author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
         </div>
         <div>
-          <a href="#" class="article-author-name">{{ article.author.name }}</a>
+          <a href="#" class="article-author-name">{{ podcast.author.name }}</a>
           <p class="article-author-role">
-            {{article.author.job_title}} • {{ article.reading_time }} {{ 'BLOG_DETAILS.MIN_READ' | translate }}
+            {{podcast.author.job_title}} • {{ podcast.reading_time }} {{ 'BLOG_DETAILS.MIN_READ' | translate }}
           </p>
         </div>
       </div>
       }
       <div class="article-meta-actions">
-        <time class="article-date" [attr.datetime]="article?.published_at">{{ article?.published_at | date : 'MMM d, y'
+        <time class="article-date" [attr.datetime]="podcast?.published_at">{{ podcast?.published_at | date : 'MMM d, y'
           }}</time>
 
         <div class="article-share-icons" [attr.aria-label]="'BLOG_DETAILS.SHARE_SOCIAL' | translate">
-          <a class="article-share-icon" [href]="articleUrl() | socialShare : 'facebook' : article.share?.facebook"
+          <a class="article-share-icon" [href]="podcastUrl() | socialShare : 'facebook' : podcast.share?.facebook"
             target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_FB' | translate"><img
               src="/assets/icons/facebook.svg" width="14" height="14" class="auto-image" alt="facebook"></a>
           <a class="article-share-icon"
-            [href]="articleUrl() | socialShare : 'twitter' : article.share?.twitter : article.title" target="_blank"
+            [href]="podcastUrl() | socialShare : 'twitter' : podcast.share?.twitter : podcast.title" target="_blank"
             rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_X' | translate"><img
               src="/assets/icons/x-twitter.svg" width="14" height="14" class="auto-image" alt="x"></a>
-          <a class="article-share-icon" [href]="articleUrl() | socialShare : 'linkedin' : article.share?.linkedin"
+          <a class="article-share-icon" [href]="podcastUrl() | socialShare : 'linkedin' : podcast.share?.linkedin"
             target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_LINKEDIN' | translate"><img
               src="/assets/icons/linked-in.svg" width="14" height="14" class="auto-image" alt="linkedin"></a>
-          <button type="button" class="article-share-icon" (click)="copyArticleLink($event)" [class.copied]="copied()"
+          <button type="button" class="article-share-icon" (click)="copyPodcastLink($event)" [class.copied]="copied()"
             [attr.aria-label]="'BLOG_DETAILS.COPY_LINK' | translate">
             @if(!copied()){
             <img src="/assets/icons/link.svg" width="14" height="14" class="auto-image" alt="link">
@@ -84,15 +88,21 @@
     </div>
   </header>
 
-  @if (article.image?.url) {
-  <div class="article-hero-wrap">
+  @if (podcast.image?.url) {
+  <div class="article-hero-wrap" (click)="playVideo(activeEpisode()?.video_url || podcast.video_url)"
+    [style.cursor]="(activeEpisode()?.video_url || podcast.video_url) ? 'pointer' : 'default'">
     <div class="article-hero-aspect">
-      <img [markataImage]="article.image" [ngSrc]="article.image.url || 'assets/icons/digital-bond.svg'" priority fill
+      <img [markataImage]="podcast.image" [ngSrc]="podcast.image.url || 'assets/icons/digital-bond.svg'" priority fill
         class="ph-5">
+      @if (activeEpisode()?.video_url || podcast.video_url) {
+      <div class="podcast-detail-play-overlay" aria-hidden="true">
+        <div class="play-icon">&#9654;</div>
+      </div>
+      }
     </div>
-    @if (article.image_alt || article.image.alt) {
+    @if (podcast.image_alt || podcast.image.alt) {
     <div class="article-hero-credit-wrap">
-      <p class="article-hero-credit">{{ article.image_alt || article.image.alt }}</p>
+      <p class="article-hero-credit">{{ podcast.image_alt || podcast.image.alt }}</p>
     </div>
     }
   </div>
@@ -116,20 +126,21 @@
       </div>
       }
 
-      @if (article.brief) {
+      @if (podcast.brief) {
       <blockquote class="article-sidebar-quote">
-        <p>{{ article.brief }}</p>
+        <p>{{ podcast.brief }}</p>
         <cite>{{'BLOG_DETAILS.EXECUTIVE_BRIEF' | translate}}</cite>
       </blockquote>
       }
 
-      @if (relatedArticles().length > 0) {
+      @if (relatedPodcasts().length > 0) {
       <div class="article-related-research-section">
-        <h4 class="article-rail-title">{{ 'BLOG_DETAILS.RELATED_RESEARCH' | translate }}</h4>
+        <h4 class="article-rail-title">{{ 'PODCAST.RELATED_PODCASTS' | translate }}</h4>
         <div class="article-related-list">
-          @for (rel of relatedArticles(); track rel.id) {
-          <a [routerLink]="['/', lang.currentLang(), 'article', rel.slug]" class="article-related-card">
-            <p class="article-related-kind">{{ rel.category?.name || rel.topic?.name }}</p>
+          @for (rel of relatedPodcasts(); track rel.id) {
+          <a [routerLink]="['/', lang.currentLang(), 'podcasts', rel.slug]" class="article-related-card">
+            <p class="article-related-kind">{{ rel.category?.name || rel.topic?.name || ('PODCAST.EPISODE' | translate)
+              }}</p>
             <h5>{{ rel.title }}</h5>
           </a>
           }
@@ -139,31 +150,43 @@
     </aside>
 
     <article class="article-body-col">
-      @if (article?.audio?.url) {
-      <app-audio-player [audioUrl]="article?.audio?.url" [title]="article.title"></app-audio-player>
+      @if (podcast.episodes && podcast.episodes.length > 0) {
+      <div class="podcast-episodes-section">
+        <h3 class="episodes-section-title">{{ 'PODCAST.NEW_EPISODES' | translate }}</h3>
+        <div class="episodes-list">
+          @for (ep of podcast.episodes; track ep.id) {
+          <div class="episode-item" (click)="selectEpisode(ep)"
+            [class.episode-item--active]="ep.id === activeEpisode()?.id"
+            [class.episode-item--first]="$first && !episodeParam()" style="cursor: pointer;">
+            <span class="episode-num">{{ getRomanNumeral($index + 1) }}.</span>
+            <span class="episode-title">{{ ep.title }}</span>
+          </div>
+          }
+        </div>
+      </div>
       }
 
-      @if (article.first_paragraph) {
+      @if (podcast.first_paragraph) {
       <p class="article-body-lede"
         style="font-size: 1.25rem; line-height: 1.6; font-weight: 500; margin-bottom: 1.5rem; color: var(--color-text-intense);">
-        {{ article.first_paragraph }}
+        {{ podcast.first_paragraph }}
       </p>
       }
-      <div class="article-body-html" [innerHTML]="articleBodyHtmlWithIds()"></div>
+      <div class="article-body-html" [innerHTML]="podcastBodyHtmlWithIds()"></div>
     </article>
 
     <aside class="article-rail article-rail--right">
-      @if (nextArticles().length > 0) {
+      @if (nextPodcasts().length > 0) {
       <div>
         <h4 class="article-rail-title">{{ 'BLOG_DETAILS.UP_NEXT' | translate }}</h4>
         <div class="article-up-next-list">
-          @for (nextArt of nextArticles(); track nextArt.id) {
-          <a [routerLink]="['/', lang.currentLang(), 'article', nextArt.slug]" class="article-up-next">
+          @for (nextPod of nextPodcasts(); track nextPod.id) {
+          <a [routerLink]="['/', lang.currentLang(), 'podcasts', nextPod.slug]" class="article-up-next">
             <div class="article-up-next-img">
-              <img [markataImage]="nextArt.image" [ngSrc]="nextArt.image?.url || 'assets/icons/digital-bond.svg'" fill
+              <img [markataImage]="nextPod.image" [ngSrc]="nextPod.image?.url || 'assets/icons/digital-bond.svg'" fill
                 alt="">
             </div>
-            <h5>{{ nextArt.title }}</h5>
+            <h5>{{ nextPod.title }}</h5>
           </a>
           }
         </div>
@@ -173,17 +196,17 @@
     </aside>
   </div>
 
-  @if (randomArticles().length > 0) {
-  <section class="article-related-section" aria-labelledby="article-related-heading">
+  @if (randomPodcasts().length > 0) {
+  <section class="article-related-section" aria-labelledby="podcast-related-heading">
     <div class="article-related-section__head">
-      <h2 id="article-related-heading" class="article-related-section__title">
-        {{ 'BLOG_DETAILS.RECOMMENDED_ARTICLES' | translate }}
+      <h2 id="podcast-related-heading" class="article-related-section__title">
+        {{ 'PODCAST.RECOMMENDED_PODCASTS' | translate }}
       </h2>
       <div class="article-related-section__bar" aria-hidden="true"></div>
     </div>
     <div class="article-related-section__grid">
-      @for (rand of randomArticles(); track rand.id) {
-      <a [routerLink]="['/', lang.currentLang(), 'article', rand.slug]" class="article-related-tile">
+      @for (rand of randomPodcasts(); track rand.id) {
+      <a [routerLink]="['/', lang.currentLang(), 'podcasts', rand.slug]" class="article-related-tile">
         @if (rand.image?.url) {
         <div class="article-related-tile__media">
           <img [markataImage]="rand.image" [class]="'ph-'+($index + 1)"
@@ -191,7 +214,8 @@
         </div>
         }
         <div class="article-related-tile__body">
-          <span class="article-related-tile__cat">{{ rand.category?.name || rand.topic?.name }}</span>
+          <span class="article-related-tile__cat">{{ rand.category?.name || rand.topic?.name || ('PODCAST.EPISODE' |
+            translate) }}</span>
           <h3 class="article-related-tile__title">{{ rand.title }}</h3>
           <p class="article-related-tile__dek">{{ rand.short_text }}</p>
           <span class="article-related-tile__date">
@@ -213,3 +237,17 @@
   </footer>
   }
 </main>
+
+<!-- Video Popup Modal -->
+@if (sanitizedVideoUrl()) {
+<div class="video-modal-backdrop" (click)="closeVideo()">
+  <div class="video-modal-container" (click)="$event.stopPropagation()">
+    <button class="btn-close-video" (click)="closeVideo()">&times;</button>
+    <div class="video-iframe-wrapper">
+      <iframe [src]="sanitizedVideoUrl()" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+}

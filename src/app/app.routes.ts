@@ -41,6 +41,11 @@ export const routes: Routes = [
           import('./featurs/podcast/podcast.component').then(m => m.PodcastComponent)
       },
       {
+        path: 'podcasts/:slug',
+        loadComponent: () =>
+          import('./featurs/podcast/podcast-details/podcast-details.component').then(m => m.PodcastDetailsComponent)
+      },
+      {
         path: 'privacy-policy',
         loadComponent: () =>
           import('./featurs/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent)

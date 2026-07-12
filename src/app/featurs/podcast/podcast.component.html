@@ -16,16 +16,18 @@
             <div class="podcast-x-hero__copy">
                 <h1 class="podcast-x-hero-title">
                     <span class="podcast-x-hero-line">
-                        {{ latest() ? latest()!.title : ('PODCAST.THE_FUTURE_OF' | translate) }}
+                        {{ latest()?.title }}
                     </span>
-                    @if (!latest()) {
+                    <!-- @if (!latest()) {
                     <span class="podcast-x-hero-line podcast-x-hero-accent">{{ 'PODCAST.MARKETING_INTELLIGENCE' |
                         translate }}</span>
-                    }
+                    } -->
                 </h1>
+                @if(latest()?.short_text){
                 <p class="podcast-x-hero-dek">
-                    {{ latest() ? latest()!.short_text : ('PODCAST.HERO_DEK' | translate) }}
+                    {{ latest()?.short_text }}
                 </p>
+                }
                 <div class="podcast-x-hero-actions">
                     @if (latest() && latest()?.video_url) {
                     <button class="podcast-x-btn podcast-x-btn--primary" (click)="playVideo(latest()!.video_url)">
@@ -50,8 +52,7 @@
     <!-- Stats Section -->
     @if (counters().length > 0) {
     <section class="podcast-x-stats" aria-label="Programme notes">
-        <div class="podcast-x-container podcast-x-stats__row"
-            [style.--col-count]="counters().length">
+        <div class="podcast-x-container podcast-x-stats__row" [style.--col-count]="counters().length">
             @for (counter of counters(); track counter.id) {
             <div class="podcast-x-stat">
                 <span class="podcast-x-stat__val">{{ counter.value }}</span>
@@ -118,7 +119,7 @@
                     <h3 class="podcast-x-aside-title">{{ 'PODCAST.TOP_LISTENS' | translate }}</h3>
                     <div class="podcast-x-trend-list">
                         @for (tr of featuredBroadcasts(); track tr.id) {
-                        <a class="podcast-x-trend" (click)="playVideo(tr.video_url)" style="cursor: pointer;">
+                        <a class="podcast-x-trend" [routerLink]="['/', lang.currentLang(), 'podcasts', tr.slug]">
                             <span class="podcast-x-trend-num">{{ $index + 1 | number }}</span>
                             <div>
                                 <h5 class="podcast-x-trend-title">{{ tr.title }}</h5>
@@ -136,12 +137,14 @@
                 <div class="podcast-x-originals">
                     <h3 class="podcast-x-aside-title">{{ 'PODCAST.FAVORITES' | translate }}</h3>
                     @for (fav of favoritesv(); track fav.id) {
-                    <a class="podcast-x-series" (click)="playVideo(fav.video_url)" style="cursor: pointer;">
+                    <a class="podcast-x-series" [routerLink]="['/', lang.currentLang(), 'podcasts', fav.slug]">
                         <div class="podcast-x-series__media">
-                            <img [markataImage]="fav.image" [ngSrc]="fav.image?.url || 'assets/icons/digital-bond.svg'" fill [alt]="fav.title">
+                            <img [markataImage]="fav.image" [ngSrc]="fav.image?.url || 'assets/icons/digital-bond.svg'"
+                                fill [alt]="fav.title">
                             <div class="podcast-x-series__scrim"></div>
                             <div class="podcast-x-series__cap">
-                                <span class="podcast-x-series__tag">{{ fav.reading_time }} {{ 'PODCAST.MIN_READ' | translate }}</span>
+                                <span class="podcast-x-series__tag">{{ fav.reading_time }} {{ 'PODCAST.MIN_READ' |
+                                    translate }}</span>
                                 <span class="podcast-x-series__name">{{ fav.title }}</span>
                             </div>
                         </div>

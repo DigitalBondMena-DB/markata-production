@@ -80,10 +80,6 @@
      aspect-ratio: 16 / 9;
  }
 
- .podcast-x-card--feature:hover .podcast-x-play {
-     opacity: 1;
- }
-
  .podcast-x-card--feature .podcast-x-card__media::after {
      content: "";
      position: absolute;
