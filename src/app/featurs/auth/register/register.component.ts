@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, DestroyRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { email, form, FormField, minLength, required, validate } from '@angular/forms/signals';
 import { LanguageService } from '../../../core/services/language.service';
@@ -6,6 +6,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { FormInputComponent } from '../../../shared/components/form-input/form-input.component';
 import { AuthModalComponent } from '../../../shared/components/auth-modal/auth-modal.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface RegisterData {
   name: string;
@@ -21,6 +22,7 @@ interface RegisterData {
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  private readonly destroyRef = inject(DestroyRef)
   readonly lang = inject(LanguageService);
   readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -70,7 +72,7 @@ export class RegisterComponent {
         password_confirmation: model.confirmPassword
       };
 
-      this.authService.register(payload).subscribe({
+      this.authService.register(payload).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
           const lang = this.lang.currentLang();
           this.router.navigate([lang]);

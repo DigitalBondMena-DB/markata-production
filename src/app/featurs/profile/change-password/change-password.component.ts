@@ -1,4 +1,4 @@
-import { Component, signal, inject, computed } from '@angular/core';
+import { Component, signal, inject, computed, DestroyRef } from '@angular/core';
 import { form, FormField, required, minLength } from '@angular/forms/signals';
 import { LanguageService } from '../../../core/services/language.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -7,6 +7,7 @@ import { SuccessAlertComponent } from '../../../shared/components/success-alert/
 import { MainInnerHeaderComponent } from '../../../shared/components/main-inner-header/main-inner-header.component';
 import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-change-password',
@@ -22,6 +23,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './change-password.component.css'
 })
 export class ChangePasswordComponent {
+  private readonly destroyRef = inject(DestroyRef)
   readonly lang = inject(LanguageService);
   readonly authService = inject(AuthService);
 
@@ -96,7 +98,7 @@ export class ChangePasswordComponent {
       this.errorMessage.set(null);
       this.formErrors.set(null);
 
-      this.authService.changePassword(this.changePasswordModel()).subscribe({
+      this.authService.changePassword(this.changePasswordModel()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
           this.showSuccess.set(true);
         },

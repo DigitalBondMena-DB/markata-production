@@ -1,4 +1,4 @@
-import { Component, signal, inject, OnInit } from '@angular/core';
+import { Component, signal, inject, OnInit, DestroyRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { form, FormField, minLength, required, validate } from '@angular/forms/signals';
 import { LanguageService } from '../../../core/services/language.service';
@@ -7,6 +7,7 @@ import { FormInputComponent } from '../../../shared/components/form-input/form-i
 import { AuthModalComponent } from '../../../shared/components/auth-modal/auth-modal.component';
 import { SuccessAlertComponent } from '../../../shared/components/success-alert/success-alert.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface ResetPasswordData {
   password: string;
@@ -20,6 +21,7 @@ interface ResetPasswordData {
   styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef)
   readonly lang = inject(LanguageService);
   readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -71,7 +73,7 @@ export class ResetPasswordComponent implements OnInit {
         password_confirmation: this.resetPasswordModel().confirmPassword
       };
 
-      this.authService.resetPassword(payload).subscribe({
+      this.authService.resetPassword(payload).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
           this.showSuccess.set(true);
         },

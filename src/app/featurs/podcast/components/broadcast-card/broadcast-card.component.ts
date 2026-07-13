@@ -17,11 +17,13 @@ export class BroadcastCardComponent {
   readonly broadcast = input.required<Broadcast>();
   readonly layout = input<'feature' | 'card'>('card');
   readonly play = output<string>();
+  readonly favoriteChanged = output<{ id: number; isFavorite: boolean }>();
 
   readonly lang = inject(LanguageService);
 
   onFavoriteChanged(event: { id: number; isFavorite: boolean }) {
     this.broadcast().is_favorite = event.isFavorite;
+    this.favoriteChanged.emit(event);
   }
 
   onPlayClick(event: Event): void {

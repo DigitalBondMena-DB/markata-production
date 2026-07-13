@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, DestroyRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { email, form, FormField, required } from '@angular/forms/signals';
 import { LanguageService } from '../../../core/services/language.service';
@@ -7,6 +7,7 @@ import { FormInputComponent } from '../../../shared/components/form-input/form-i
 import { AuthModalComponent } from '../../../shared/components/auth-modal/auth-modal.component';
 import { SuccessAlertComponent } from '../../../shared/components/success-alert/success-alert.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface ForgotPasswordData {
   email: string;
@@ -19,6 +20,7 @@ interface ForgotPasswordData {
   styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent {
+  private readonly destroyRef = inject(DestroyRef)
   readonly lang = inject(LanguageService);
   readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -49,7 +51,7 @@ export class ForgotPasswordComponent {
       this.formErrors.set(null);
 
       const emailVal = this.forgotPasswordModel().email;
-      this.authService.forgotPassword(emailVal).subscribe({
+      this.authService.forgotPassword(emailVal).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
           this.showSuccess.set(true);
         },

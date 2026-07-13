@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, DestroyRef } from '@angular/core';
 import { email, form, FormField, required } from '@angular/forms/signals';
 import { MainInnerHeaderComponent } from '../../../shared/components/main-inner-header/main-inner-header.component';
 import { LanguageService } from '../../../core/services/language.service';
@@ -6,6 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { RouterOutlet, RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormInputComponent } from '../../../shared/components/form-input/form-input.component';
 import { AuthService } from '../../../core/services/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface SignInData {
   email: string;
@@ -20,6 +21,7 @@ interface SignInData {
   styleUrl: './signin.component.css',
 })
 export class SigninComponent {
+  private readonly destroyRef = inject(DestroyRef)
   readonly lang = inject(LanguageService);
   readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -46,7 +48,7 @@ export class SigninComponent {
       this.errorMessage.set(null);
       this.formErrors.set(null);
 
-      this.authService.login(this.signinModel()).subscribe({
+      this.authService.login(this.signinModel()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'];
           const lang = this.lang.currentLang();

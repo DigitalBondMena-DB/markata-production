@@ -12,7 +12,8 @@
         <div class="social-links">
           @for (link of socialLinks(); track link.id) {
           <a [href]="link.url" class="social-link" target="_blank" rel="noopener noreferrer" [title]="link.name">
-            <img markataImage [ngSrc]="link.icon || 'assets/icons/digital-bond.svg'" [alt]="link.name" width="18" height="18" style="background: transparent;">
+            <img markataImage [ngSrc]="link?.image?.url || 'assets/images/digital-bond.svg'" [alt]="link.name"
+              width="18" height="18" style="background: transparent;object-fit: contain;">
           </a>
           }
         </div>
@@ -60,12 +61,10 @@
     </div>
 
     <div class="footer-bottom">
-      <p [innerHTML]="'FOOTER.COPYRIGHT' | translate: {image:digitalBondImage}">
+      <p [innerHTML]="siteService?.copyright() || ('FOOTER.COPYRIGHT' | translate: {image:digitalBondImage})">
       </p>
       <div class="footer-bottom-links">
         <a [routerLink]="['/', lang.currentLang(), 'privacy-policy']">{{ 'FOOTER.LINK_PRIVACY' | translate }}</a>
-        <a [routerLink]="['/', lang.currentLang(), 'terms']">{{ 'FOOTER.LINK_TERMS' | translate }}</a>
-        <a [routerLink]="['/', lang.currentLang(), 'cookies']">{{ 'FOOTER.LINK_COOKIES' | translate }}</a>
       </div>
     </div>
   </div>

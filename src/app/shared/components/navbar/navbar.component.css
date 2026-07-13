@@ -127,18 +127,9 @@ header:not(.article-feature-head):not(.inner-page-hero):not(.case-studies-head) 
     color: var(--black);
     white-space: nowrap;
 
-    & span {
-        color: var(--gold);
-    }
-
-    & sub {
-        font-size: 9px;
-        letter-spacing: 3px;
-        color: var(--gold);
-        display: block;
-        font-family: var(--font-body);
-        font-weight: 500;
-        text-transform: uppercase;
+    img {
+        width: 186px;
+        height: 56px;
     }
 
     @media (max-width: 720px) {

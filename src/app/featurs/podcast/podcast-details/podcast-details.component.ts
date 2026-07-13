@@ -1,4 +1,4 @@
-import { Component, inject, input, computed, effect, ViewEncapsulation, signal, linkedSignal, untracked, DestroyRef, Renderer2, RESPONSE_INIT } from '@angular/core';
+import { Component, inject, input, computed, effect, ViewEncapsulation, signal, linkedSignal, untracked, DestroyRef, Renderer2, RESPONSE_INIT, afterRenderEffect } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { DOCUMENT, DatePipe, NgOptimizedImage } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -14,6 +14,7 @@ import { SocialSharePipe } from '@shared/pipes/social-share.pipe';
 import { timer, map } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { SubscribeFormComponent } from '@shared/components/subscribe-form/subscribe-form.component';
+import { processHtmlHeadings } from '@shared/utils/html-processor.util';
 
 @Component({
   selector: 'app-podcast-details',
@@ -47,6 +48,7 @@ export class PodcastDetailsComponent {
   readonly slug = input<string>();
 
   readonly activeHeadingId = signal<string | null>(null);
+  readonly activeTocId = signal<string | null>(null);
   readonly sanitizedVideoUrl = signal<SafeResourceUrl | null>(null);
 
   readonly episodeParam = toSignal(this.route.queryParamMap.pipe(
@@ -131,32 +133,7 @@ export class PodcastDetailsComponent {
     return bodyText;
   });
 
-  private readonly processedContent = computed(() => {
-    const rawHtml = this.podcastBodyHtml();
-    if (!rawHtml) {
-      return { html: '', headings: [] as { id: string; text: string }[] };
-    }
-
-    const headingsList: { id: string; text: string }[] = [];
-    let headingIndex = 0;
-
-    const modifiedHtml = rawHtml.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi, (match: string, attrs: string, content: string) => {
-      headingIndex++;
-      const id = `heading-${headingIndex}`;
-
-      const text = content.replace(/<[^>]*>/g, '').trim() || `Heading ${headingIndex}`;
-      headingsList.push({ id, text });
-
-      let cleanAttrs = attrs.replace(/\bid\s*=\s*['"][^'"]*['"]/i, '').trim();
-      if (cleanAttrs) {
-        cleanAttrs = ' ' + cleanAttrs;
-      }
-
-      return `<h2 id="${id}"${cleanAttrs}>${content}</h2>`;
-    });
-
-    return { html: modifiedHtml, headings: headingsList };
-  });
+  private readonly processedContent = computed(() => processHtmlHeadings(this.podcastBodyHtml()));
 
   readonly podcastBodyHtmlWithIds = computed(() => this.sanitizer.bypassSecurityTrustHtml(this.processedContent().html));
   readonly headings = computed(() => this.processedContent().headings);
@@ -222,6 +199,83 @@ export class PodcastDetailsComponent {
         }
 
         untracked(() => this.activeHeadingId.set(null));
+      }
+    });
+
+    let observer: IntersectionObserver | null = null;
+
+    afterRenderEffect({
+      read: () => {
+        const hList = this.headings();
+        if (hList.length === 0) {
+          if (observer) {
+            observer.disconnect();
+            observer = null;
+          }
+          this.activeTocId.set(null);
+          return;
+        }
+
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+
+        const elements = hList
+          .map(h => this.document.getElementById(h.id))
+          .filter((el): el is HTMLElement => el !== null);
+
+        if (elements.length === 0) return;
+
+        const options: IntersectionObserverInit = {
+          root: null,
+          rootMargin: '-120px 0px -70% 0px',
+          threshold: 0
+        };
+
+        const visibleHeadings = new Map<string, boolean>();
+
+        const updateActiveHeading = () => {
+          const intersecting = hList.filter(h => visibleHeadings.get(h.id));
+          if (intersecting.length > 0) {
+            this.activeTocId.set(intersecting[0].id);
+          } else {
+            let activeId = hList[0]?.id || null;
+            let bestTop = -Infinity;
+
+            for (const h of hList) {
+              const el = this.document.getElementById(h.id);
+              if (el) {
+                const rect = el.getBoundingClientRect();
+                if (rect.top <= 150) {
+                  if (rect.top > bestTop) {
+                    bestTop = rect.top;
+                    activeId = h.id;
+                  }
+                }
+              }
+            }
+            this.activeTocId.set(activeId);
+          }
+        };
+
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            visibleHeadings.set(entry.target.id, entry.isIntersecting);
+          });
+          updateActiveHeading();
+        }, options);
+
+        elements.forEach(el => observer?.observe(el));
+
+        // Initial check
+        updateActiveHeading();
+      }
+    });
+
+    this.destroyRef.onDestroy(() => {
+      if (observer) {
+        observer.disconnect();
       }
     });
   }

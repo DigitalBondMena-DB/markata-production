@@ -116,7 +116,8 @@
         <ul class="article-toc" style="list-style: none; padding: 0; margin: 0;">
           @for (h of headings(); track h.id) {
           <li style="margin-bottom: 10px;">
-            <a href="#" (click)="scrollToHeading($event, h.id)"
+            <a href="javascript:void(0);" (click)="scrollToHeading($event, h.id)"
+              [class.active]="activeTocId() === h.id"
               style="font-size: 0.9rem; text-decoration: none; font-weight: 500;">
               {{ h.text }}
             </a>

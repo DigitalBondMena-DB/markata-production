@@ -1,8 +1,9 @@
-import { Component, signal, inject, computed, input } from '@angular/core';
+import { Component, signal, inject, computed, input, DestroyRef } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SuccessAlertComponent } from '../success-alert/success-alert.component';
 import { LanguageService } from '../../../core/services/language.service';
 import { NewsletterService } from '../../../core/services/newsletter.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -13,6 +14,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   styleUrl: './subscribe-form.component.css'
 })
 export class SubscribeFormComponent {
+  private readonly destroyRef = inject(DestroyRef)
   readonly lang = inject(LanguageService);
   private readonly newsletterService = inject(NewsletterService);
 
@@ -37,7 +39,7 @@ export class SubscribeFormComponent {
     this.loading.set(true);
     this.errorMessage.set(null);
 
-    this.newsletterService.subscribe(this.email().trim()).subscribe({
+    this.newsletterService.subscribe(this.email().trim()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         this.successMessage.set(res.message || 'You are subscribed to our newsletter.');
         this.showSuccess.set(true);

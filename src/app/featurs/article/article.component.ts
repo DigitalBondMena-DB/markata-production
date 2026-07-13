@@ -1,4 +1,4 @@
-import { Component, inject, input, computed, effect, ViewEncapsulation, signal, linkedSignal, untracked, DestroyRef, Renderer2, RESPONSE_INIT } from '@angular/core';
+import { Component, inject, input, computed, effect, ViewEncapsulation, signal, linkedSignal, untracked, DestroyRef, Renderer2, RESPONSE_INIT, afterRenderEffect } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -17,6 +17,7 @@ import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AudioPlayerComponent } from '@shared/components/audio-player/audio-player.component';
 import { SubscribeFormComponent } from '@shared/components/subscribe-form/subscribe-form.component';
+import { processHtmlHeadings } from '@shared/utils/html-processor.util';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class ArticleComponent {
   readonly slug = input<string>();
 
   readonly activeHeadingId = signal<string | null>(null);
+  readonly activeTocId = signal<string | null>(null);
 
   readonly loadedLang = linkedSignal({
     source: this.slug,
@@ -76,32 +78,19 @@ export class ArticleComponent {
   });
 
   readonly articleResource = this.articleService.getArticle(this.activeSlug);
+  readonly articleResponse = computed(() => {
+    return this.articleResource.status() === 'resolved'
+      ? this.articleResource.value()
+      : undefined;
+  });
 
+  readonly articleData = computed(() => this.articleResponse()?.data);
 
-  readonly articleData = computed(() => {
-    if (this.articleResource.status() === 'resolved') {
-      return this.articleResource.value()?.data;
-    }
-    return undefined;
-  });
-  readonly nextArticles = computed(() => {
-    if (this.articleResource.status() === 'resolved') {
-      return this.articleResource.value()?.next_articles ?? [];
-    }
-    return [];
-  });
-  readonly relatedArticles = computed(() => {
-    if (this.articleResource.status() === 'resolved') {
-      return this.articleResource.value()?.related_articles ?? [];
-    }
-    return [];
-  });
-  readonly randomArticles = computed(() => {
-    if (this.articleResource.status() === 'resolved') {
-      return this.articleResource.value()?.random_articles ?? [];
-    }
-    return [];
-  });
+  readonly nextArticles = computed(() => this.articleResponse()?.next_articles ?? []);
+
+  readonly relatedArticles = computed(() => this.articleResponse()?.related_articles ?? []);
+
+  readonly randomArticles = computed(() => this.articleResponse()?.random_articles ?? []);
 
   // Formatted article body HTML (handles both raw HTML and plain text paragraphs)
   readonly articleBodyHtml = computed(() => {
@@ -120,36 +109,7 @@ export class ArticleComponent {
     return bodyText;
   });
 
-  private readonly processedContent = computed(() => {
-    const rawHtml = this.articleBodyHtml();
-
-    if (!rawHtml) {
-      return { html: '', headings: [] as { id: string; text: string }[] };
-    }
-
-    const headingsList: { id: string; text: string }[] = [];
-    let headingIndex = 0;
-
-    // Regex to match <h2> tags, capturing attributes and inner content
-    const modifiedHtml = rawHtml.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi, (match: string, attrs: string, content: string) => {
-      headingIndex++;
-      const id = `heading-${headingIndex}`;
-
-      // Extract plain text for the TOC (strip inner HTML tags if any)
-      const text = content.replace(/<[^>]*>/g, '').trim() || `Heading ${headingIndex}`;
-
-      headingsList.push({ id, text });
-
-      // Remove any existing id attribute in the matched tag to avoid duplicates
-      let cleanAttrs = attrs.replace(/\bid\s*=\s*['"][^'"]*['"]/i, '').trim();
-      if (cleanAttrs) {
-        cleanAttrs = ' ' + cleanAttrs;
-      }
-      return `<h2 id="${id}"${cleanAttrs}>${content}</h2>`;
-    });
-
-    return { html: modifiedHtml, headings: headingsList };
-  });
+  private readonly processedContent = computed(() => processHtmlHeadings(this.articleBodyHtml()));
 
   readonly articleBodyHtmlWithIds = computed(() => this.sanitizer.bypassSecurityTrustHtml(this.processedContent().html));
   readonly headings = computed(() => this.processedContent().headings);
@@ -180,7 +140,7 @@ export class ArticleComponent {
       if (this.articleResource.status() !== 'resolved') {
         return;
       }
-      const response = this.articleResource.value();
+      const response = this.articleResponse();
       if (response?.seo) {
         this.seoService.updateSeo(response.seo);
       }
@@ -224,6 +184,83 @@ export class ArticleComponent {
 
         // Reset the signal so the same heading can be clicked again
         untracked(() => this.activeHeadingId.set(null));
+      }
+    });
+
+    let observer: IntersectionObserver | null = null;
+
+    afterRenderEffect({
+      read: () => {
+        const hList = this.headings();
+        if (hList.length === 0) {
+          if (observer) {
+            observer.disconnect();
+            observer = null;
+          }
+          this.activeTocId.set(null);
+          return;
+        }
+
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+
+        const elements = hList
+          .map(h => this.document.getElementById(h.id))
+          .filter((el): el is HTMLElement => el !== null);
+
+        if (elements.length === 0) return;
+
+        const options: IntersectionObserverInit = {
+          root: null,
+          rootMargin: '-120px 0px -70% 0px',
+          threshold: 0
+        };
+
+        const visibleHeadings = new Map<string, boolean>();
+
+        const updateActiveHeading = () => {
+          const intersecting = hList.filter(h => visibleHeadings.get(h.id));
+          if (intersecting.length > 0) {
+            this.activeTocId.set(intersecting[0].id);
+          } else {
+            let activeId = hList[0]?.id || null;
+            let bestTop = -Infinity;
+
+            for (const h of hList) {
+              const el = this.document.getElementById(h.id);
+              if (el) {
+                const rect = el.getBoundingClientRect();
+                if (rect.top <= 150) {
+                  if (rect.top > bestTop) {
+                    bestTop = rect.top;
+                    activeId = h.id;
+                  }
+                }
+              }
+            }
+            this.activeTocId.set(activeId);
+          }
+        };
+
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            visibleHeadings.set(entry.target.id, entry.isIntersecting);
+          });
+          updateActiveHeading();
+        }, options);
+
+        elements.forEach(el => observer?.observe(el));
+
+        // Initial check
+        updateActiveHeading();
+      }
+    });
+
+    this.destroyRef.onDestroy(() => {
+      if (observer) {
+        observer.disconnect();
       }
     });
   }

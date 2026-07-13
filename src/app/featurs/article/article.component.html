@@ -1,7 +1,6 @@
 <main class="inner-wrap inner-page article-feature-page" [attr.data-page]="'article'"
   [attr.dir]="lang.currentLang() === 'ar' ? 'rtl' : 'ltr'">
   @if (articleResource.isLoading()) {
-  <!-- Skeleton Loader -->
   <app-skeleton>
     <header class="article-feature-head">
       <div class="skeleton-item" style="height: 16px; width: 120px; margin-bottom: 12px;"></div>
@@ -23,7 +22,6 @@
     </div>
   </app-skeleton>
   } @else if (!articleData()) {
-  <!-- Empty State / Not Found -->
   <app-empty-state [title]="'BLOG_DETAILS.ARTICLE_NOT_FOUND' | translate"
     [description]="'BLOG_DETAILS.ARTICLE_NOT_FOUND_DESC' | translate"
     [actionText]="'BLOG_DETAILS.BACK_TO_HOME' | translate" [routerLink]="['/', lang.currentLang(), 'home']">
@@ -54,9 +52,9 @@
       </div>
       }
       <div class="article-meta-actions">
-        <time class="article-date" [attr.datetime]="article?.published_at">{{ article?.published_at | date : 'MMM d, y'
-          }}</time>
-
+        <time class="article-date" [attr.datetime]="article?.published_at">
+          {{article?.published_at | date : 'MMM d, y'}}
+        </time>
         <div class="article-share-icons" [attr.aria-label]="'BLOG_DETAILS.SHARE_SOCIAL' | translate">
           <a class="article-share-icon" [href]="articleUrl() | socialShare : 'facebook' : article.share?.facebook"
             target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_FB' | translate"><img
@@ -106,7 +104,8 @@
         <ul class="article-toc" style="list-style: none; padding: 0; margin: 0;">
           @for (h of headings(); track h.id) {
           <li style="margin-bottom: 10px;">
-            <a href="#" (click)="scrollToHeading($event, h.id)"
+            <a href="javascript:void(0);" (click)="scrollToHeading($event, h.id)"
+              [class.active]="activeTocId() === h.id"
               style="font-size: 0.9rem; text-decoration: none; font-weight: 500;">
               {{ h.text }}
             </a>
@@ -124,7 +123,7 @@
       }
 
       @if (relatedArticles().length > 0) {
-      <div class="article-related-research-section">
+      <article class="article-related-research-section">
         <h4 class="article-rail-title">{{ 'BLOG_DETAILS.RELATED_RESEARCH' | translate }}</h4>
         <div class="article-related-list">
           @for (rel of relatedArticles(); track rel.id) {
@@ -134,7 +133,7 @@
           </a>
           }
         </div>
-      </div>
+      </article>
       }
     </aside>
 
@@ -212,4 +211,3 @@
     </p>
   </footer>
   }
-</main>

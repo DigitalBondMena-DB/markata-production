@@ -4,6 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { SeoData } from '../../core/interfaces/home.interface';
 import { environment } from '../../../environments/environment';
+import { SiteService } from '../../core/services/site.service';
 
 @Service()
 export class SeoService {
@@ -11,22 +12,28 @@ export class SeoService {
   private readonly meta = inject(Meta);
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
-  private readonly renderer = inject(RendererFactory2).createRenderer(null, null)
+  private readonly renderer = inject(RendererFactory2).createRenderer(null, null);
+  private readonly siteService = inject(SiteService);
 
 
   updateSeo(seo: SeoData): void {
     if (!seo) return;
 
+    const siteName = this.siteService.siteName() || 'Markata';
+
     // 1. Title
-    this.title.setTitle(seo.meta_title || 'Markata');
+    this.title.setTitle(seo.meta_title || siteName);
 
     // 2. Standard Meta Tags
+    this.meta.updateTag({ name: 'application-name', content: siteName });
+    this.meta.updateTag({ name: 'apple-mobile-web-app-title', content: siteName });
     this.meta.updateTag({ name: 'description', content: seo.meta_description || '' });
     this.meta.updateTag({ name: 'keywords', content: seo.keywords || '' });
     this.meta.updateTag({ name: 'robots', content: seo.robots || 'index,follow' });
 
     // 3. Open Graph Meta Tags
     if (seo.og) {
+      this.meta.updateTag({ property: 'og:site_name', content: siteName });
       this.meta.updateTag({ property: 'og:title', content: seo.og.title || seo.meta_title });
       this.meta.updateTag({ property: 'og:description', content: seo.og.description || seo.meta_description });
       if (seo.og.image) {

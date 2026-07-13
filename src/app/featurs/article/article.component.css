@@ -179,7 +179,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 21 / 9;
-  max-height: min(380px, 50vh);
+  height: 500px;
   border-radius: 0;
   overflow: hidden;
   background: var(--dark3);
@@ -262,9 +262,9 @@
   text-decoration: underline;
 }
 
-.article-toc li:first-child a {
+.article-toc a.active {
   color: var(--gold-dark);
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 
 .article-sidebar-quote {

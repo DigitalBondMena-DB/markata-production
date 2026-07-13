@@ -1,4 +1,4 @@
-import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
+import { Component, computed, DestroyRef, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -7,7 +7,9 @@ import { NavbarService } from './services/navbar.service';
 import { BreakingNewsItem } from '../../../core/interfaces/taxonomies.interface';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { AuthService } from '@core/services/auth.service';
+import { SiteService } from '../../../core/services/site.service';
 import { UserNameCharPipe } from '@shared/pipes/user-name-char-pipe.pipe';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-navbar',
@@ -16,8 +18,10 @@ import { UserNameCharPipe } from '@shared/pipes/user-name-char-pipe.pipe';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  private readonly destroyRef = inject(DestroyRef)
   readonly authService = inject(AuthService);
   readonly lang = inject(LanguageService);
+  readonly siteService = inject(SiteService);
   private readonly router = inject(Router);
   private readonly navbarService = inject(NavbarService);
   private readonly platformId = inject(PLATFORM_ID);
@@ -61,7 +65,7 @@ export class NavbarComponent {
     this.router.navigateByUrl(segments.join('/'));
   }
   logout() {
-    this.authService.logout().subscribe({
+    this.authService.logout().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
       }
     });

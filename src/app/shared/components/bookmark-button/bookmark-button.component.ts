@@ -1,10 +1,11 @@
-import { Component, input, model, signal, inject, output } from '@angular/core';
+import { Component, input, model, signal, inject, output, DestroyRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { finalize } from 'rxjs/operators';
 import { LanguageService } from '@core/services/language.service';
 import { ProfileService } from '../../../featurs/profile/services/profile.service';
 import { AuthService } from '@core/services/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-bookmark-button',
@@ -14,6 +15,7 @@ import { AuthService } from '@core/services/auth.service';
   providers: [ProfileService]
 })
 export class BookmarkButtonComponent {
+  private readonly destroyRef = inject(DestroyRef)
   private readonly router = inject(Router);
   readonly lang = inject(LanguageService);
   private readonly authService = inject(AuthService);
@@ -53,7 +55,7 @@ export class BookmarkButtonComponent {
 
     if (currentStatus) {
       this.profileService.deleteFavorite(targetId)
-        .pipe(finalize(() => this.isLoading.set(false)))
+        .pipe(finalize(() => this.isLoading.set(false)), takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: () => {
             this.triggerLocalToggle(false);
@@ -64,7 +66,7 @@ export class BookmarkButtonComponent {
         });
     } else {
       this.profileService.addFavorite(targetId)
-        .pipe(finalize(() => this.isLoading.set(false)))
+        .pipe(finalize(() => this.isLoading.set(false)), takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: () => {
             this.triggerLocalToggle(true);

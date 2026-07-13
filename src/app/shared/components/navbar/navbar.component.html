@@ -11,8 +11,8 @@
     <div class="header-inner">
         <a [routerLink]="['/', lang.currentLang(), 'home']" style="text-decoration:none">
             <div class="logo">
-                MAR<span>KA</span>TA
-                <sub>{{ 'NAVBAR.MARKETING_INTELLIGENCE' | translate }}</sub>
+                <img [src]="siteService.logoUrl() || 'assets/images/mrkata-logo.png'" width="186" height="56"
+                    class="image-auto" [alt]="siteService.siteName() || 'mrkata marketing intelligence'">
             </div>
         </a>
         <nav>

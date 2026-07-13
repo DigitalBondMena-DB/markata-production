@@ -326,6 +326,17 @@ main.inner-wrap.inner-podcast-x {
     margin-bottom: 16px;
 }
 
+@keyframes favEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 .inner-podcast-x .podcast-x-series {
     display: block;
     text-decoration: none;
@@ -333,6 +344,7 @@ main.inner-wrap.inner-podcast-x {
     border-radius: 4px;
     overflow: hidden;
     margin-bottom: 14px;
+    animation: favEnter 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
     &:last-child {
         margin-bottom: 0;

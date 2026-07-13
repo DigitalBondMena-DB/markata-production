@@ -4,6 +4,10 @@ app-shell {
     min-height: 100%;
 }
 
+button {
+    cursor: pointer;
+}
+
 .fli-thumb,
 .writer-avatar,
 .article-card-meta .author-avatar {

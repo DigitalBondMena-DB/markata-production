@@ -9,6 +9,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { AuthService } from './core/services/auth.service';
+import { SiteService } from './core/services/site.service';
 import enTranslations from '../../public/assets/i18n/en.json';
 import arTranslations from '../../public/assets/i18n/ar.json';
 
@@ -27,6 +28,10 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const authService = inject(AuthService);
       return authService.checkAuth();
+    }),
+    provideAppInitializer(() => {
+      const siteService = inject(SiteService);
+      return siteService.loadSiteSettings();
     }),
     provideTranslateService({
       fallbackLang: 'en'

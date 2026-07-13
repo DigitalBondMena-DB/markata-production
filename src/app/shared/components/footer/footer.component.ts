@@ -7,6 +7,7 @@ import { SocialService } from '../../services/social.service';
 import { MarkataImageDirective } from '../../directives/markata-image.directive';
 import { NavbarService } from '../navbar/services/navbar.service';
 import { LanguageService } from '@core/services/language.service';
+import { SiteService } from '@core/services/site.service';
 
 @Component({
   selector: 'app-footer',
@@ -16,6 +17,7 @@ import { LanguageService } from '@core/services/language.service';
 })
 export class FooterComponent {
   readonly lang = inject(LanguageService);
+  readonly siteService = inject(SiteService);
   readonly digitalBondImage = '<a href="https://digitalbondmena.com/" target="_blank" rel="noopener noreferrer"><img src="assets/icons/digital-bond.png" width="20" height="20" class=" digita-bond-icon" alt="Digital Bond" loading="lazy" decoding="async" />'
   private readonly socialService = inject(SocialService);
   private readonly navbarService = inject(NavbarService);

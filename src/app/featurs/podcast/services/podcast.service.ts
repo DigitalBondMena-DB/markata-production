@@ -43,12 +43,17 @@ export class PodcastService {
         this.persist(next);
     }
 
-    getBroadcasts(page = 1): Observable<BroadcastsResponse> {
-        const activeLang = this.langService.currentLang();
-        return this.http.get<BroadcastsResponse>(`${environment.api}broadcasts?page=${page}`, {
-            headers: {
-                'Accept-Language': activeLang
-            }
+    getBroadcasts(page: () => number) {
+        return httpResource<BroadcastsResponse>(() => {
+            const pageNum = page();
+            const activeLang = this.langService.currentLang();
+
+            return {
+                url: `${environment.api}broadcasts?page=${pageNum}`,
+                headers: {
+                    'Accept-Language': activeLang
+                }
+            };
         });
     }
 
