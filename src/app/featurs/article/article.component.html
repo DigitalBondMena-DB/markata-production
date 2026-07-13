@@ -1,4 +1,4 @@
-<main class="inner-wrap inner-page article-feature-page" [attr.data-page]="'article'"
+<section class="inner-wrap inner-page article-feature-page" [attr.data-page]="'article'"
   [attr.dir]="lang.currentLang() === 'ar' ? 'rtl' : 'ltr'">
   @if (articleResource.isLoading()) {
   <app-skeleton>
@@ -56,6 +56,7 @@
           {{article?.published_at | date : 'MMM d, y'}}
         </time>
         <div class="article-share-icons" [attr.aria-label]="'BLOG_DETAILS.SHARE_SOCIAL' | translate">
+          <app-bookmark-button [cardId]="article.id" [isFavorite]="!!article.is_favorite" (favoriteChanged)="article.is_favorite = $event.isFavorite" />
           <a class="article-share-icon" [href]="articleUrl() | socialShare : 'facebook' : article.share?.facebook"
             target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_FB' | translate"><img
               src="/assets/icons/facebook.svg" width="14" height="14" class="auto-image" alt="facebook"></a>
@@ -211,3 +212,4 @@
     </p>
   </footer>
   }
+</section>

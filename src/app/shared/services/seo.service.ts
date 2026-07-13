@@ -1,4 +1,4 @@
-import { inject, Renderer2, RendererFactory2, Service } from '@angular/core';
+import { inject, RendererFactory2, Service } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';

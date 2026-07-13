@@ -62,6 +62,7 @@
           }}</time>
 
         <div class="article-share-icons" [attr.aria-label]="'BLOG_DETAILS.SHARE_SOCIAL' | translate">
+          <app-bookmark-button [cardId]="podcast.id" [isFavorite]="!!podcast.is_favorite" (favoriteChanged)="podcast.is_favorite = $event.isFavorite" />
           <a class="article-share-icon" [href]="podcastUrl() | socialShare : 'facebook' : podcast.share?.facebook"
             target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_FB' | translate"><img
               src="/assets/icons/facebook.svg" width="14" height="14" class="auto-image" alt="facebook"></a>

@@ -10,10 +10,11 @@ import { AuthService } from '@core/services/auth.service';
 import { SiteService } from '../../../core/services/site.service';
 import { UserNameCharPipe } from '@shared/pipes/user-name-char-pipe.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MarkataImageDirective } from "@shared/directives/markata-image.directive";
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, UserNameCharPipe, RouterLinkActive, TranslatePipe, DropdownComponent],
+  imports: [RouterLink, UserNameCharPipe, RouterLinkActive, TranslatePipe, DropdownComponent, MarkataImageDirective],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })

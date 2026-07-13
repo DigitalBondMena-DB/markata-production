@@ -29,6 +29,7 @@ export interface Article {
   image: Image | null;
   author: Author | null;
   topic: Topic | null;
+  is_favorite?: boolean;
 }
 
 export interface Category {

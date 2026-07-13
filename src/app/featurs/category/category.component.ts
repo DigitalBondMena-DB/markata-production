@@ -12,10 +12,11 @@ import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { CaseStudiesCardComponent } from '@shared/components/case-studies-card/case-studies-card.component';
 import { MainInnerHeaderComponent } from "@shared/components/main-inner-header/main-inner-header.component";
+import { BookmarkButtonComponent } from '@shared/components/bookmark-button/bookmark-button.component';
 
 @Component({
   selector: 'app-category',
-  imports: [RouterLink, TranslatePipe, NgOptimizedImage, MarkataImageDirective, SkeletonComponent, EmptyStateComponent, PaginationComponent, CaseStudiesCardComponent, MainInnerHeaderComponent],
+  imports: [RouterLink, TranslatePipe, NgOptimizedImage, MarkataImageDirective, SkeletonComponent, EmptyStateComponent, PaginationComponent, CaseStudiesCardComponent, MainInnerHeaderComponent, BookmarkButtonComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
   encapsulation: ViewEncapsulation.None
@@ -94,10 +95,7 @@ export class CategoryComponent {
 
   // Computed properties mapping the API response data
   readonly pageData = computed(() => {
-    if (this.pageResource.status() === 'resolved') {
-      return this.pageResource.value()?.data;
-    }
-    return undefined;
+    return this.pageResource.value()?.data;
   });
   readonly articles = computed(() => this.pageData()?.articles?.data ?? []);
   readonly meta = computed(() => this.pageData()?.articles?.meta);
@@ -134,7 +132,7 @@ export class CategoryComponent {
       }
     });
 
-    // Sync SEO metadata and handle language mismatch
+    // Sync SEO metadata and track loaded language state
     effect(() => {
       if (this.pageResource.status() !== 'resolved') {
         return;
@@ -144,25 +142,28 @@ export class CategoryComponent {
         this.seoService.updateSeo(response.seo);
       }
 
-      const activeLang = this.lang.currentLang();
-      const loadedLanguage = untracked(this.loadedLang);
-
-      // If active language changed relative to loaded language, redirect to translation slug
-      if (loadedLanguage && activeLang !== loadedLanguage) {
-        const translationSlug = untracked(this.otherSlug);
-        if (translationSlug) {
-          const basePath = this.isCategoryRoute() ? 'category' : 'topic';
-          this.router.navigate(['/', activeLang, basePath, translationSlug], { replaceUrl: true });
-          return;
-        }
-      }
-
-      // Track loaded language once response loads successfully
       if (response) {
+        const activeLang = this.lang.currentLang();
         this.loadedLang.set(activeLang);
         if (response.data.other_slug) {
           this.otherSlug.set(response.data.other_slug);
         }
+      }
+    });
+
+    // Redirect to translated slug when active language changes
+    effect(() => {
+      const activeLang = this.lang.currentLang();
+      const loadedLanguage = untracked(this.loadedLang);
+      const translationSlug = untracked(this.otherSlug);
+
+      if (loadedLanguage && activeLang !== loadedLanguage && translationSlug) {
+        const basePath = untracked(this.isCategoryRoute) ? 'category' : 'topic';
+        untracked(() => {
+          this.loadedLang.set(null);
+          this.otherSlug.set(null);
+        });
+        this.router.navigate(['/', activeLang, basePath, translationSlug], { replaceUrl: true });
       }
     });
 
@@ -209,8 +210,5 @@ export class CategoryComponent {
     this.searchQuery.set('');
   }
 
-  caseStudiesBookmark(event: Event): void {
-    event.stopPropagation();
-    // Logic for bookmarking
-  }
+
 }

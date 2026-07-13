@@ -20,10 +20,11 @@
                     <select class="case-studies-select case-studies-select--pill" [value]="filterVal()"
                         (change)="onFilterChange($event)"
                         [attr.aria-label]="(isCategoryRoute() ? 'CATEGORY.FILTER_BY_TOPIC' : 'CATEGORY.FILTER_BY_CATEGORY') | translate">
-                        <option value="">{{ (isCategoryRoute() ? 'CATEGORY.ALL_TOPICS' : 'CATEGORY.ALL_CATEGORIES') |
+                        <option value="" [selected]="filterVal() === ''">{{ (isCategoryRoute() ? 'CATEGORY.ALL_TOPICS' :
+                            'CATEGORY.ALL_CATEGORIES') |
                             translate }}</option>
                         @for (opt of filterOptions(); track opt.id) {
-                        <option [value]="opt.slug">{{ opt.name }}</option>
+                        <option [value]="opt.slug" [selected]="opt.slug === filterVal()">{{ opt.name }}</option>
                         }
                     </select>
                 </div>
@@ -136,7 +137,10 @@
                         </div>
                     </div>
                     }
-                    <span class="case-studies-featured__cta">{{ 'CATEGORY.READ_MORE' | translate }} →</span>
+                    <div class="case-studies-featured__actions" style="display: flex; align-items: center; gap: 16px;">
+                        <app-bookmark-button [cardId]="featured.id" [isFavorite]="!!featured.is_favorite" (favoriteChanged)="featured.is_favorite = $event.isFavorite" />
+                        <span class="case-studies-featured__cta">{{ 'CATEGORY.READ_MORE' | translate }} →</span>
+                    </div>
                 </div>
             </div>
         </a>
@@ -147,8 +151,7 @@
         [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
         @for (card of (articles().length > 0 && currentPage() === 1 && !filterVal() && !searchQueryDebounced.value() ?
         articles().slice(1) : articles()); track card.id) {
-        <app-case-studies-card [card]="card" [view]="caseStudiesView()" [showBookmark]="true"
-            (bookmarkClick)="caseStudiesBookmark($event)" />
+        <app-case-studies-card [card]="card" [view]="caseStudiesView()" [showBookmark]="true" />
         }
     </section>
 

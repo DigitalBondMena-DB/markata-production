@@ -16,6 +16,8 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { SubscribeFormComponent } from '@shared/components/subscribe-form/subscribe-form.component';
 import { processHtmlHeadings } from '@shared/utils/html-processor.util';
 
+import { BookmarkButtonComponent } from '@shared/components/bookmark-button/bookmark-button.component';
+
 @Component({
   selector: 'app-podcast-details',
   imports: [
@@ -27,7 +29,8 @@ import { processHtmlHeadings } from '@shared/utils/html-processor.util';
     EmptyStateComponent,
     DatePipe,
     SocialSharePipe,
-    SubscribeFormComponent
+    SubscribeFormComponent,
+    BookmarkButtonComponent
   ],
   templateUrl: './podcast-details.component.html',
   styleUrl: './podcast-details.component.css',

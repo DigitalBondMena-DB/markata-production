@@ -18,6 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AudioPlayerComponent } from '@shared/components/audio-player/audio-player.component';
 import { SubscribeFormComponent } from '@shared/components/subscribe-form/subscribe-form.component';
 import { processHtmlHeadings } from '@shared/utils/html-processor.util';
+import { BookmarkButtonComponent } from '@shared/components/bookmark-button/bookmark-button.component';
 
 
 @Component({
@@ -32,7 +33,8 @@ import { processHtmlHeadings } from '@shared/utils/html-processor.util';
     DatePipe,
     SocialSharePipe,
     AudioPlayerComponent,
-    SubscribeFormComponent
+    SubscribeFormComponent,
+    BookmarkButtonComponent
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
@@ -69,10 +71,7 @@ export class ArticleComponent {
     const activeLang = this.lang.currentLang();
     const loadedLanguage = this.loadedLang();
     if (loadedLanguage && activeLang !== loadedLanguage) {
-      const translationSlug = untracked(this.otherSlug);
-      if (translationSlug) {
-        return translationSlug;
-      }
+      return undefined;
     }
     return currentSlug;
   });
@@ -136,6 +135,7 @@ export class ArticleComponent {
       }
     });
 
+    // Sync SEO metadata and track loaded language state
     effect(() => {
       if (this.articleResource.status() !== 'resolved') {
         return;
@@ -144,24 +144,29 @@ export class ArticleComponent {
       if (response?.seo) {
         this.seoService.updateSeo(response.seo);
       }
-      const activeLang = this.lang.currentLang();
-      const loadedLanguage = untracked(this.loadedLang);
-
-      // If active language changed relative to loaded language, redirect to translation slug
-      if (loadedLanguage && activeLang !== loadedLanguage) {
-        const translationSlug = untracked(this.otherSlug);
-        if (translationSlug) {
-          this.router.navigate(['/', activeLang, 'article', translationSlug], { replaceUrl: true });
-          return;
-        }
-      }
 
       // Track loaded language once response loads successfully
       if (response) {
+        const activeLang = this.lang.currentLang();
         this.loadedLang.set(activeLang);
         if (response.other_slug) {
           this.otherSlug.set(response.other_slug);
         }
+      }
+    });
+
+    // Redirect to translated slug when active language changes
+    effect(() => {
+      const activeLang = this.lang.currentLang();
+      const loadedLanguage = untracked(this.loadedLang);
+      const translationSlug = untracked(this.otherSlug);
+
+      if (loadedLanguage && activeLang !== loadedLanguage && translationSlug) {
+        untracked(() => {
+          this.loadedLang.set(null);
+          this.otherSlug.set(null);
+        });
+        this.router.navigate(['/', activeLang, 'article', translationSlug], { replaceUrl: true });
       }
     });
 

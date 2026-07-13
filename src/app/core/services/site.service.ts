@@ -5,7 +5,7 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, first, firstValueFrom } from 'rxjs';
 import { environment } from '@env/environment';
 import { LanguageService } from './language.service';
-import { SiteSettings, SiteSettingsResponse } from '../interfaces/site-settings.interface';
+import { SiteSettingsResponse } from '../interfaces/site-settings.interface';
 
 @Service()
 export class SiteService {

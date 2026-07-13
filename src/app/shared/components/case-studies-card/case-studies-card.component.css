@@ -149,6 +149,10 @@
 
 /* List layout overrides */
 :host.case-studies-card--list {
+  display: block;
+}
+
+:host.case-studies-card--list .case-card {
   display: grid;
   grid-template-columns: 240px 1fr;
   grid-template-rows: auto 1fr auto;
@@ -165,7 +169,7 @@
   transition: box-shadow 0.25s, border-color 0.25s;
 }
 
-:host.case-studies-card--list:hover {
+:host.case-studies-card--list:hover .case-card {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   border-color: rgba(201, 168, 76, 0.3);
 }
@@ -229,7 +233,7 @@
 }
 
 @media (max-width: 768px) {
-  :host.case-studies-card--list {
+  :host.case-studies-card--list .case-card {
     display: flex;
     flex-direction: column;
     gap: 16px;

@@ -11,8 +11,9 @@
     <div class="header-inner">
         <a [routerLink]="['/', lang.currentLang(), 'home']" style="text-decoration:none">
             <div class="logo">
-                <img [src]="siteService.logoUrl() || 'assets/images/mrkata-logo.png'" width="186" height="56"
-                    class="image-auto" [alt]="siteService.siteName() || 'mrkata marketing intelligence'">
+                <img [markataImage] [fallback]="'assets/images/mrkata-logo.png'" [src]="siteService.logoUrl()"
+                    width="186" height="56" class="image-auto"
+                    [alt]="siteService.siteName() || 'mrkata marketing intelligence'">
             </div>
         </a>
         <nav>

@@ -179,7 +179,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 21 / 9;
-  height: 500px;
+  height: 600px;
   border-radius: 0;
   overflow: hidden;
   background: var(--dark3);
@@ -351,14 +351,13 @@
 }
 
 .article-body-lede {
+  display: flow-root;
   font-family: 'Playfair Display', serif;
   font-size: 1.45rem;
   line-height: 1.55;
   color: var(--black);
   margin-bottom: 1.25rem;
 }
-
-.article-read-time {}
 
 [dir='ltr'] .article-body-lede::first-letter {
   float: left;
@@ -368,12 +367,6 @@
   padding-right: 10px;
   margin-top: 4px;
   color: var(--gold-dark);
-}
-
-[dir="rtl"] .article-body-lede::first-letter {
-  float: right;
-  padding-right: 0;
-  padding-left: 10px;
 }
 
 .article-body-text {
