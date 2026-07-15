@@ -2,7 +2,7 @@
     <div class="container">
         <div class="section-label">
             <h2>{{ data().name }}</h2>
-            <a [routerLink]="['/', lang.currentLang(), 'category', data().slug]">{{ lang.t('Read All →', 'قراءة الكل ←')
+            <a [routerLink]="['/', lang.currentLang(), 'category', data().slug]">{{ 'GRID_SECTION.READ_ALL' | translate
                 }}</a>
         </div>
         @if (data().articles.length > 0) {
@@ -12,9 +12,11 @@
             <a class="podcast-spotlight-card podcast-spotlight-card--lead"
                 [routerLink]="['/', lang.currentLang(), 'article', lead.slug]">
                 <div class="podcast-spotlight-media">
-                    <img [markataImage]="lead?.image" [ngSrc]="lead?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder" [alt]="lead?.image?.alt ?? ''">
-                    <span class="podcast-spotlight-duration">{{ lead.reading_time }} {{ lang.t('min read', 'دقائق
-                        قراءة') }}</span>
+                    <img [markataImage]="lead?.image" loading="lazy" decoding="async"
+                        [ngSrc]="lead?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder"
+                        [alt]="lead?.image?.alt ?? ''">
+                    <span class="podcast-spotlight-duration">{{ lead.reading_time }} {{ 'GRID_SECTION.MIN_READ' |
+                        translate }}</span>
                 </div>
                 <div class="podcast-spotlight-body">
                     @if (lead.topic) {
@@ -30,10 +32,11 @@
             <a class="podcast-spotlight-card" [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
                 <div class="podcast-spotlight-media podcast-spotlight-media--sm">
 
-                    <img [markataImage]="art?.image" [ngSrc]="art?.image?.url || 'assets/icons/digital-bond.svg'" fill class="img-placeholder" [alt]="art?.image?.alt ?? ''">
+                    <img [markataImage]="art?.image" [ngSrc]="art?.image?.url || 'assets/icons/digital-bond.svg'"
+                        loading="lazy" decoding="async" fill class="img-placeholder" [alt]="art?.image?.alt ?? ''">
 
-                    <span class="podcast-spotlight-duration">{{ art.reading_time }} {{ lang.t('min read', 'دقائق')
-                        }}</span>
+                    <span class="podcast-spotlight-duration">{{ art.reading_time }} {{ 'GRID_SECTION.MIN_READ_SHORT' |
+                        translate }}</span>
                 </div>
                 <h4>{{ art.title }}</h4>
             </a>

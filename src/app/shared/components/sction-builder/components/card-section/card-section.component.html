@@ -11,8 +11,8 @@
                 [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
                 <div class="article-card-img">
                     <img [markataImage]="art?.image" [ngSrc]="art?.image?.url || 'assets/icons/digital-bond.svg'" fill
-                        class="img-placeholder" [alt]="art?.image?.alt ?? art.title" style="background: #1a1200"
-                        [class]="'ph-'+($index+1)">
+                        class="img-placeholder" loading="lazy" decoding="async" [alt]="art?.image?.alt ?? art.title"
+                        style="background: #1a1200" [class]="'ph-'+($index+1)">
 
                     @if (art.topic) {
                     <span class="cat-pill">{{ art.topic.name }}</span>
@@ -25,7 +25,7 @@
                         <span class="author">
                             <span class="author-avatar" style="position: relative;">
 
-                                <img [markataImage]="art?.author?.image"
+                                <img [markataImage]="art?.author?.image" loading="lazy" decoding="async"
                                     [ngSrc]="art?.author?.image?.url || 'assets/icons/digital-bond.svg'" fill
                                     class="img-placeholder" [alt]="art?.author?.image?.alt ?? ''"
                                     style="background: #1a0f1a; border-radius: 50%;">

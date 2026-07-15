@@ -12,7 +12,7 @@
         <a [routerLink]="['/', lang.currentLang(), 'home']" style="text-decoration:none">
             <div class="logo">
                 <img [markataImage] [fallback]="'assets/images/mrkata-logo.png'" [src]="siteService.logoUrl()"
-                    width="186" height="56" class="image-auto"
+                    width="186" height="56" class="image-auto" loading="lazy" decoding="async"
                     [alt]="siteService.siteName() || 'mrkata marketing intelligence'">
             </div>
         </a>
@@ -24,7 +24,8 @@
             }
             <a href="#" class="ramadan-btn">
                 <div>
-                    <img src="/assets/icons/star.svg" width="10" height="10" class="auto-image" alt="">
+                    <img src="/assets/icons/star.svg" loading="lazy" decoding="async" width="10" height="10"
+                        class="auto-image" alt="">
                 </div>
                 {{'NAVBAR.RAMADAN_ADS' | translate}}
             </a>
@@ -71,8 +72,8 @@
                 </a>
                 <button type="button" class="dropdown-item logout-btn" (click)="logout()">
                     {{ 'NAVBAR.LOGOUT' | translate }} <span>
-                        <img src="assets/icons/logout.svg" width="20" height="20" loading="lazy" decoding="async"
-                            role="presentation" alt="" class="flip-ar" /></span>
+                        <img src="assets/icons/logout.svg" loading="lazy" decoding="async" width="20" height="20"
+                            loading="lazy" decoding="async" role="presentation" alt="" class="flip-ar" /></span>
                 </button>
             </app-dropdown>
             }

@@ -240,5 +240,10 @@
     "NEW_EPISODES": "حلقات جديدة",
     "RECOMMENDED_PODCASTS": "بودكاست مقترح",
     "RELATED_PODCASTS": "بودكاست ذات صلة"
+  },
+  "GRID_SECTION": {
+    "READ_ALL": "قراءة الكل ←",
+    "MIN_READ": "دقائق قراءة",
+    "MIN_READ_SHORT": "دقائق"
   }
 }

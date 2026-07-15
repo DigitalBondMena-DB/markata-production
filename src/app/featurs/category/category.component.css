@@ -550,40 +550,6 @@
     border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.inner-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 32px;
-}
-
-.inner-actions a {
-    display: inline-block;
-    padding: 12px 24px;
-    border: 2px solid var(--gold);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border-radius: 3px;
-    color: var(--black);
-}
-
-.inner-actions a:hover {
-    background: var(--gold);
-}
-
-.inner-actions--subtle a {
-    border-color: rgba(201, 168, 76, 0.35);
-    color: var(--gray);
-    font-weight: 600;
-}
-
-.inner-actions--subtle a:hover {
-    background: rgba(201, 168, 76, 0.12);
-    color: var(--black);
-}
-
 .inner-page-footer {
     padding-top: 24px;
     text-align: center;

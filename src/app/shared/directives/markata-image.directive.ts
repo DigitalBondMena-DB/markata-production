@@ -16,7 +16,7 @@ export class MarkataImageDirective {
 
   // Inputs
   readonly markataImage = input<any>();
-  readonly fallback = input<string>('assets/icons/digital-bond.png');
+  readonly fallback = input<string>('assets/icons/digital-bond.webp');
   readonly placeholder = input<boolean>(true);
 
   // Performance: Simple primitive properties instead of Signals/Effects

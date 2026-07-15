@@ -27,14 +27,15 @@ export class SiteService {
   readonly settings = computed(() => this.siteResource.value()?.data ?? null);
   readonly siteName = computed(() => this.settings()?.site_name ?? '');
   readonly logoUrl = computed(() => {
-    const url = this.settings()?.logo_url;
+    const url = 'uploads/' + this.settings()?.logo_url;
+    console.log('logo url', url)
     if (!url) return '';
     return url.startsWith('http') ? url : `${environment.imageBaseUrl}${url}`;
   });
   readonly faviconUrl = computed(() => {
     const url = this.settings()?.favicon_url;
     if (!url) return '';
-    return url.startsWith('http') ? url : `${environment.imageBaseUrl}${url}`;
+    return url.startsWith('http') ? url : `${environment.imageBaseUrl}uploads/${url}`;
   });
   readonly copyright = computed(() => this.settings()?.copyright ?? '');
 

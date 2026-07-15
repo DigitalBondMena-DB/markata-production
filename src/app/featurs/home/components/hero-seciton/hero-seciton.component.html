@@ -64,7 +64,8 @@
             <article class="hero-card hero-card-1 ">
                 <a [routerLink]="['/', lang.currentLang(), 'article', art1.slug]" class="d-block">
                     <img [markataImage]="art1?.image" [ngSrc]="art1?.image?.url || 'assets/icons/digital-bond.svg'" fill
-                        class="img-placeholder ph-2" [alt]="art1?.image?.alt || art1?.title || ''">
+                        class="img-placeholder ph-2" loading="lazy" decoding="async"
+                        [alt]="art1?.image?.alt || art1?.title || ''">
                     <div class="hero-card-overlay"></div>
                     <div class="hero-card-content">
                         @if (art1.topic) {
@@ -80,7 +81,8 @@
             <article class="hero-card hero-card-2">
                 <a [routerLink]="['/', lang.currentLang(), 'article', art2.slug]" class="d-block">
                     <img [markataImage]="art2?.image" [ngSrc]="art2?.image?.url || 'assets/icons/digital-bond.svg'" fill
-                        class="img-placeholder ph-3" [alt]="art2?.image?.alt || art2?.title || ''">
+                        class="img-placeholder ph-3" loading="lazy" decoding="async"
+                        [alt]="art2?.image?.alt || art2?.title || ''">
                     <div class="hero-card-overlay"></div>
                     <div class="hero-card-content">
                         @if (art2.topic) {
@@ -96,7 +98,8 @@
             <article class="hero-card hero-card-3">
                 <a [routerLink]="['/', lang.currentLang(), 'article', art3.slug]" class="d-block">
                     <img [markataImage]="art3?.image" [ngSrc]="art3?.image?.url || 'assets/icons/digital-bond.svg'" fill
-                        class="img-placeholder ph-4" [alt]="art3?.image?.alt || art3?.title || ''">
+                        class="img-placeholder ph-4" loading="lazy" decoding="async"
+                        [alt]="art3?.image?.alt || art3?.title || ''">
                     <div class="hero-card-overlay"></div>
                     <div class="hero-card-content">
                         @if (art3.topic) {
@@ -114,7 +117,8 @@
             <article class="hero-card hero-card-4">
                 <a [routerLink]="['/', lang.currentLang(), 'article', art4.slug]" class="d-block">
                     <img [markataImage]="art4?.image" [ngSrc]="art4?.image?.url || 'assets/icons/digital-bond.svg'" fill
-                        class="img-placeholder ph-5" [alt]="art4?.image?.alt || art4?.title || ''">
+                        class="img-placeholder ph-5" loading="lazy" decoding="async"
+                        [alt]="art4?.image?.alt || art4?.title || ''">
                     <div class="hero-card-overlay"></div>
                     <div class="hero-card-content">
                         @if (art4.topic) {
@@ -132,7 +136,8 @@
             <article class="hero-card hero-card-5">
                 <a [routerLink]="['/', lang.currentLang(), 'article', art5.slug]" class="d-block">
                     <img [markataImage]="art5?.image" [ngSrc]="art5?.image?.url || 'assets/icons/digital-bond.svg'" fill
-                        class="img-placeholder ph-6" [alt]="art5?.image?.alt || art5?.title || ''">
+                        class="img-placeholder ph-6" loading="lazy" decoding="async"
+                        [alt]="art5?.image?.alt || art5?.title || ''">
                     <div class="hero-card-overlay"></div>
                     <div class="hero-card-content">
                         @if (art5.topic) {

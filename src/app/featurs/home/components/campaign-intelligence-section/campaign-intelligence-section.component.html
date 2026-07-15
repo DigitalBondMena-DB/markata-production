@@ -13,7 +13,7 @@
             <div class="featured-main-card markata-click-target"
                 [routerLink]="['/', lang.currentLang(), 'article', main.slug]">
                 <img [markataImage]="main?.image" [ngSrc]="main?.image?.url || 'assets/icons/digital-bond.svg'" fill
-                    class="img-placeholder ph-10" alt="">
+                    class="img-placeholder ph-10" alt="" loading="lazy" decoding="async">
 
                 <div class="featured-main-card-overlay"></div>
                 <div class="featured-main-card-content">
@@ -32,8 +32,8 @@
                     [routerLink]="['/', lang.currentLang(), 'article', art.slug]">
                     <div class="fli-thumb">
                         <img [markataImage]="art.image" [ngSrc]="art.image?.url || 'assets/icons/digital-bond.svg'" fill
-                            class="img-placeholder" style="background: #1a1200" [alt]="art?.image?.alt ?? ''"
-                            [class]="'ph-'+($index +1)">
+                            class="img-placeholder" loading="lazy" decoding="async" style="background: #1a1200"
+                            [alt]="art?.image?.alt ?? ''" [class]="'ph-'+($index +1)">
 
                     </div>
                     <div class="fli-info">

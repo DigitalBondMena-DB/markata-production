@@ -12,8 +12,9 @@
         <div class="social-links">
           @for (link of socialLinks(); track link.id) {
           <a [href]="link.url" class="social-link" target="_blank" rel="noopener noreferrer" [title]="link.name">
-            <img markataImage [ngSrc]="link?.image?.url || 'assets/images/digital-bond.svg'" [alt]="link.name"
-              width="18" height="18" style="background: transparent;object-fit: contain;">
+            <img markataImage [ngSrc]="link?.image?.url || 'assets/images/digital-bond.svg'" loading="lazy"
+              decoding="async" [alt]="link.name" width="18" height="18"
+              style="background: transparent;object-fit: contain;">
           </a>
           }
         </div>

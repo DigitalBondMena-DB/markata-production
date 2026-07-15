@@ -240,5 +240,10 @@
     "NEW_EPISODES": "New Episodes",
     "RECOMMENDED_PODCASTS": "Recommended Podcasts",
     "RELATED_PODCASTS": "Related Podcasts"
+  },
+  "GRID_SECTION": {
+    "READ_ALL": "Read All →",
+    "MIN_READ": "min read",
+    "MIN_READ_SHORT": "min read"
   }
 }

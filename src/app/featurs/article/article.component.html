@@ -41,7 +41,8 @@
       <div class="article-meta-author">
         <div class="article-avatar">
           <img [markataImage]="article.author.image" class="ph-1"
-            [ngSrc]="article.author.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
+            [ngSrc]="article.author.image?.url || 'assets/icons/digital-bond.svg'" loading="lazy" decoding="async" fill
+            alt="">
         </div>
         <div>
           <a href="#" class="article-author-name">{{ article.author.name }}</a>
@@ -56,21 +57,25 @@
           {{article?.published_at | date : 'MMM d, y'}}
         </time>
         <div class="article-share-icons" [attr.aria-label]="'BLOG_DETAILS.SHARE_SOCIAL' | translate">
-          <app-bookmark-button [cardId]="article.id" [isFavorite]="!!article.is_favorite" (favoriteChanged)="article.is_favorite = $event.isFavorite" />
+          <app-bookmark-button [cardId]="article.id" [isFavorite]="!!article.is_favorite"
+            (favoriteChanged)="article.is_favorite = $event.isFavorite" />
           <a class="article-share-icon" [href]="articleUrl() | socialShare : 'facebook' : article.share?.facebook"
             target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_FB' | translate"><img
-              src="/assets/icons/facebook.svg" width="14" height="14" class="auto-image" alt="facebook"></a>
+              src="/assets/icons/facebook.svg" loading="lazy" decoding="async" width="14" height="14" class="auto-image"
+              alt="facebook"></a>
           <a class="article-share-icon"
             [href]="articleUrl() | socialShare : 'twitter' : article.share?.twitter : article.title" target="_blank"
             rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_X' | translate"><img
-              src="/assets/icons/x-twitter.svg" width="14" height="14" class="auto-image" alt="x"></a>
+              src="/assets/icons/x-twitter.svg" loading="lazy" decoding="async" width="14" height="14"
+              class="auto-image" alt="x"></a>
           <a class="article-share-icon" [href]="articleUrl() | socialShare : 'linkedin' : article.share?.linkedin"
             target="_blank" rel="noopener noreferrer" [attr.aria-label]="'BLOG_DETAILS.SHARE_LINKEDIN' | translate"><img
-              src="/assets/icons/linked-in.svg" width="14" height="14" class="auto-image" alt="linkedin"></a>
+              src="/assets/icons/linked-in.svg" loading="lazy" decoding="async" width="14" height="14"
+              class="auto-image" alt="linkedin"></a>
           <button type="button" class="article-share-icon" (click)="copyArticleLink($event)" [class.copied]="copied()"
             [attr.aria-label]="'BLOG_DETAILS.COPY_LINK' | translate">
             @if(!copied()){
-            <img src="/assets/icons/link.svg" width="14" height="14" class="auto-image" alt="link">
+            <img src="/assets/icons/link.svg" decoding="async" width="14" height="14" class="auto-image" alt="link">
             } @else {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="14" height="14">
               <path fill="#323836"
@@ -160,8 +165,8 @@
           @for (nextArt of nextArticles(); track nextArt.id) {
           <a [routerLink]="['/', lang.currentLang(), 'article', nextArt.slug]" class="article-up-next">
             <div class="article-up-next-img">
-              <img [markataImage]="nextArt.image" [ngSrc]="nextArt.image?.url || 'assets/icons/digital-bond.svg'" fill
-                alt="">
+              <img [markataImage]="nextArt.image" loading="lazy" decoding="async"
+                [ngSrc]="nextArt.image?.url || 'assets/icons/digital-bond.svg'" fill alt="">
             </div>
             <h5>{{ nextArt.title }}</h5>
           </a>
@@ -186,7 +191,7 @@
       <a [routerLink]="['/', lang.currentLang(), 'article', rand.slug]" class="article-related-tile">
         @if (rand.image?.url) {
         <div class="article-related-tile__media">
-          <img [markataImage]="rand.image" [class]="'ph-'+($index + 1)"
+          <img loading="lazy" decoding="async" [markataImage]="rand.image" [class]="'ph-'+($index + 1)"
             [ngSrc]="rand.image.url || 'assets/icons/digital-bond.svg'" fill alt="">
         </div>
         }
