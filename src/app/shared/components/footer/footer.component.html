@@ -48,17 +48,12 @@
         </ul>
       </div>
 
-      <!-- <div class="footer-col">
-        <h4>{{ 'FOOTER.COL_RESOURCES' | translate }}</h4>
+      <div class="footer-col">
+        <h4>{{ 'FOOTER.COL_QUICK_LINKS' | translate }}</h4>
         <ul>
-          <li><a routerLink="/glossary">{{ 'FOOTER.RESOURCE_GLOSSARY' | translate }}</a></li>
-          <li><a routerLink="/templates">{{ 'FOOTER.RESOURCE_TEMPLATES' | translate }}</a></li>
-          <li><a routerLink="/reports">{{ 'FOOTER.RESOURCE_REPORTS' | translate }}</a></li>
-          <li><a routerLink="/podcast">{{ 'FOOTER.RESOURCE_PODCAST' | translate }}</a></li>
-          <li><a routerLink="/newsletter-archive">{{ 'FOOTER.RESOURCE_NEWSLETTER' | translate }}</a></li>
-          <li><a routerLink="/media-kit">{{ 'FOOTER.RESOURCE_MEDIA_KIT' | translate }}</a></li>
+          <li><a [routerLink]="[lang.currentLang(), 'writers']">{{ 'FOOTER.RESOURCE_WRITERS' | translate }}</a></li>
         </ul>
-      </div> -->
+      </div>
     </div>
 
     <div class="footer-bottom">

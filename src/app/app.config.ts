@@ -1,5 +1,5 @@
 import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 import { provideTranslateService, TranslateService } from "@ngx-translate/core";
 import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 import { environment } from '@env/environment';
@@ -16,7 +16,7 @@ import arTranslations from '../../public/assets/i18n/ar.json';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(routes, withComponentInputBinding(), withInMemoryScrolling({ scrollPositionRestoration: 'top' })),
     provideClientHydration(),
     provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
     provideAppInitializer(() => {

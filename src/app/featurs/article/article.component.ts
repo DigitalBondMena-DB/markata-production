@@ -147,7 +147,7 @@ export class ArticleComponent {
 
       // Track loaded language once response loads successfully
       if (response) {
-        const activeLang = this.lang.currentLang();
+        const activeLang = untracked(this.lang.currentLang);
         this.loadedLang.set(activeLang);
         if (response.other_slug) {
           this.otherSlug.set(response.other_slug);

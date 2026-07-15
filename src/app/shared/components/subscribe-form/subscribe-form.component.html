@@ -1,68 +1,52 @@
 @if (variant() === 'footer') {
-  <div id="newsletter" class="newsletter">
-    <div class="newsletter-box">
-      <p>{{'NEWSLETTER.TITLE' | translate}}</p>
-      <form class="newsletter-form" (submit)="onSubmit($event)">
-        <label for="email" class="sr-only">{{'NEWSLETTER.EMAIL' | translate}}</label>
-        <input 
-          id="email" 
-          type="email" 
-          required 
-          [placeholder]="'NEWSLETTER.PLACEHOLDER' | translate" 
-          [value]="email()"
-          (input)="onEmailInput($event)"
-        />
-        <button type="submit" [disabled]="!isEmailValid() || loading()">
-          @if (loading()) {
-            ...
-          } @else {
-            {{ 'NEWSLETTER.BUTTON' | translate }}
-          }
-        </button>
-      </form>
-      @if (errorMessage()) {
-        <div class="newsletter-error" style="color: #ef4444; font-size: 11px; margin-top: 6px; text-align: start;">{{ errorMessage() }}</div>
-      }
-    </div>
-  </div>
-} @else if (variant() === 'article') {
-  <div class="article-newsletter-box">
-    <h4 class="article-newsletter-kicker">{{ 'BLOG_DETAILS.NEWSLETTER' | translate }}</h4>
-    <p class="article-newsletter-title">{{ 'BLOG_DETAILS.NEWSLETTER_TITLE' | translate }}</p>
-    <p class="article-newsletter-dek">{{ 'BLOG_DETAILS.NEWSLETTER_DEK' | translate }}</p>
-    <form class="article-newsletter-form" (submit)="onSubmit($event)">
-      <label class="sr-only" for="article-newsletter-email">{{
-        'BLOG_DETAILS.EMAIL_PLACEHOLDER' | translate
-        }}</label>
-      <input 
-        id="article-newsletter-email" 
-        class="article-newsletter-input" 
-        type="email" 
-        name="email"
-        autocomplete="email" 
-        [placeholder]="'BLOG_DETAILS.EMAIL_PLACEHOLDER' | translate" 
-        [value]="email()"
-        (input)="onEmailInput($event)"
-      />
-      @if (errorMessage()) {
-        <div class="newsletter-error" style="color: #ef4444; font-size: 12px; text-align: start;">{{ errorMessage() }}</div>
-      }
-      <button type="submit" class="article-newsletter-btn" [disabled]="!isEmailValid() || loading()"
-        style="border: none; display: block; width: 100%; text-align: center; cursor: pointer;">
+<div id="newsletter" class="newsletter">
+  <div class="newsletter-box">
+    <p>{{'NEWSLETTER.TITLE' | translate}}</p>
+    <form class="newsletter-form" (submit)="onSubmit($event)">
+      <label for="email" class="sr-only">{{'NEWSLETTER.EMAIL' | translate}}</label>
+      <input id="email" type="email" required [placeholder]="'NEWSLETTER.PLACEHOLDER' | translate" [value]="email()"
+        (input)="onEmailInput($event)" autocomplete="email" />
+      <button type="submit" [disabled]="!isEmailValid() || loading()">
         @if (loading()) {
-          ...
+        ...
         } @else {
-          {{ 'BLOG_DETAILS.SUBSCRIBE' | translate }}
+        {{ 'NEWSLETTER.BUTTON' | translate }}
         }
       </button>
     </form>
+    @if (errorMessage()) {
+    <div class="newsletter-error" style="color: #ef4444; font-size: 11px; margin-top: 6px; text-align: start;">{{
+      errorMessage() }}</div>
+    }
   </div>
+</div>
+} @else if (variant() === 'article') {
+<div class="article-newsletter-box">
+  <h4 class="article-newsletter-kicker">{{ 'BLOG_DETAILS.NEWSLETTER' | translate }}</h4>
+  <p class="article-newsletter-title">{{ 'BLOG_DETAILS.NEWSLETTER_TITLE' | translate }}</p>
+  <p class="article-newsletter-dek">{{ 'BLOG_DETAILS.NEWSLETTER_DEK' | translate }}</p>
+  <form class="article-newsletter-form" (submit)="onSubmit($event)">
+    <label class="sr-only" for="article-newsletter-email">{{
+      'BLOG_DETAILS.EMAIL_PLACEHOLDER' | translate
+      }}</label>
+    <input id="article-newsletter-email" class="article-newsletter-input" type="email" name="email" autocomplete="email"
+      [placeholder]="'BLOG_DETAILS.EMAIL_PLACEHOLDER' | translate" [value]="email()" (input)="onEmailInput($event)" />
+    @if (errorMessage()) {
+    <div class="newsletter-error" style="color: #ef4444; font-size: 12px; text-align: start;">{{ errorMessage() }}</div>
+    }
+    <button type="submit" class="article-newsletter-btn" [disabled]="!isEmailValid() || loading()"
+      style="border: none; display: block; width: 100%; text-align: center; cursor: pointer;">
+      @if (loading()) {
+      ...
+      } @else {
+      {{ 'BLOG_DETAILS.SUBSCRIBE' | translate }}
+      }
+    </button>
+  </form>
+</div>
 }
 
 @if (showSuccess()) {
-  <app-success-alert
-    [title]="'AUTH.SUCCESS' | translate"
-    [message]="successMessage()"
-    (confirm)="onSuccessConfirm()">
-  </app-success-alert>
+<app-success-alert [title]="'AUTH.SUCCESS' | translate" [message]="successMessage()" (confirm)="onSuccessConfirm()">
+</app-success-alert>
 }

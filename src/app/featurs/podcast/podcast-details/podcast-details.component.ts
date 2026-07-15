@@ -173,6 +173,8 @@ export class PodcastDetailsComponent {
       if (loadedLanguage && activeLang !== loadedLanguage) {
         const translationSlug = untracked(this.otherSlug);
         if (translationSlug) {
+          this.loadedLang.set(null);
+          this.otherSlug.set(null);
           this.router.navigate(['/', activeLang, 'podcasts', translationSlug], { replaceUrl: true });
           return;
         }

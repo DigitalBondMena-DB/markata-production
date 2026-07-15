@@ -41,8 +41,8 @@
       <div class="article-meta-author">
         <div class="article-avatar">
           <img [markataImage]="article.author.image" class="ph-1"
-            [ngSrc]="article.author.image?.url || 'assets/icons/digital-bond.svg'" loading="lazy" decoding="async" fill
-            alt="">
+            [ngSrc]="('uploads/'+article.author.image?.url) || 'assets/icons/digital-bond.svg'" loading="lazy"
+            decoding="async" fill alt="">
         </div>
         <div>
           <a href="#" class="article-author-name">{{ article.author.name }}</a>

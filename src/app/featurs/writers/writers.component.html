@@ -1,0 +1,121 @@
+<section class="container writers-page">
+
+  <!-- Page Header -->
+  <app-main-inner-header [title]="'WRITERS.TITLE' | translate" [subtitle]="'WRITERS.SUBTITLE' | translate"
+    [badge]="'WRITERS.BADGE' | translate"></app-main-inner-header>
+
+  <!-- Toolbar: Search + Sort (Mock Design) -->
+  <div class="writers-toolbar">
+    <!-- Search Bar -->
+    <div class="writers-search-container">
+      <div class="writers-search-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+          class="writers-search-icon">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.602 10.602Z" />
+        </svg>
+        <input type="text" placeholder="{{ 'WRITERS.SEARCH_PLACEHOLDER' | translate }}" class="writers-search-field"
+          disabled />
+      </div>
+    </div>
+
+    <!-- Sort Dropdown -->
+    <div class="writers-sort-container">
+      <span class="writers-sort-label">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="14" height="14" class="sort-label-arrow">
+          <path
+            d="M566.6 214.6L470.6 310.6C458.1 323.1 437.8 323.1 425.3 310.6C412.8 298.1 412.8 277.8 425.3 265.3L466.7 224L96 224C78.3 224 64 209.7 64 192C64 174.3 78.3 160 96 160L466.7 160L425.3 118.6C412.8 106.1 412.8 85.8 425.3 73.3C437.8 60.8 458.1 60.8 470.6 73.3L566.6 169.3C579.1 181.8 579.1 202.1 566.6 214.6zM169.3 566.6L73.3 470.6C60.8 458.1 60.8 437.8 73.3 425.3L169.3 329.3C181.8 316.8 202.1 316.8 214.6 329.3C227.1 341.8 227.1 362.1 214.6 374.6L173.3 416L544 416C561.7 416 576 430.3 576 448C576 465.7 561.7 480 544 480L173.3 480L214.7 521.4C227.2 533.9 227.2 554.2 214.7 566.7C202.2 579.2 181.9 579.2 169.4 566.7z" />
+        </svg>
+        {{ 'WRITERS.SORT_BY' | translate }}
+      </span>
+      <div class="writers-sort-select-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+          class="writers-sort-arrow-svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+        </svg>
+        <select class="writers-sort-select" disabled>
+          <option>{{ 'WRITERS.MOST_FOLLOWED' | translate }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State (Skeleton) -->
+  @if (isLoading()) {
+  <div class="writers-loading-container">
+    <app-skeleton>
+      <div class="writers-grid">
+        @for (i of [1, 2, 3]; track i) {
+        <div class="writer-card skeleton-card">
+          <div class="writer-card-header">
+            <div class="writer-card-avatar skeleton-item"></div>
+            <div class="writer-card-meta">
+              <div class="skeleton-item" style="height: 20px; width: 130px; margin-bottom: 8px;"></div>
+              <div class="skeleton-item" style="height: 14px; width: 90px;"></div>
+            </div>
+          </div>
+          <div class="writer-card-body">
+            <div class="skeleton-item" style="height: 16px; width: 100%; margin-bottom: 8px;"></div>
+            <div class="skeleton-item" style="height: 16px; width: 95%; margin-bottom: 8px;"></div>
+            <div class="skeleton-item" style="height: 16px; width: 80%;"></div>
+          </div>
+          <div class="writer-card-footer">
+            <div class="skeleton-item" style="height: 38px; width: 88px; border-radius: 50px;"></div>
+            <div class="skeleton-item" style="height: 36px; width: 36px; border-radius: 50%;"></div>
+          </div>
+        </div>
+        }
+      </div>
+    </app-skeleton>
+  </div>
+  }
+
+  <!-- Main Writers Grid -->
+  @if (!isLoading() && writers().length > 0) {
+  <div class="writers-grid">
+    @for (writer of writers(); track writer.id) {
+    <article class="writer-card">
+      <div class="writer-card-header">
+        <div class="writer-card-avatar-wrapper">
+          <img [markataImage]="writer.image" loading="lazy" decoding="async"
+            [ngSrc]="writer.image?.url || 'assets/icons/digital-bond.svg'" fill class="writer-card-avatar"
+            [alt]="writer.image?.alt ?? writer.name" />
+        </div>
+        <div class="writer-card-meta">
+          <h3 class="writer-card-name">{{ writer.name }}</h3>
+          <!-- @if (writer.job_title) {
+          <p class="writer-card-title">{{ writer.job_title }}</p>
+          } -->
+        </div>
+      </div>
+
+      <div class="writer-card-body">
+        @if (writer.description) {
+        <p class="writer-card-bio">{{ writer.description }}</p>
+        }
+      </div>
+
+      <div class="writer-card-footer">
+        <button type="button" class="writer-follow-btn">
+          {{ 'WRITERS.FOLLOW' | translate }}
+        </button>
+        <span class="writer-arrow-btn" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" width="14"
+            height="14" stroke="currentColor" class="arrow-icon flip-ar">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </span>
+      </div>
+    </article>
+    }
+  </div>
+  }
+
+  <!-- Footer Link -->
+  <footer class="inner-page-footer inner-prose">
+    <p>
+      <a [routerLink]="['/', lang.currentLang(), 'home']">{{ 'CATEGORY.BACK_TO_HOME' | translate }}</a>
+    </p>
+  </footer>
+
+</section>

@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { LanguageService } from './core/services/language.service';
 import { langGuard } from './core/guards/lang.guard';
-import { resetPasswordGuard } from './core/guards/reset-password.guard';
 import { authGuard } from './core/guards/auth.guard';
 
 
@@ -94,27 +93,15 @@ export const routes: Routes = [
           import('./featurs/article/article.component').then(m => m.ArticleComponent)
       },
       {
+        path: 'writers',
+        loadComponent: () =>
+          import('./featurs/writers/writers.component').then(m => m.WritersComponent)
+      },
+      {
         path: 'auth/signin',
         loadComponent: () =>
           import('./featurs/auth/signin/signin.component').then(m => m.SigninComponent),
-        children: [
-          {
-            path: 'register',
-            loadComponent: () =>
-              import('./featurs/auth/register/register.component').then(m => m.RegisterComponent)
-          },
-          {
-            path: 'forgot-password',
-            loadComponent: () =>
-              import('./featurs/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
-          },
-          {
-            path: 'reset-password',
-            canActivate: [resetPasswordGuard],
-            loadComponent: () =>
-              import('./featurs/auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
-          }
-        ]
+        loadChildren: () => import('./featurs/auth/auth.route').then(m => m.authRoute)
       },
       {
         path: '404',

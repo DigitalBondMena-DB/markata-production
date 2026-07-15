@@ -6,6 +6,7 @@ import { LanguageService } from '@core/services/language.service';
 import { ProfileService } from '../../../featurs/profile/services/profile.service';
 import { AuthService } from '@core/services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-bookmark-button',
@@ -82,9 +83,6 @@ export class BookmarkButtonComponent {
     this.animatingState.set(nextStatus ? 'adding' : 'removing');
     this.isFavorite.set(nextStatus);
     this.favoriteChanged.emit({ id: this.cardId(), isFavorite: nextStatus });
-
-    setTimeout(() => {
-      this.animatingState.set('none');
-    }, 800);
+    timer(800).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.animatingState.set('none'));
   }
 }

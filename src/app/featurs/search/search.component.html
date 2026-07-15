@@ -15,64 +15,66 @@
     </div>
   </div>
 
-  @if (searchQueryDebounced.value() && !searchResource.isLoading() && articles().length > 0) {
-  <div class="search-results-info">
-    <p>
-      {{'SEARCH.SEARCH_RESULTS' | translate: { number: meta()?.total} }}
-    </p>
-  </div>
-  }
-
-  <!-- Loading State -->
-  @if (searchResource.isLoading()) {
-  <div class="search-loading-container">
-    <app-skeleton>
-      <div class="case-studies-grid">
-        @for (i of [1, 2, 3]; track i) {
-        <article class="case-studies-card">
-          <div class="case-studies-card__media skeleton-item" style="height: 220px;"></div>
-          <div class="case-studies-card__text">
-            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-              <div class="skeleton-item" style="height: 14px; width: 80px;"></div>
-              <div class="skeleton-item" style="height: 14px; width: 60px;"></div>
-            </div>
-            <div class="skeleton-item" style="height: 22px; width: 90%; margin-bottom: 12px;"></div>
-            <div class="skeleton-item" style="height: 16px; width: 100%; margin-bottom: 6px;"></div>
-            <div class="skeleton-item" style="height: 16px; width: 75%;"></div>
-          </div>
-        </article>
-        }
-      </div>
-    </app-skeleton>
-  </div>
-  }
-
-  <!-- Empty State -->
-  @if (!searchResource.isLoading() && articles().length === 0) {
-  <div class="search-empty-container">
-    <app-empty-state [title]="'CATEGORY.NO_REPORTS' | translate"
-      [description]="'CATEGORY.NO_ARTICLES_DESC' | translate">
-    </app-empty-state>
-  </div>
-  }
-
-  <!-- Search Grid of Article Cards -->
-  @if (!searchResource.isLoading() && articles().length > 0) {
-  <section class="case-studies-grid" [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
-    @for (card of articles(); track card.id) {
-    <app-case-studies-card [card]="card" [showBookmark]="false" />
+  <div class="search-results-wrapper">
+    @if (searchQueryDebounced.value() && !searchResource.isLoading() && articles().length > 0) {
+    <div class="search-results-info">
+      <p>
+        {{'SEARCH.SEARCH_RESULTS' | translate: { number: meta()?.total} }}
+      </p>
+    </div>
     }
-  </section>
 
-  <!-- Pagination -->
-  @if (meta() && (meta()?.last_page ?? 1) > 1) {
-  <div class="search-pagination-container">
-    <app-pagination [currentPage]="currentPage()" [lastPage]="meta()?.last_page ?? 1"
-      [routeConfig]="['/', lang.currentLang(), 'search']" [queryParams]="routeQueryParams()">
-    </app-pagination>
+    <!-- Loading State -->
+    @if (searchResource.isLoading() && articles().length === 0) {
+    <div class="search-loading-container">
+      <app-skeleton>
+        <div class="case-studies-grid">
+          @for (i of [1, 2, 3]; track i) {
+          <article class="case-studies-card">
+            <div class="case-studies-card__media skeleton-item" style="height: 220px;"></div>
+            <div class="case-studies-card__text">
+              <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                <div class="skeleton-item" style="height: 14px; width: 80px;"></div>
+                <div class="skeleton-item" style="height: 14px; width: 60px;"></div>
+              </div>
+              <div class="skeleton-item" style="height: 22px; width: 90%; margin-bottom: 12px;"></div>
+              <div class="skeleton-item" style="height: 16px; width: 100%; margin-bottom: 6px;"></div>
+              <div class="skeleton-item" style="height: 16px; width: 75%;"></div>
+            </div>
+          </article>
+          }
+        </div>
+      </app-skeleton>
+    </div>
+    }
+
+    <!-- Empty State -->
+    @if (!searchResource.isLoading() && articles().length === 0) {
+    <div class="search-empty-container">
+      <app-empty-state [title]="'CATEGORY.NO_REPORTS' | translate"
+        [description]="'CATEGORY.NO_ARTICLES_DESC' | translate">
+      </app-empty-state>
+    </div>
+    }
+
+    <!-- Search Grid of Article Cards -->
+    @if (articles().length > 0) {
+    <section class="case-studies-grid" [class.grid-loading]="searchResource.isLoading()" [attr.aria-label]="'CATEGORY.MORE_CASE_STUDIES' | translate">
+      @for (card of articles(); track card.id) {
+      <app-case-studies-card [card]="card" [showBookmark]="false" />
+      }
+    </section>
+
+    <!-- Pagination -->
+    @if (meta() && (meta()?.last_page ?? 1) > 1) {
+    <div class="search-pagination-container">
+      <app-pagination [currentPage]="currentPage()" [lastPage]="meta()?.last_page ?? 1"
+        [routeConfig]="['/', lang.currentLang(), 'search']" [queryParams]="routeQueryParams()">
+      </app-pagination>
+    </div>
+    }
+    }
   </div>
-  }
-  }
 
   <!-- Footer link -->
   <footer class="inner-page-footer inner-prose">

@@ -79,11 +79,23 @@
 /* Adapted from category.component.css for consistency  */
 /* ---------------------------------------------------- */
 
+.search-results-wrapper {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
 .case-studies-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem 2rem;
   margin-bottom: 3rem;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.case-studies-grid.grid-loading {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 @media (min-width: 640px) {

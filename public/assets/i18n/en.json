@@ -33,6 +33,15 @@
     "TITLE": "Follow Our Writers",
     "SEE_ALL": "See All Contributors →"
   },
+  "WRITERS": {
+    "BADGE": "Writers",
+    "TITLE": "Our Writers",
+    "SUBTITLE": "Meet the creative minds and marketing intelligence experts behind Markata.",
+    "SEARCH_PLACEHOLDER": "Search writers by name, specialty, or bio...",
+    "SORT_BY": "SORT BY",
+    "MOST_FOLLOWED": "Most Followed",
+    "FOLLOW": "Follow"
+  },
   "NEWSLETTER": {
     "EMAIL": "Enter your email",
     "TITLE": "Subscribe to get the newest updates",
@@ -44,8 +53,8 @@
     "DESC": "The Arab world's most trusted source for marketing intelligence, brand strategy, and creative thinking since 2024.",
     "COL_TOPICS": "Topics",
     "COL_CATEGORY": "Categories",
-    "COL_RESOURCES": "Resources",
-    "RESOURCE_GLOSSARY": "Marketing Glossary",
+    "COL_QUICK_LINKS": "Quick Links",
+    "RESOURCE_WRITERS": "Writers",
     "RESOURCE_TEMPLATES": "Free Templates",
     "RESOURCE_REPORTS": "Industry Reports",
     "RESOURCE_PODCAST": "Podcast",

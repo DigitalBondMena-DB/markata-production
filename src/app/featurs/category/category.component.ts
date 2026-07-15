@@ -143,7 +143,7 @@ export class CategoryComponent {
       }
 
       if (response) {
-        const activeLang = this.lang.currentLang();
+        const activeLang = untracked(this.lang.currentLang);
         this.loadedLang.set(activeLang);
         if (response.data.other_slug) {
           this.otherSlug.set(response.data.other_slug);
