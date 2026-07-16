@@ -1,0 +1,132 @@
+/* Writers Details Page */
+.writer-details-page {
+  display: flex;
+  flex-direction: column;
+  padding-block: 56px 96px;
+}
+
+/* Back Link styling */
+.writer-back-link-container {
+  margin-block-end: 2rem;
+}
+
+.writer-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray);
+  transition: color 0.2s ease;
+}
+
+:host-context([dir="rtl"]) .writer-back-link {
+  font-family: var(--font-ar);
+  letter-spacing: 0;
+}
+
+.writer-back-link:hover {
+  color: var(--gold);
+}
+
+.back-arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+}
+
+.writer-back-link:hover .back-arrow {
+  transform: translateX(-4px);
+}
+
+:host-context([dir="rtl"]) .back-arrow {
+  transform: rotate(180deg);
+}
+
+:host-context([dir="rtl"]) .writer-back-link:hover .back-arrow {
+  transform: rotate(180deg) translateX(-4px);
+}
+
+/* Tab Navigation (Shift Prevention Strategy) */
+.writer-tabs-container {
+  border-block-end: 1px solid rgba(0, 0, 0, 0.08);
+  margin-block-end: 2.5rem;
+}
+
+.writer-tabs-list {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.writer-tab-item {
+  display: flex;
+}
+
+.writer-tab-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  padding-block-end: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(10, 10, 10, 0.55);
+  cursor: pointer;
+  border-block-end: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  text-align: center;
+}
+
+:host-context([dir="rtl"]) .writer-tab-btn {
+  font-family: var(--font-ar);
+}
+
+/* Layout shift prevention: Reserves the width of the bold font-weight state */
+.writer-tab-btn::after {
+  content: attr(data-text);
+  display: block;
+  font-weight: 700;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.writer-tab-btn:hover {
+  color: var(--black);
+}
+
+.writer-tab-btn.active {
+  font-weight: 700;
+  color: var(--gold-dark);
+  border-block-end-color: var(--gold);
+}
+
+/* Tab Panels & Articles Grid */
+.writer-tab-panels {
+  min-height: 400px;
+}
+
+.writer-articles-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem 2rem;
+}
+
+@media (min-width: 640px) {
+  .writer-articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .writer-articles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

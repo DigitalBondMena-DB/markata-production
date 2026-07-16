@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 import { AuthService } from '@core/services/auth.service';
-import { ProfileService } from './services/profile.service';
-import { ProfileHeaderComponent } from './components/profile-header/profile-header.component';
-import { ProfileSavedComponent } from './components/profile-saved/profile-saved.component';
+import { ProfileService } from '../../services/profile.service';
+import { ProfileHeaderComponent } from '../../components/profile-header/profile-header.component';
+import { ProfileSavedComponent } from '../../components/profile-saved/profile-saved.component';
 
 @Component({
   selector: 'app-profile',

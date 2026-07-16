@@ -1,0 +1,22 @@
+<section class="container contact-page-wrapper">
+  <!-- Inner Page Header -->
+  <app-main-inner-header [badge]="'CONTACT.BADGE' | translate" 
+                         [title]="'CONTACT.TITLE' | translate"
+                         [subtitle]="'CONTACT.SUBTITLE' | translate" />
+
+  <!-- Columns Grid Layout -->
+  <div class="contact-grid">
+    <!-- Left Sidebar: Headquarters & Write with Us -->
+    <div class="contact-sidebar">
+      <app-platform-headquarters></app-platform-headquarters>
+      <app-write-with-us></app-write-with-us>
+    </div>
+    
+    <!-- Right Main Column: Form -->
+    <div class="contact-main">
+      <app-contact-form></app-contact-form>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</section>

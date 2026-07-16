@@ -23,10 +23,10 @@
 
     <!-- Actions -->
     <div class="profile-actions">
-      <a [routerLink]="['/', lang.currentLang(), 'profile', 'change-password']" class="change-password-btn">
+      <a routerLink="change-password" class="change-password-btn">
         {{ 'PROFILE.CHANGE_PASSWORD' | translate }}
       </a>
-      <a [routerLink]="['/', lang.currentLang(), 'profile', 'edit']" class="edit-profile-btn">
+      <a routerLink="edit" class="edit-profile-btn">
         {{ 'PROFILE.EDIT_PROFILE' | translate }}
       </a>
 

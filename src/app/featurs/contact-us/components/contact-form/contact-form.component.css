@@ -1,0 +1,201 @@
+.contact-form-card {
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.contact-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: start;
+}
+
+.form-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+:host-context([dir="rtl"]) .form-label {
+  font-family: var(--font-ar);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  outline: none;
+  background-color: var(--white);
+  color: var(--black);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+:host-context([dir="rtl"]) .form-input {
+  font-family: var(--font-ar);
+}
+
+.form-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.form-input.input-error {
+  border-color: #dc2626;
+}
+
+.form-input.input-error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.form-textarea {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.error-list {
+  list-style: none;
+  position: absolute;
+  inset-inline-start: 0;
+  top: calc(100% + 4px);
+  font-size: .75rem;
+  color: #dc2626;
+  padding: 0;
+  margin: 0;
+}
+
+:host-context([dir="rtl"]) .error-list {
+  font-family: var(--font-ar);
+}
+
+/* Alert Boxes */
+.alert-success {
+  background-color: rgba(22, 101, 52, 0.08);
+  border: 1px solid rgba(22, 101, 52, 0.15);
+  color: #166534;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-block-end: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: start;
+}
+
+:host-context([dir="rtl"]) .alert-success {
+  font-family: var(--font-ar);
+}
+
+.alert-error {
+  background-color: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-block-end: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: start;
+}
+
+:host-context([dir="rtl"]) .alert-error {
+  font-family: var(--font-ar);
+}
+
+/* Submit Button */
+.submit-btn {
+  background-color: var(--gold);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, opacity 0.2s;
+  width: 100%;
+}
+
+:host-context([dir="rtl"]) .submit-btn {
+  font-family: var(--font-ar);
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: var(--gold-dark);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.send-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Flip the send paper plane direction for Arabic RTL */
+:host-context([dir="rtl"]) .send-icon {
+  transform: scaleX(-1);
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--white);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

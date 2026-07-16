@@ -1,0 +1,74 @@
+.writer-bio-card {
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.writer-bio-title {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--black);
+  margin: 0;
+  border-block-end: 1px solid rgba(0, 0, 0, 0.06);
+  padding-block-end: 1rem;
+}
+
+:host-context([dir="rtl"]) .writer-bio-title {
+  font-family: var(--font-ar);
+}
+
+.writer-bio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(10, 10, 10, 0.75);
+}
+
+:host-context([dir="rtl"]) .writer-bio-content {
+  font-family: var(--font-ar);
+}
+
+.writer-vision-paragraph {
+  border-inline-start: 3px solid var(--gold);
+  padding-inline-start: 1rem;
+  font-style: italic;
+  color: rgba(10, 10, 10, 0.8);
+}
+
+.writer-bio-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid rgba(0, 0, 0, 0.04);
+  margin-block-start: 1rem;
+  color: var(--gold-dark);
+}
+
+.joined-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.joined-text {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+:host-context([dir="rtl"]) .joined-text {
+  font-family: var(--font-ar);
+  letter-spacing: 0;
+}

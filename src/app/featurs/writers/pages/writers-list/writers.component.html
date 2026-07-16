@@ -1,12 +1,9 @@
 <section class="container writers-page">
 
-  <!-- Page Header -->
   <app-main-inner-header [title]="'WRITERS.TITLE' | translate" [subtitle]="'WRITERS.SUBTITLE' | translate"
     [badge]="'WRITERS.BADGE' | translate"></app-main-inner-header>
 
-  <!-- Toolbar: Search + Sort (Mock Design) -->
   <div class="writers-toolbar">
-    <!-- Search Bar -->
     <div class="writers-search-container">
       <div class="writers-search-wrapper">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
@@ -76,13 +73,17 @@
     @for (writer of writers(); track writer.id) {
     <article class="writer-card">
       <div class="writer-card-header">
-        <div class="writer-card-avatar-wrapper">
+        <div class="writer-card-avatar-wrapper" [routerLink]="['/', lang.currentLang(), 'writers', writer.id]"
+          style="cursor: pointer;">
           <img [markataImage]="writer.image" loading="lazy" decoding="async"
             [ngSrc]="writer.image?.url || 'assets/icons/digital-bond.svg'" fill class="writer-card-avatar"
             [alt]="writer.image?.alt ?? writer.name" />
         </div>
         <div class="writer-card-meta">
-          <h3 class="writer-card-name">{{ writer.name }}</h3>
+          <h3 class="writer-card-name" [routerLink]="['/', lang.currentLang(), 'writers', writer.id]"
+            style="cursor: pointer;">
+            {{ writer.name }}
+          </h3>
           <!-- @if (writer.job_title) {
           <p class="writer-card-title">{{ writer.job_title }}</p>
           } -->
@@ -99,12 +100,13 @@
         <button type="button" class="writer-follow-btn">
           {{ 'WRITERS.FOLLOW' | translate }}
         </button>
-        <span class="writer-arrow-btn" aria-hidden="true">
+        <a class="writer-arrow-btn" [routerLink]="['/', lang.currentLang(), 'writers', writer.id]"
+          [attr.aria-label]="lang.t('View profile of ' + writer.name, 'عرض ملف ' + writer.name)">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" width="14"
             height="14" stroke="currentColor" class="arrow-icon flip-ar">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
           </svg>
-        </span>
+        </a>
       </div>
     </article>
     }

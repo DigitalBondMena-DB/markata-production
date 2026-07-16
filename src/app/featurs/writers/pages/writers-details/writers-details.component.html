@@ -1,0 +1,71 @@
+<section class="container writer-details-page">
+  <!-- Back to Writers Link -->
+  <div class="writer-back-link-container">
+    <a [routerLink]="['/', lang.currentLang(), 'writers']" class="writer-back-link">
+      <svg class="back-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+      </svg>
+      <span class="back-text">{{ 'WRITERS.BACK_TO_WRITERS' | translate }}</span>
+    </a>
+  </div>
+
+  <!-- Header Card (Avatar, Name, Bio Summary, Follow, Socials, Tags) -->
+  <app-writer-header-card [author]="author()"></app-writer-header-card>
+
+  <!-- Tabs Navigation List (WAI-ARIA accessible, styled to prevent layout shifts) -->
+  <div class="writer-tabs-container">
+    <ul class="writer-tabs-list" role="tablist">
+      <li class="writer-tab-item" role="presentation">
+        <button type="button"
+                role="tab"
+                id="articles-tab"
+                class="writer-tab-btn"
+                [class.active]="activeTab() === 'articles'"
+                [attr.aria-selected]="activeTab() === 'articles'"
+                [attr.aria-controls]="'articles-panel'"
+                [attr.data-text]="('WRITERS.ARTICLES_PUBLISHED' | translate) + ' (' + author().articles.length + ')'"
+                (click)="selectTab('articles')">
+          {{ 'WRITERS.ARTICLES_PUBLISHED' | translate }} ({{ author().articles.length }})
+        </button>
+      </li>
+      <li class="writer-tab-item" role="presentation">
+        <button type="button"
+                role="tab"
+                id="bio-tab"
+                class="writer-tab-btn"
+                [class.active]="activeTab() === 'bio'"
+                [attr.aria-selected]="activeTab() === 'bio'"
+                [attr.aria-controls]="'bio-panel'"
+                [attr.data-text]="'WRITERS.BIO_AND_VISION' | translate"
+                (click)="selectTab('bio')">
+          {{ 'WRITERS.BIO_AND_VISION' | translate }}
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Tab Panels Container -->
+  <div class="writer-tab-panels">
+    @if (activeTab() === 'articles') {
+      <div id="articles-panel" 
+           role="tabpanel" 
+           aria-labelledby="articles-tab" 
+           class="writer-panel-content">
+        <div class="writer-articles-grid">
+          @for (art of author().articles; track art.id) {
+            <app-case-studies-card [card]="art" [showBookmark]="false"></app-case-studies-card>
+          }
+        </div>
+      </div>
+    }
+    
+    @if (activeTab() === 'bio') {
+      <div id="bio-panel" 
+           role="tabpanel" 
+           aria-labelledby="bio-tab" 
+           class="writer-panel-content">
+        <app-writer-bio-card [author]="author()"></app-writer-bio-card>
+      </div>
+    }
+  </div>
+</section>

@@ -40,7 +40,14 @@
     "SEARCH_PLACEHOLDER": "البحث عن الكتّاب بالاسم، التخصص، أو السيرة الذاتية...",
     "SORT_BY": "ترتيب حسب",
     "MOST_FOLLOWED": "الأكثر متابعة",
-    "FOLLOW": "متابعة"
+    "FOLLOW": "متابعة",
+    "BACK_TO_WRITERS": "العودة إلى الكتاب",
+    "ARTICLES_PUBLISHED": "المقالات المنشورة",
+    "BIO_AND_VISION": "سيرة الكاتب ورؤيته",
+    "ABOUT_THE_AUTHOR": "عن الكاتب",
+    "JOINED_DATE": "انضم إلى مستر كاتا في {{date}}",
+    "FOLLOW_WRITER": "متابعة الكاتب",
+    "FOLLOWED": "تمت المتابعة"
   },
   "NEWSLETTER": {
     "EMAIL": "ادخل بريدك الإلكتروني",
@@ -56,11 +63,8 @@
     "COL_COMPANY": "الشركة",
     "COL_RESOURCES": "الموارد",
     "COL_QUICK_LINKS": "روابط سريعة",
+    "RESOURCE_CONTACT_US": "تواصل معنا",
     "RESOURCE_WRITERS": "الكتّاب",
-    "RESOURCE_REPORTS": "تقارير القطاع",
-    "RESOURCE_PODCAST": "البودكاست",
-    "RESOURCE_NEWSLETTER": "أرشيف النشرة",
-    "RESOURCE_MEDIA_KIT": "ميديا كيت",
     "COPYRIGHT": "© 2024–2026 <span>MARKATA</span>. جميع الحقوق محفوظة. صُنع بـ ✦ في القاهرة.",
     "LINK_PRIVACY": "سياسة الخصوصية"
   },
@@ -183,7 +187,11 @@
     "PHONE_REQUIRED": "رقم الهاتف مطلوب",
     "CURRENT_PASSWORD_REQUIRED": "كلمة المرور الحالية مطلوبة",
     "NEW_PASSWORD_REQUIRED": "كلمة المرور الجديدة مطلوبة",
-    "PLEASE_CORRECT_ERRORS": "يرجى تصحيح الأخطاء التالية:"
+    "PLEASE_CORRECT_ERRORS": "يرجى تصحيح الأخطاء التالية:",
+    "SUBJECT_REQUIRED": "الموضوع مطلوب",
+    "MESSAGE_REQUIRED": "الرسالة مطلوبة",
+    "MESSAGE_MIN_LENGTH": "يجب أن تتكون الرسالة من 10 أحرف على الأقل",
+    "NAME_MIN_LENGTH": "يجب أن يتكون الاسم من 3 أحرف على الأقل"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "خصوصية",
@@ -255,5 +263,19 @@
     "READ_ALL": "قراءة الكل ←",
     "MIN_READ": "دقائق قراءة",
     "MIN_READ_SHORT": "دقائق"
+  },
+  "CONTACT": {
+    "TITLE": "اتصل بنا",
+    "SUBTITLE": "تواصل مع فريق عمل ماركاتا",
+    "BADGE": "الدعم",
+    "NAME": "الاسم",
+    "EMAIL": "البريد الإلكتروني",
+    "SUBJECT": "الموضوع",
+    "MESSAGE": "رسالتك",
+    "DELIVER_MESSAGE": "إرسال الرسالة",
+    "HEADQUARTERS": "المقر الرئيسي للمنصة",
+    "WRITE_WITH_US": "اكتب معنا",
+    "WRITE_WITH_US_DESC": "هل أنت مهتم بأن تصبح كاتباً رسمياً؟ أرسل مخطوطتك أو مخطط مقالك أو ملف شعرك مباشرة عبر خط الدعم الخاص بنا.",
+    "WRITE_WITH_US_LINK": "مرفق إرشادات تقديم النماذج"
   }
 }

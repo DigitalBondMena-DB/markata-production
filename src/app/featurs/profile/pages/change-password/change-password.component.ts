@@ -1,11 +1,11 @@
 import { Component, signal, inject, computed, DestroyRef } from '@angular/core';
 import { form, FormField, required, minLength } from '@angular/forms/signals';
-import { LanguageService } from '../../../core/services/language.service';
-import { AuthService } from '../../../core/services/auth.service';
-import { FormInputComponent } from '../../../shared/components/form-input/form-input.component';
-import { SuccessAlertComponent } from '../../../shared/components/success-alert/success-alert.component';
-import { MainInnerHeaderComponent } from '../../../shared/components/main-inner-header/main-inner-header.component';
-import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
+import { LanguageService } from '../../../../core/services/language.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { FormInputComponent } from '../../../../shared/components/form-input/form-input.component';
+import { SuccessAlertComponent } from '../../../../shared/components/success-alert/success-alert.component';
+import { MainInnerHeaderComponent } from '../../../../shared/components/main-inner-header/main-inner-header.component';
+import { SkeletonComponent } from '../../../../shared/components/skeleton/skeleton.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

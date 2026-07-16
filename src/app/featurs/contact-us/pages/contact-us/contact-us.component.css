@@ -1,0 +1,31 @@
+.contact-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding-block: 56px 96px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-block-start: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 380px 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.contact-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-main {
+  display: flex;
+  flex-direction: column;
+}

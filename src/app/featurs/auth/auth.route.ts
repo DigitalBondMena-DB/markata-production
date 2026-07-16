@@ -3,6 +3,11 @@ import { resetPasswordGuard } from "@core/guards/reset-password.guard";
 
 export const authRoute: Routes = [
     {
+        path: '',
+        loadComponent: () =>
+            import('./signin/signin.component').then(m => m.SigninComponent)
+    },
+    {
         path: 'register',
         loadComponent: () =>
             import('./register/register.component').then(m => m.RegisterComponent)

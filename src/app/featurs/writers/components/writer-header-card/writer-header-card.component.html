@@ -1,0 +1,54 @@
+<div class="writer-header-card">
+  <!-- Avatar wrapper -->
+  <div class="writer-header-avatar-wrapper">
+    <img [markataImage]="author().image" [ngSrc]="author().image?.url || 'assets/icons/digital-bond.svg'" fill
+      class="writer-header-avatar" [alt]="author().image?.alt ?? author().name" priority />
+  </div>
+
+  <!-- Content section -->
+  <div class="writer-header-info">
+    <h1 class="writer-header-name">{{ author().name }}</h1>
+    <div class="bio-container">
+      @if (author().description) {
+      <p class="writer-header-bio">{{ author().description }}</p>
+      }
+
+      <!-- Follow button & Social connections -->
+      <div class="writer-header-actions">
+        <button type="button" class="writer-header-follow-btn" [class.followed]="isFollowed()" (click)="toggleFollow()">
+          {{ (isFollowed() ? 'WRITERS.FOLLOWED' : 'WRITERS.FOLLOW_WRITER') | translate }}
+        </button>
+        <ul class="author-socials-links">
+          @if (author().socials?.twitter) {
+          <li>
+            <a [href]="author().socials.twitter" target="_blank" rel="noopener noreferrer" class="writer-social-link"
+              [attr.aria-label]="'Twitter/X'">
+              <img src="assets/icons/x-twitter.svg" alt="Twitter/X" width="16" height="16" />
+            </a>
+          </li>
+          }
+          @if (author().socials?.linkedin) {
+          <li>
+            <a [href]="author().socials.linkedin" target="_blank" rel="noopener noreferrer" class="writer-social-link"
+              [attr.aria-label]="'LinkedIn'">
+              <img src="assets/icons/linked-in.svg" alt="LinkedIn" width="16" height="16" />
+            </a>
+          </li>
+          }
+        </ul>
+
+
+
+      </div>
+    </div>
+
+    <!-- Tags / Topics List -->
+    @if (author().topics && author().topics.length > 0) {
+    <div class="writer-header-tags">
+      @for (topic of author().topics; track topic) {
+      <span class="cat-pill">{{ topic }}</span>
+      }
+    </div>
+    }
+  </div>
+</div>

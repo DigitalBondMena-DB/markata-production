@@ -21,7 +21,7 @@ import { MainInnerHeaderComponent } from "@shared/components/main-inner-header/m
   templateUrl: './writers.component.html',
   styleUrl: './writers.component.css'
 })
-export class WritersComponent {
+export class WritersListComponent {
   readonly lang = inject(LanguageService);
   private readonly homeService = inject(HomeService);
 

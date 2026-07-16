@@ -40,7 +40,14 @@
     "SEARCH_PLACEHOLDER": "Search writers by name, specialty, or bio...",
     "SORT_BY": "SORT BY",
     "MOST_FOLLOWED": "Most Followed",
-    "FOLLOW": "Follow"
+    "FOLLOW": "Follow",
+    "BACK_TO_WRITERS": "Back to Writers",
+    "ARTICLES_PUBLISHED": "Articles Published",
+    "BIO_AND_VISION": "Writer's Biography & Vision",
+    "ABOUT_THE_AUTHOR": "About the Author",
+    "JOINED_DATE": "Joined Mr. Kata in {{date}}",
+    "FOLLOW_WRITER": "Follow Writer",
+    "FOLLOWED": "Followed"
   },
   "NEWSLETTER": {
     "EMAIL": "Enter your email",
@@ -56,10 +63,7 @@
     "COL_QUICK_LINKS": "Quick Links",
     "RESOURCE_WRITERS": "Writers",
     "RESOURCE_TEMPLATES": "Free Templates",
-    "RESOURCE_REPORTS": "Industry Reports",
-    "RESOURCE_PODCAST": "Podcast",
-    "RESOURCE_NEWSLETTER": "Newsletter Archive",
-    "RESOURCE_MEDIA_KIT": "Media Kit",
+    "RESOURCE_CONTACT_US": "Contact Us",
     "COPYRIGHT": "© 2024–2026 <span>MARKATA</span>. All Rights Reserved. Made with {{image}} in Cairo.",
     "LINK_PRIVACY": "Privacy Policy"
   },
@@ -182,7 +186,11 @@
     "PHONE_REQUIRED": "Phone number is required",
     "CURRENT_PASSWORD_REQUIRED": "Current password is required",
     "NEW_PASSWORD_REQUIRED": "New password is required",
-    "PLEASE_CORRECT_ERRORS": "Please correct the following errors:"
+    "PLEASE_CORRECT_ERRORS": "Please correct the following errors:",
+    "SUBJECT_REQUIRED": "Subject is required",
+    "MESSAGE_REQUIRED": "Message is required",
+    "MESSAGE_MIN_LENGTH": "Message must be at least 10 characters long",
+    "NAME_MIN_LENGTH": "Name must be at least 3 characters long"
   },
   "PRIVACY_POLICY": {
     "PRIVACY": "Privacy",
@@ -254,5 +262,19 @@
     "READ_ALL": "Read All →",
     "MIN_READ": "min read",
     "MIN_READ_SHORT": "min read"
+  },
+  "CONTACT": {
+    "TITLE": "Contact Us",
+    "SUBTITLE": "Get in touch with the team",
+    "BADGE": "Support",
+    "NAME": "Your Name",
+    "EMAIL": "Email Address",
+    "SUBJECT": "Subject",
+    "MESSAGE": "Your Message",
+    "DELIVER_MESSAGE": "Deliver Message",
+    "HEADQUARTERS": "Platform Headquarters",
+    "WRITE_WITH_US": "Write with Us",
+    "WRITE_WITH_US_DESC": "Are you interested in becoming an official writer? Pitch your manuscript, essay outline, or poetry folder directly through our support line.",
+    "WRITE_WITH_US_LINK": "Pitch template guidelines attached"
   }
 }

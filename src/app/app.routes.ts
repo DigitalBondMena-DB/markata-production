@@ -52,21 +52,9 @@ export const routes: Routes = [
       {
         path: 'profile',
         canMatch: [authGuard],
-        loadComponent: () =>
-          import('./featurs/profile/profile.component').then(m => m.ProfileComponent)
+        loadChildren: () => import('./featurs/profile/profile.routes').then(m => m.routes)
       },
-      {
-        path: 'profile/edit',
-        canMatch: [authGuard],
-        loadComponent: () =>
-          import('./featurs/profile/edit-profile/edit-profile.component').then(m => m.EditProfileComponent)
-      },
-      {
-        path: 'profile/change-password',
-        canMatch: [authGuard],
-        loadComponent: () =>
-          import('./featurs/profile/change-password/change-password.component').then(m => m.ChangePasswordComponent)
-      },
+
       {
         path: 'category',
         loadComponent: () =>
@@ -95,12 +83,21 @@ export const routes: Routes = [
       {
         path: 'writers',
         loadComponent: () =>
-          import('./featurs/writers/writers.component').then(m => m.WritersComponent)
+          import('./featurs/writers/pages/writers-list/writers.component').then(m => m.WritersListComponent)
+      },
+      {
+        path: 'writers/:id',
+        loadComponent: () =>
+          import('./featurs/writers/pages/writers-details/writers-details.component').then(m => m.WritersDetailsComponent)
+      },
+      {
+        path: 'contact-us',
+        loadComponent: () =>
+          import('./featurs/contact-us/pages/contact-us/contact-us.component').then(m => m.ContactUsComponent),
+        loadChildren: () => import('./featurs/contact-us/contact-us.routes').then(m => m.routes)
       },
       {
         path: 'auth/signin',
-        loadComponent: () =>
-          import('./featurs/auth/signin/signin.component').then(m => m.SigninComponent),
         loadChildren: () => import('./featurs/auth/auth.route').then(m => m.authRoute)
       },
       {
@@ -121,7 +118,7 @@ export const routes: Routes = [
     redirectTo: () => {
       const languageService = inject(LanguageService);
       const defaultLang = languageService.getBrowserOrSavedLang();
-      return `${defaultLang}`;  // ✅ روح لـ ':lang' مباشرة مش ':lang/home'
+      return `${defaultLang}`;
     }
   },
   {
